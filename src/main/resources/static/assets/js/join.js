@@ -37,8 +37,7 @@ $(function(){
 			url : "/join",
 			data : params,
 			dataType : "json",
-			success: function(data){
-				
+			success: function(data){				
 				alert(data.msg);
 				location.href = "/";
 			},
