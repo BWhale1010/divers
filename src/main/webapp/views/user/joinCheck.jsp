@@ -34,6 +34,7 @@
 				<br>
 				<strong style="color:red;">테스트용 계정이 제공되니 로그인 페이지에서 확인해 주세요.</strong>
 				<br>
+				<hr>
 				<br>
 				1. 회원가입 시 수집
 				<br>
@@ -41,9 +42,10 @@
 					<br>
 					&nbsp;&nbsp;&nbsp;(2) 소셜가입 : 닉네임, 계정(이메일), 프로필 사진(선택)
 				<br>
+				<hr>
 				<br>
 				<br>
-				<br>
+				
 			</p>
 			
 			<div class="input-group mb-3">
@@ -60,7 +62,7 @@
  			<div class="btn-group d-flex justify-content-center" > 			
  				<div class="text-center"><button type="button" onclick="location.href='/';">취소</button></div>
  				&nbsp;&nbsp;&nbsp;&nbsp;
-          		<div id="join-btn" class="text-center"><button type="button">회원 가입</button></div>
+          		<div id="joinCheck-btn" class="text-center"><button type="button">회원 가입</button></div>
             </div>
 
           </div>

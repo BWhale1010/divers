@@ -1,214 +1,114 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@include file="../layout/header.jsp"%>
 
-  <main id="main">
-    <section id="contact" class="contact mb-5">
-      <div class="container" data-aos="fade-up">
 
-        <div class="row">
-          <div class="col-lg-12 text-center mb-5">
-            <h1 class="page-title">Contact us</h1>
-          </div>
-        </div>
+<main id="main">
+	<section id="contact" class="contact mb-5">
+		<div class="container" data-aos="fade-up">
 
-        <div class="row gy-4">
+			<div class="col-lg-12 text-center mb-5">
+				<h1 class="page-title">회원가입</h1>
+			</div>
+			<div class="col-md-8 offset-md-2">
+				<div class="form mt-5">
+					<form action="/join" method="post" role="form" class="php-email-form">
 
-          <div class="col-md-4">
-            <div class="info-item">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <address>A108 Adam Street, NY 535022, USA</address>
-            </div>
-          </div><!-- End Info Item -->
+					<div>
+						<label for="username" style="margin-bottom: 10px">아이디</label>
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control" id="username" placeholder="아이디를 입력해주세요." required> 
+							<span class="msg1"></span>
+						</div>
+					</div>
 
-          <div class="col-md-4">
-            <div class="info-item info-item-borders">
-              <i class="bi bi-phone"></i>
-              <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
-            </div>
-          </div><!-- End Info Item -->
+						<div class="row">
+							<label for="password" style="margin-bottom: 10px">비밀번호</label>
+							<div class="form-group col-md-6">
+								<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요." required> 
+								<span class="msg2 d-flex"></span>
+							</div>
 
-          <div class="col-md-4">
-            <div class="info-item">
-              <i class="bi bi-envelope"></i>
-              <h3>Email</h3>
-              <p><a href="mailto:info@example.com">info@example.com</a></p>
-            </div>
-          </div><!-- End Info Item -->
+							<label for="password" style="margin-bottom: 10px">비밀번호 확인</label>
+							<div class="form-group col-md-6">					
+									<input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 한 번 더 입력해주세요." required> 
+									<span class="msg3"></span>								
+							</div>
+						</div>
 
-        </div>
+						<label for="email" style="margin-bottom: 10px">이메일</label>
+						<div class="form-group d-flex flex-column">
 
-        <div class="form mt-5">
-          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-            <div class="row">
-              <div class="form-group col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-              </div>
-              <div class="form-group col-md-6">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-            </div>
-            <div class="my-3">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
-            </div>
-            <div class="text-center"><button type="submit">Send Message</button></div>
-          </form>
-        </div><!-- End Contact Form -->
+							<div class="align-horizontal">
+								<input type="text" class="form-control" id="email1" placeholder="이메일을 입력해주세요." required> 
+								&nbsp;&nbsp; <span class="input-group-text"><i style="font-size: 20px">@</i></span> &nbsp;&nbsp;	
+								<select id="email2" class="form-control" >
+									<option value="init">선택해주세요</option>
+									<option value="naver.com">naver.com</option>
+									<option value="daum.net">daum.net</option>									
+									<option value="gmail.com">gmail.com</option>							
+									<option value="nate.com">nate.com</option>
+									<option value="hanmail.net">hanmail.net</option>
+									<option value="free">직접입력</option>
+								</select>
+							</div>
 
-      </div>
-    </section>
+							<div class="d-flex justify-content-between">
+								<div class="msg4"></div>
+								<div id="customInput" class="align-horizontal"></div>
+							</div>
 
-  </main><!-- End #main -->
+						</div>
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
+						<label for="nickname" style="margin-bottom: 10px">이메일 인증</label>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control" id="emailCheck" placeholder="인증번호를 입력해주세요." required> 
+								<span class="msg5 d-flex"></span>
+							</div>
 
-    <div class="footer-content">
-      <div class="container">
+							<div class="form-group col-md-6">
+								<button type="button" id="email-btn" class="ml-5">인증번호 받기</button>
+							</div>
+						</div>
 
-        <div class="row g-5">
-          <div class="col-lg-4">
-            <h3 class="footer-heading">About ZenBlog</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
-            <p><a href="about.html" class="footer-link-more">Learn More</a></p>
-          </div>
-          <div class="col-6 col-lg-2">
-            <h3 class="footer-heading">Navigation</h3>
-            <ul class="footer-links list-unstyled">
-              <li><a href="index.html"><i class="bi bi-chevron-right"></i> Home</a></li>
-              <li><a href="index.html"><i class="bi bi-chevron-right"></i> Blog</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Categories</a></li>
-              <li><a href="single-post.html"><i class="bi bi-chevron-right"></i> Single Post</a></li>
-              <li><a href="about.html"><i class="bi bi-chevron-right"></i> About us</a></li>
-              <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Contact</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-lg-2">
-            <h3 class="footer-heading">Categories</h3>
-            <ul class="footer-links list-unstyled">
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Politics</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Startups</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Travel</a></li>
 
-            </ul>
-          </div>
+						<label for="nickname" style="margin-bottom: 10px">닉네임</label>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control" id="nickname" placeholder="닉네임을 입력해주세요." required>
+								<span class="msg6 d-flex"></span>
+							</div>
 
-          <div class="col-lg-4">
-            <h3 class="footer-heading">Recent Posts</h3>
+							<div class="form-group col-md-6">
+								<button type="button" id="niname-btn"  class="ml-5">닉네임 추천</button>
+							</div>
+						</div>
 
-            <ul class="footer-links footer-blog-entry list-unstyled">
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-1.jpg" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                    <span>5 Great Startup Tips for Female Founders</span>
-                  </div>
-                </a>
-              </li>
 
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-2.jpg" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                    <span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>
-                  </div>
-                </a>
-              </li>
 
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-3.jpg" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                    <span>Life Insurance And Pregnancy: A Working Mom’s Guide</span>
-                  </div>
-                </a>
-              </li>
+						<br> <br> <br>
 
-              <li>
-                <a href="single-post.html" class="d-flex align-items-center">
-                  <img src="assets/img/post-sq-4.jpg" alt="" class="img-fluid me-3">
-                  <div>
-                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                    <span>How to Avoid Distraction and Stay Focused During Video Calls?</span>
-                  </div>
-                </a>
-              </li>
+						<div class="btn-group d-flex justify-content-center">
+							<div class="text-center">
+								<button type="button" onclick="location.href='/';">취소</button>
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="text-center">
+								<button id="join-btn"  type="button">회원 가입</button>
+							</div>
+						</div>
 
-            </ul>
+					</form>
+				</div>
+			</div>
+			<!-- End Contact Form -->
 
-          </div>
-        </div>
-      </div>
-    </div>
+		</div>
+	</section>
 
-    <div class="footer-legal">
-      <div class="container">
+</main>
+<!-- End #main -->
+<script src="assets/js/join.js"></script>
 
-        <div class="row justify-content-between">
-          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            <div class="copyright">
-              © Copyright <strong><span>ZenBlog</span></strong>. All Rights Reserved
-            </div>
-
-            <div class="credits">
-              <!-- All the links in the footer should remain intact. -->
-              <!-- You can delete the links only if you purchased the pro version. -->
-              <!-- Licensing information: https://bootstrapmade.com/license/ -->
-              <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-
-          </div>
-
-          <div class="col-md-6">
-            <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-  </footer>
-
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
+<%@include file="../layout/footer.jsp"%>
