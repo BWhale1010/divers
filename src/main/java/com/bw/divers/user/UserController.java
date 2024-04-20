@@ -12,19 +12,19 @@ public class UserController {
 	@Autowired UserService userService;
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@GetMapping("login")
+	@GetMapping("/user/login")
 	public String login() {
 		
 		return "/user/login";
 	}
 	
-	@GetMapping("joinCheck")
+	@GetMapping("/user/joinCheck")
 	public String joinCheck() {
 		
-		return "/user/joinCheck";
+		return "user/joinCheck";
 	}
 	
-	@GetMapping("join")
+	@GetMapping("/user/join")
 	public String join() {
 		
 		return "/user/join";

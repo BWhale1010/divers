@@ -21,7 +21,7 @@ public class UserApiController {
 	@Autowired UserService userService;
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-@GetMapping("check-username")
+@GetMapping("/user/check-username")
 	public HashMap<String, Object> usernameCheck(@RequestParam String username) {
 		logger.info("아이디 중복확인 컨트롤러 username : "+username);
 		
@@ -33,7 +33,7 @@ public class UserApiController {
 		return map;
 	}
 
-@GetMapping("check-email")
+@GetMapping("/user/check-email")
 public HashMap<String, Object> emailCheck(@RequestParam String email) {
 	logger.info("이메일 중복확인 컨트롤러 email : "+email);
 	
@@ -45,14 +45,14 @@ public HashMap<String, Object> emailCheck(@RequestParam String email) {
 	return map;
 }
 
-@GetMapping("email")
+@GetMapping("/user/email")
 public String mailSend(String email) {
 	logger.info("이메일 요청 컨트롤러 : "+email);
 	
 	return userService.mailSend(email);
 }
 
-@GetMapping("check-nickname")
+@GetMapping("/user/check-nickname")
 public HashMap<String, Object> nicknameCheck(@RequestParam String nickname) {
 	logger.info("닉네임 중복확인 컨트롤러 email : "+nickname);
 	
@@ -64,7 +64,7 @@ public HashMap<String, Object> nicknameCheck(@RequestParam String nickname) {
 	return map;
 }
 
-@PostMapping("join")
+@PostMapping("/user/join")
 public HashMap<String, Object> join(@RequestParam HashMap<String, String> params, RedirectAttributes rttr) {
 	logger.info("회원가입 컨트롤러");
 	

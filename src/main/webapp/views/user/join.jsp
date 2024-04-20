@@ -109,6 +109,6 @@
 
 </main>
 <!-- End #main -->
-<script src="assets/js/join.js"></script>
+<script src="/assets/js/join.js"></script>
 
 <%@include file="../layout/footer.jsp"%>

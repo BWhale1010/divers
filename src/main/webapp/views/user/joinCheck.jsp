@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="../layout/header.jsp"%>
+<%@include file="/views/layout/header.jsp"%>
 
   <main id="main">
     <section id="contact" class="contact mb-5">
@@ -72,7 +72,8 @@
     </section>
 
   </main><!-- End #main -->
- <script src="assets/js/join.js"></script>
+ <script src="/assets/js/join.js" type="text/javascript"></script>
 
-<%@include file="../layout/footer.jsp"%>
+
+<%@include file="/views/layout/footer.jsp"%>
   

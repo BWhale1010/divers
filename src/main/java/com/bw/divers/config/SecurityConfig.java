@@ -1,4 +1,4 @@
-package com.bw.divers;
+package com.bw.divers.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,8 @@ public class SecurityConfig {
 		
 		http.httpBasic().disable().csrf().disable();
 		
-		return http.build();
+		return http.build();		
 	}
+
 
 }

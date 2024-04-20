@@ -1,7 +1,7 @@
 
 $('#joinCheck-btn').click(function(){
         if($('#joinCheck').is(':checked')){
-            location.href = "/join"
+            location.href = "/user/join"
         }else{
             alert("회원가입 동의 체크를 해주세요.")
         }
@@ -34,7 +34,7 @@ $(function(){
 		
 		$.ajax({			
 			type : "post",
-			url : "/join",
+			url : "/user/join",
 			data : params,
 			dataType : "json",
 			success: function(data){				
@@ -284,7 +284,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "GET",
-			url: "/check-username",
+			url: "/user/check-username",
 			data: {"username":username},
 			dataType: "json",
 			success:function(data){
@@ -323,7 +323,7 @@ $(document).ready(function(){
 	,emailCheckFunc:function(email){		
 		$.ajax({
 			type: "GET",
-			url: "/check-email",
+			url: "/user/check-email",
 			data: {"email":email},
 			dataType: "json",
 			success:function(data){				
@@ -345,7 +345,7 @@ $(document).ready(function(){
 		if(index.email1){
 			$.ajax({
 			tyle: "GET", 
-			url:"/email",
+			url:"/user/email",
 			data:{'email':email},
 			dataType: 'json',
 			success:function(data){
@@ -374,7 +374,7 @@ $(document).ready(function(){
 	,nicknameCheck:function(nickname){		
 		$.ajax({
 			type: "GET",
-			url: "/check-nickname",
+			url: "/user/check-nickname",
 			data: {"nickname":nickname},
 			dataType: "json",
 			success:function(data){				
