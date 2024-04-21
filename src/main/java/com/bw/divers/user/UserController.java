@@ -45,33 +45,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-//	@PostMapping("/user/login")
-//	public String loginProc(@RequestParam String username, String password, RedirectAttributes rttr, Model model) {
-//		logger.info("로그인 컨트롤러");
-//
-//		String page = "";
-//		String msg = "";
-//		
-//		UserDTO loginId = userService.login(username, password);
-//		
-//		String loginUsername = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		UserDTO loginInfo = userService.getUserbyUsername(loginUsername);
-//		logger.info("userDTO : "+loginInfo.getRole_name());
-////		userDTO.setPassword(null);
-//			if(loginId == null) {
-//				page = "redirect:/user/login";
-//				msg = "아이디와 비밀번호를 확인해주세요.";
-//			}else {
-//				page = "redirect:/";
-//				msg = "로그인이 완료되었습니다.";
-//			}
-//
-//		rttr.addFlashAttribute("msg", msg);
-//		rttr.addFlashAttribute("loginInfo",loginInfo);
-//
-//		
-//		return page;
-//	}
-	
+
 
 }

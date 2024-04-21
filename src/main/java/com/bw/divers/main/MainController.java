@@ -28,15 +28,12 @@ public class MainController {
 		
 		UserDTO userDTO = userService.getUserbyUsername(username);
 		
-		
-		if(userDTO == null) {
-			return "index";
+		if(userDTO != null) {
+			userDTO.setPassword(null);
+			model.addAttribute("user", userDTO);
+			model.addAttribute("msg", msg);
 		}
-		
-		userDTO.setPassword(null);
-		model.addAttribute("user", userDTO);
-		model.addAttribute("msg", msg);
-		
+
 		return "index";
 	}
 }

@@ -20,22 +20,26 @@ import com.bw.divers.user.UserService;
 @Component
 public class AuthProvider implements AuthenticationProvider{
 	
+	   @Autowired
+	    private UserService userService;
+	    
+	    @Autowired
+	    private PasswordEncoder passwordEncoder;
 	
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+//    private final UserService userService;
+//    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public AuthProvider(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    
+//    public AuthProvider(UserService userService, PasswordEncoder passwordEncoder) {
+//        this.userService = userService;
+//        this.passwordEncoder = passwordEncoder;
+//    }
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
 		
-//		PasswordEncoder passwordEncoder = userService.passwordEncoder();
 		UsernamePasswordAuthenticationToken token;
 		UserDTO userDTO = userService.getUserbyUsername(username);
 		
@@ -46,9 +50,11 @@ public class AuthProvider implements AuthenticationProvider{
 			token = new UsernamePasswordAuthenticationToken(userDTO.getUsername(), null, roles);
 			
 			return token;
+		}else {
+			return null;
 		}
-		
-		throw new BadCredentialsException("유저가 없거나 비밀번호가 틀립니다.");
+			
+
 		
 	}
 	

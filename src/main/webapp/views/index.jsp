@@ -494,7 +494,7 @@
   
   <script >
 //   var msg = "${msg}"
-  var user = "${user}"
+  var user = "${user.role_name}"
 
 //   	if(msg != ""){
 //   		alert(msg);

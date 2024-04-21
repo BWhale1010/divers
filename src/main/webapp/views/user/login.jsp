@@ -51,6 +51,15 @@
 
 </main>
 <!-- End #main -->
+<script>
+var msg = "${msg}"
+
+   	if(msg != ""){
+   		alert(msg);
+   		<% request.getSession().removeAttribute("msg");%>
+   	}
+msg = null;
+</script>
 
 
 <%@include file="../layout/footer.jsp"%>
