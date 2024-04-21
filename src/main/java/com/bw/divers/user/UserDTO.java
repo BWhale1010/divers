@@ -4,17 +4,26 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("User")
-public class UserDTO {
+@Alias("user")
+public class UserDTO{
 	private int user_num;
 	private String username;
-	private int password;
+	private String password;
 	private String email;
 	private String nickname;
 	private int platform_sort;
 	private int state_num;
 	private int role_num;
 	private Date join_date;
+	
+	private String role_name;
+	
+	public String getRole_name() {
+		return role_name;
+	}
+	public void setRole_name(String role_name) {
+		this.role_name = role_name;
+	}
 	public int getUser_num() {
 		return user_num;
 	}
@@ -27,10 +36,10 @@ public class UserDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getEmail() {
@@ -69,6 +78,7 @@ public class UserDTO {
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
+
 	
 	
 

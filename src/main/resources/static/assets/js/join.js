@@ -10,54 +10,55 @@ $('#joinCheck-btn').click(function(){
 
 $(function(){
 	$("#join-btn").on("click", function(){
-
+		var allCheck = true;
+		
 		for(var key in index){
-			if(index[key] === false){
+			if(index[key] == false){
 				var selector = "#"+key;
-		        var element = $(selector);
-		        $(element).focus();
+				var element = $(selector);
+				$(element).focus();
+				allCheck = false;
+				break;
 			}
 		}
-		
-		let params ={
+
+	if(allCheck){
+					let params ={
 			'username' : $("#username").val(),
 			'password' : $("#password").val(),
 			'email' : index.allEmail,
 			'nickname' : $("#nickname").val()
-		}
+			}
 		
-		console.log(params.username);
-		console.log(params.password);
-		console.log(params.email);
-		console.log(params.username);
-		
-		
-		$.ajax({			
+			console.log(params.username);
+			console.log(params.password);
+			console.log(params.email);
+			console.log(params.username);
+			
+			$.ajax({			
 			type : "post",
 			url : "/user/join",
 			data : params,
 			dataType : "json",
 			success: function(data){				
 				alert(data.msg);
-				location.href = "/";
+				
+				if(data.state == "success"){
+					location.href = "/";
+				}
+								
 			},
 			error: function(e){
 				alert(e.msg);
 				console.log(e.msg);
 			}
 		})
-
-		
-		
-		
+	}
 
 
-		
 
-		
-	})
 })
-
+})
 
 
 

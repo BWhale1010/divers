@@ -12,5 +12,11 @@ public interface UserDAO {
 
 	int join(HashMap<String, String> params);
 
+	String enc_pw(String username);
+
+	UserDTO login(String username);
+
+	UserDTO getUserbyUsername(String username);
+
 
 }

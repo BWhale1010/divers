@@ -70,18 +70,20 @@ public HashMap<String, Object> join(@RequestParam HashMap<String, String> params
 	
 	String msg = userService.regValidate(params);
 	HashMap<String, Object> map = new HashMap<String, Object>();
+	String state = "";
 	
 	if(msg != null) {
 		logger.info("여기?");
+		state = "fail";
 		map.put("msg", msg);
+		map.put("state", state);
 		return map;
 	}else {
-		logger.info("여기?2");
 		int row = userService.join(params);
-		
-		logger.info("여기?3");
-		map.put("success", row);
+		state = "success";
 		map.put("msg", "회원가입이 완료되었습니다.");
+		map.put("success", row);
+		map.put("state", state);
 		
 		return map;
 	}

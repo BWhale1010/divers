@@ -15,6 +15,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -147,6 +151,28 @@ public class UserService {
 		return msg;
 
 	}
+	public UserDTO login(String username, String password) {
+		logger.info("로그인 서비스");
+		UserDTO loginId = null;
+		
+		String enc_pw = userDAO.enc_pw(username);
+		boolean match = encoder.matches(password, enc_pw);
+
+		if(enc_pw != null && match) {
+			loginId = userDAO.login(username);
+		}
+		
+		return loginId;
+	}
+	public PasswordEncoder passwordEncoder() {
+		
+		return this.passwordEncoder();
+	}
+	public UserDTO getUserbyUsername(String username) {
+		
+		return userDAO.getUserbyUsername(username);
+	}
+
 
 	
 }

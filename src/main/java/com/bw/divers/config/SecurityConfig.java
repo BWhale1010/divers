@@ -11,19 +11,39 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
-	@Bean
-	PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		
-		http.httpBasic().disable().csrf().disable();
-		
-		return http.build();		
-	}
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+        	.authorizeRequests()
+//                .antMatchers("/manage/userRole/**", "/manage/userState/**").hasRole("SUPER")
+//                .antMatchers("/manage/**").hasAnyRole("SUPER", "ADMIN")
+//                .antMatchers("/mypage/**").authenticated()
+                .antMatchers("/assets/**", "/", "/user/**", "/board/list/**", "/board/detail/**").permitAll()
+  
+                .and()
+            .formLogin()
+                .loginPage("/user/login")
+                .loginProcessingUrl("/user/loginProc")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .and()
+            .logout()
+                .logoutUrl("/user/logout")
+                .logoutSuccessUrl("/")
+                .permitAll()
+                .and()
+            .csrf().disable()
+            .httpBasic().disable();
+        
+        return http.build();
+    }
+    
 }

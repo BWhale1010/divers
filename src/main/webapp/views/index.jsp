@@ -491,5 +491,18 @@
     </section><!-- End Lifestyle Category Section -->
 
   </main><!-- End #main -->
+  
+  <script >
+//   var msg = "${msg}"
+  var user = "${user}"
+
+//   	if(msg != ""){
+//   		alert(msg);
+//   	}
+  
+	if(user != ""){
+  		alert(user);
+  	}
+  </script>
 
 <%@include file="layout/footer.jsp"%>

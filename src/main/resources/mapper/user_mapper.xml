@@ -20,4 +20,16 @@
 	insert into user (username, password, email, nickname) values(#{username}, #{password}, #{email}, #{nickname})
 </insert>
 
+<select id="enc_pw" resultType="String">
+	select password from user where username = #{username}
+</select>
+
+<select id="login" resultType="user">
+	select * from user, `role` r where user.role_num = r.role_num and user.username = #{username}
+</select>
+
+<select id="getUserbyUsername" resultType="user">
+	select * from user, `role` r where user.role_num = r.role_num and user.username = #{username}
+</select>
+
 </mapper>
