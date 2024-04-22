@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +17,9 @@
 <link href="/assets/img/favicon.png" rel="icon">
 <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<!-- jquery  -->
-<script src="/assets/js/jquery-3.7.1.js"></script>
+
+
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +35,17 @@
 <!-- Template Main CSS Files -->
 <link href="/assets/css/variables.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/main.css" rel="stylesheet" type="text/css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 <script src="/assets/js/header.js"></script>
 
@@ -61,42 +73,42 @@
 				<ul>
 					<li class="dropdown"><a href="#"><span>자유게시판</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a href="#">유머</a></li>
-							<li><a href="#">정보</a></li>
-							<li><a href="#">공지</a></li>
+							<li><a href="/board/list/1">유머</a></li>
+							<li><a href="/board/list/2">정보</a></li>
+							<li><a href="/board/list/3">공지</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#"><span>스포츠</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li class="dropdown"><a href="#"><span>축구</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">국내 축구</a></li>
-									<li><a href="#">해외 축구</a></li>
+									<li><a href="/board/list/4">국내 축구</a></li>
+									<li><a href="/board/list/5">해외 축구</a></li>
 								</ul></li>
 
 							<li class="dropdown"><a href="#"><span>야구</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">국내 야구</a></li>
-									<li><a href="#">해외 야구</a></li>
+									<li><a href="/board/list/6">국내 야구</a></li>
+									<li><a href="/board/list/7">해외 야구</a></li>
 								</ul></li>
 
-							<li><a href="#">E-SPORTS</a></li>
+							<li><a href="board/list/8">E-SPORTS</a></li>
 						</ul></li>
 
 					<li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li class="dropdown"><a href="#"><span>음악</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">국내 음악</a></li>
-									<li><a href="#">해외 음악</a></li>
+									<li><a href="/board/list/9">국내 음악</a></li>
+									<li><a href="/board/list/10">해외 음악</a></li>
 								</ul></li>
 
 							<li class="dropdown"><a href="#"><span>미술</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">동양 미술</a></li>
-									<li><a href="#">서양 미술</a></li>
+									<li><a href="/board/list/11">동양 미술</a></li>
+									<li><a href="/board/list/12">서양 미술</a></li>
 								</ul></li>
 
-							<li><a href="#">영화</a></li>
+							<li><a href="/board/list/13">영화</a></li>
 						</ul></li>
 
 				</ul>

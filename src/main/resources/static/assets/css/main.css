@@ -1095,17 +1095,17 @@ section {
 	margin-bottom: 20px;
 }
 
-.contact .php-email-form input, .contact .php-email-form textarea {
-	padding: 10px 14px;
-	border-radius: 0;
-	box-shadow: none;
-	font-size: 15px;
-}
+/* .contact .php-email-form input, .contact .php-email-form textarea { */
+/* 	padding: 10px 14px; */
+/* 	border-radius: 0; */
+/* 	box-shadow: none; */
+/* 	font-size: 15px; */
+/* } */
 
-.contact .php-email-form input::focus, .contact .php-email-form textarea::focus
-	{
-	background-color: var(--color-primary);
-}
+/* .contact .php-email-form input::focus, .contact .php-email-form textarea::focus */
+/* 	{ */
+/* 	background-color: var(--color-primary); */
+/* } */
 
 .contact .php-email-form button {
 	background: var(--color-primary);
@@ -1323,4 +1323,69 @@ rotate(
     white-space: nowrap;
     z-index: 1000;
 }
+.writeBtn button{
+	background: var(--color-primary);
+	border: 0;
+	padding: 10px 30px;
+	color: #fff;
+	transition: 0.4s;
+	cursor: pointer;
+}
+.writeBtn button:hover{
+	background: rgba(var(--color-primary-rgb), 0.8);
+}
 
+.common-form {
+	box-shadow: 0 0 30px rgba(var(--color-black-rgb), 0.1);
+	padding: 30px;
+	background: var(--color-white);
+}
+
+.common-btn button {
+	background: var(--color-primary);
+	border: 0;
+	padding: 10px 30px;
+	color: #fff;
+	transition: 0.4s;
+	cursor: pointer;
+}
+
+.common-btn button:hover{
+	background: rgba(var(--color-primary-rgb), 0.8);
+}
+
+
+.contact .common-form {
+	box-shadow: 0 0 30px rgba(var(--color-black-rgb), 0.1);
+	padding: 30px;
+	background: var(--color-white);
+}
+
+@media ( max-width : 640px) {
+	.contact .common-form {
+		padding: 20px;
+	}
+}
+
+.contact .common-form .loading {
+	display: none;
+	background: var(--color-white);
+	text-align: center;
+	padding: 15px;
+}
+
+.contact .common-form .loading:before {
+	content: "";
+	display: inline-block;
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	margin: 0 10px -6px 0;
+	border: 3px solid var(--color-green);
+	border-top-color: var(--color-white);
+	animation: animate-loading 1s linear infinite;
+}
+
+.contact .common-form .form-group {
+	margin-bottom: 20px;
+}
