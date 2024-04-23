@@ -1,5 +1,7 @@
 package com.bw.divers.main;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,21 @@ public class MainController {
 	@Autowired UserService userService;
 
 	@GetMapping("/")
-	public String main(Model model) {
+	public String main(Model model, HttpSession session) {
 		String msg = "로그인이 완료되었습니다.";
 		
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
 		
 		UserDTO userDTO = userService.getUserbyUsername(username);
 		
+		
 		if(userDTO != null) {
 			userDTO.setPassword(null);
 			model.addAttribute("user", userDTO);
 			model.addAttribute("msg", msg);
+			
+			String roleNum =  Integer.toString(userDTO.getRole_num());
+			session.setAttribute("roleNum", roleNum);
 		}
 
 		return "index";

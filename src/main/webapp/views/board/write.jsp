@@ -11,6 +11,8 @@
 <main id="main">
 
 	<section id="contact" class="contact mb-5">
+	<c:set var="categoryList" value="${categoryNum }"></c:set>
+	<c:set var="boardId" value="${boardId }"></c:set>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-9 post-content" data-aos="fade-up">
@@ -32,22 +34,33 @@
 
 								<div class="align-horizontal">
 
-									<select id="email2" class="form-control">
-										<option value="init">선택해주세요</option>
-										<option value="1">유머</option>
-										<option value="2">정보</option>
-										<option value="4">국내축구</option>
-										<option value="5">해외축구</option>
-										<option value="6">국내야구</option>
-										<option value="7">해외야구</option>
-										<option value="8">E-SPORTS</option>
-										<option value="9">국내음악</option>
-										<option value="10">해외음악</option>
-										<option value="11">동양미술</option>
-										<option value="12">서양미술</option>
-										<option value="13">영화</option>
-									</select>
-								</div>
+									<c:choose>
+									<c:when test="${sessionScope.roleNum eq 3 }">
+										<select id="category" class="form-control">
+											<option value="init">선택해주세요</option>
+											<c:forEach var="categoryNum" items="${categoryNum}" varStatus="loop">
+												<c:if test="${not empty categoryNum and loop.index != 2}">
+													<option value="${categoryNum.small_category_num}" 
+														<c:if test="${categoryNum.small_category_num eq boardId}">selected="selected"</c:if>>
+													${categoryNum.small_class_name}</option>
+												</c:if>
+											</c:forEach>
+										</select>
+										</c:when>
+										
+										<c:otherwise>
+											<select id="category" class="form-control">
+												<option value="init">선택해주세요</option>
+												<c:forEach var="categoryNum" items="${categoryNum}" >
+													<option value="${categoryNum.small_category_num}" 
+														<c:if test="${categoryNum.small_category_num eq boardId}">selected="selected"</c:if>>
+													${categoryNum.small_class_name}</option>											
+												</c:forEach>
+											</select>										
+										</c:otherwise>
+										</c:choose>
+
+									</div>
 
 								<div class="d-flex justify-content-between">
 									<div class="msg2"></div>

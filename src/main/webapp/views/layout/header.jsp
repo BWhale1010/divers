@@ -145,6 +145,11 @@
 
 			</div>
 		</div>
+		
+		<%
+			String userName = (String)session.getAttribute("userName");
+			String roleName = (String)session.getAttribute("roleNum");
+		%>
 
 	</header>
 	<!-- End Header -->
