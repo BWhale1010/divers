@@ -37,7 +37,9 @@ public class MainController {
 			model.addAttribute("msg", msg);
 			
 			String roleNum =  Integer.toString(userDTO.getRole_num());
+			int user_num = userDTO.getUser_num();
 			session.setAttribute("roleNum", roleNum);
+			session.setAttribute("user_num", user_num);
 		}
 
 		return "index";

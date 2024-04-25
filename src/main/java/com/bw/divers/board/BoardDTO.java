@@ -15,6 +15,7 @@ public class BoardDTO {
 	private String content;
 	private int count;
 	private int post_blind;
+	private String nickname;
 	
 	private String small_class_name;
 	private int big_category_num;
@@ -37,6 +38,9 @@ public class BoardDTO {
 	
 	private int thumb_post_num;
 	private int thumb_post_user_num;
+	
+	private int recommend;
+	
 	public int getPost_num() {
 		return post_num;
 	}
@@ -180,6 +184,18 @@ public class BoardDTO {
 	}
 	public void setThumb_post_user_num(int thumb_post_user_num) {
 		this.thumb_post_user_num = thumb_post_user_num;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getRecommend() {
+		return recommend;
+	}
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
 	}
 	
 	

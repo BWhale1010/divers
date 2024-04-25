@@ -7,6 +7,12 @@ public interface BoardDAO {
 
 	ArrayList<BoardDTO> categoryList();
 
+	int boardWrite(HashMap<String, Object> params);
+
+	int totalCount(int category);
+
+	ArrayList<BoardDTO> boardList(int offset, int category);
+
 
 
 }

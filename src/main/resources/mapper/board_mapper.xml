@@ -8,5 +8,25 @@
 	select * from small_category
 </select>
 
+<insert id="boardWrite"  parameterType="hashmap">
+	insert into post(small_category_num, title, content, user_num) values(#{category}, #{title}, #{content}, #{user_num})
+</insert>
+
+<select id="totalCount" resultType="int" parameterType="int">
+	select count(*) from post where small_category_num = #{category}
+</select>
+
+<select id="boardList" resultType="board">
+	SELECT p.post_num, p.board_date, p.title, p.content, p.count, p.post_blind,
+	       u.nickname, sc.small_class_name, COUNT(tp.thumb_post_user_num) as recommend
+	FROM post p
+	JOIN `user` u ON p.user_num = u.user_num
+	JOIN small_category sc ON p.small_category_num = sc.small_category_num
+	LEFT JOIN thumb_post tp ON p.post_num = tp.post_num
+	WHERE p.small_category_num = #{category}
+	GROUP BY p.post_num
+	ORDER BY p.board_date desc limit 5 offset #{offset};
+</select>
+
 
 </mapper>

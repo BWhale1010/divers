@@ -28,7 +28,7 @@ public class BoardController {
 		model.addAttribute("boardId", boardId);
 
 		
-		return "board/category";
+		return "board/list";
 	}
 	
 	@GetMapping("/board/write")

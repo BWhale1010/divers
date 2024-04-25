@@ -2,12 +2,6 @@
 
 <%@include file="../layout/header.jsp"%>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
 <main id="main">
 
 	<section id="contact" class="contact mb-5">
@@ -72,8 +66,8 @@
 							
 							<div class="row">
 								<label for="content" style="margin-bottom: 10px">내용</label>
-								<div class="form-group ">									
-									<textarea class="form-control  summernote" rows="15" ></textarea>
+								<div class="form-group">									
+									<textarea class="form-control  summernote" rows="15"  id="content"></textarea>
 									<span class="msg3"></span>
 								</div>
 							</div>
@@ -173,5 +167,7 @@ $('.summernote').summernote({
 });
 
 </script>
+
+<script src="/assets/js/board.js"></script>
 
 <%@include file="../layout/footer.jsp"%>

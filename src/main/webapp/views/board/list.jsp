@@ -2,26 +2,45 @@
 
 <%@include file="../layout/header.jsp"%>
 
-  <main id="main">
 
-    <section class="single-post-content">
+  <main id="main">
+    <section>
+    <input id="boardId" type="hidden" value= ${boardId }>
       <div class="container">
         <div class="row">
-          <div class="col-md-9 post-content" data-aos="fade-up">
 
-            <!-- ======= Single Post Content ======= -->
+          <div class="col-md-9" data-aos="fade-up">
+            <h3 class="category-title">Category: Business</h3>
+            
+            <div id="boardList">
+            
+            </div>
+            
+            <div class="text-start py-4">
+<!--               <div class="custom-pagination pagination"  id="pagination" style="display: inline-block;"> -->
+<!--                 <a href="#" class="prev">Prevous</a> -->
+<!--                 <a href="#" class="active">1</a> -->
+<!--                 <a href="#">2</a> -->
+<!--                 <a href="#">3</a> -->
+<!--                 <a href="#">4</a> -->
+<!--                 <a href="#">5</a> -->
+<!--                 <a href="#" class="next">Next</a> -->
+<!--               </div> -->
 
-
-            <!-- ======= Comments ======= -->
-
-
-            <!-- ======= Comments Form ======= -->
-
+				<ul class="pagination" id="pagination"></ul>
+              
+              
+	             <div class="writeBtn" style="display: inline-block; float: right;">
+	            	<button type="button" onclick="location.href='/board/write?boardId='+boardId">글쓰기</button>
+	            </div>
+            </div>
+            
 
           </div>
+
           <div class="col-md-3">
-  
-  <%@include file="./sidebar.jsp" %>
+
+		<%@include file="./sidebar.jsp" %>
 
 <!--             <div class="aside-block"> -->
 <!--               <h3 class="aside-title">Video</h3> -->
@@ -62,9 +81,15 @@
             </div><!-- End Tags -->
 
           </div>
+
         </div>
       </div>
     </section>
   </main><!-- End #main -->
 
-  <%@include file="../layout/footer.jsp" %>
+
+
+
+<script src="/assets/js/list.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script> -->
+<%@include file="../layout/footer.jsp"%>
