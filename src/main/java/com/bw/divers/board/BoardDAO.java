@@ -13,6 +13,13 @@ public interface BoardDAO {
 
 	ArrayList<BoardDTO> boardList(int offset, int category);
 
+	BoardDTO postDetail(int postNum);
+
+	String thumbnail(int postNum);
+
+
+
+
 
 
 }

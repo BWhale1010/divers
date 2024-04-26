@@ -44,5 +44,16 @@ public class BoardController {
 		
 		return "board/write";
 	}
+	
+	@GetMapping("/board/detail/{postNum}")
+	public String boardDetail(@PathVariable int postNum, Model model) {
+		logger.info("postNum : "+ postNum);
+		
+		BoardDTO post = boardService.postDetail(postNum);
+		
+		model.addAttribute("post", post);
+		
+		return "/board/post";
+	}
 
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +35,24 @@ public class BoardApiController {
 		
 		return boardService.listAdd(page, category);
 	}
+	
+	@PostMapping("/board/thumbnail/{postNum}")
+	public HashMap<String, Object> thumbnail(@PathVariable int postNum) {
+		logger.info("썸네일 요청 : "+postNum);
+		String thumbnail = boardService.thumbnail(postNum);
+		String text = boardService.text(postNum);
+		logger.info("text : "+text);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("thumbnail", thumbnail);
+		map.put("text", text);
+		
+		return map;
+	}
+	
+	
+	
+	
+	
 }

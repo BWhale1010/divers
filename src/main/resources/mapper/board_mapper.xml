@@ -28,5 +28,21 @@
 	ORDER BY p.board_date desc limit 5 offset #{offset};
 </select>
 
+<select id="postDetail" resultType="board" parameterType="int">
+	select p.post_num , p.user_num , p.small_category_num , p.board_date , p.title , p.count , p.post_blind, p.content,
+		u.nickname , sc.small_class_name, count(tp.thumb_post_user_num) as recommend
+	from post p join `user` u on p.user_num = u.user_num 
+	join small_category sc on p.small_category_num = sc.small_category_num
+	left join thumb_post tp on p.post_num = tp.post_num
+	where p.post_num = #{postNum}
+	group by p.post_num;
+</select>
+
+<select id="thumbnail" resultType="String" parameterType="int">
+	select content from post where post_num = #{postNum}
+</select>
+
+
+
 
 </mapper>

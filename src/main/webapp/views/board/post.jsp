@@ -8,14 +8,14 @@
       <div class="container">
         <div class="row">
           <div class="col-md-9 post-content" data-aos="fade-up">
-
-            <!-- ======= Single Post Content ======= -->
-
-
-            <!-- ======= Comments ======= -->
-
-
-            <!-- ======= Comments Form ======= -->
+			<div class="single-post">
+              <div class="post-meta"><span class="date">${post.small_class_name }</span> <span class="mx-1">•</span> <span>${post.board_date }</span></div>
+              
+              <h1 class="mb-5">${post.title }</h1> <!-- 제목  -->
+              
+              <p>${post.content }</p>
+          
+            </div>
 
 
           </div>

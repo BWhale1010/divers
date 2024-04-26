@@ -1,13 +1,34 @@
 package com.bw.divers.board;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+
+import net.coobird.thumbnailator.Thumbnails;
+
+import org.apache.commons.io.IOUtils;
 
 @Service
 @MapperScan("com.bw.divers.board")
@@ -43,5 +64,74 @@ public class BoardService {
 		
 		return result;
 	}
+
+	public BoardDTO postDetail(int postNum) {
+		logger.info("글 상세보기 서비스 : "+postNum);
+		return boardDAO.postDetail(postNum);
+	}
+
+	public String thumbnail(int postNum) {
+	    logger.info("썸네일 서비스 : " + postNum);
+	    String thumbnailBase64 = "";
+	    try {
+	        String content = boardDAO.thumbnail(postNum);
+	        if (content == null || content.isEmpty()) {
+	            // Content가 null이거나 비어 있을 때 기본 이미지를 사용
+	            return encodeImageToBase64("/assets/img/logo.png");
+	        } else {
+	            Document doc = Jsoup.parse(content);
+	            Elements imgTags = doc.select("img");
+
+	            if (imgTags.isEmpty()) {
+	                String defaultImagePath = "/static/assets/img/logo.png";
+	                thumbnailBase64 = encodeImageToBase64(defaultImagePath);
+	            } else {
+	                Element firstImgTag = imgTags.first();
+	                String imgUrl = firstImgTag.attr("src");
+	                String base64Data = imgUrl.split(",")[1];
+	                byte[] imageBytes = Base64.getDecoder().decode(base64Data);
+	                BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
+	                BufferedImage thumbnail = Thumbnails.of(originalImage).size(415, 263).asBufferedImage();
+	                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	                ImageIO.write(thumbnail, "jpg", baos);
+	                byte[] thumbnailBytes = baos.toByteArray();
+	                thumbnailBase64 = java.util.Base64.getEncoder().encodeToString(thumbnailBytes);
+	                logger.info("thumbnailBase64 : " + thumbnailBase64);
+	                baos.close();
+	            }
+	        }
+	    } catch (IOException e) {
+	        logger.error("IOException occurred: " + e.getMessage());
+	    }
+	    return thumbnailBase64;
+	}
+
+	private String encodeImageToBase64(String imagePath) throws IOException {
+	    String base64String = "";
+	    try (InputStream inputStream = getClass().getResourceAsStream(imagePath)) {
+	        if (inputStream != null) {
+	            byte[] imageData = IOUtils.toByteArray(inputStream);
+	            base64String = Base64.getEncoder().encodeToString(imageData);
+	        } else {
+	            logger.error("Image not found at path: " + imagePath);
+	        }
+	    }
+	    return base64String;
+	}
+
+	public String text(int postNum) {
+		String text = boardDAO.thumbnail(postNum);
+		Document doc = Jsoup.parse(text);
+		
+		Elements imgElements = doc.select("img");
+		
+		imgElements.remove();
+		
+		String textOnly = doc.text();
+		
+		
+		return textOnly;
+	}
+
 
 }
