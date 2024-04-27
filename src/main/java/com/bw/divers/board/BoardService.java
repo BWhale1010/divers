@@ -75,16 +75,11 @@ public class BoardService {
 	    String thumbnailBase64 = "";
 	    try {
 	        String content = boardDAO.thumbnail(postNum);
-	        if (content == null || content.isEmpty()) {
-	            // Content가 null이거나 비어 있을 때 기본 이미지를 사용
-	            return encodeImageToBase64("/assets/img/logo.png");
-	        } else {
 	            Document doc = Jsoup.parse(content);
 	            Elements imgTags = doc.select("img");
 
-	            if (imgTags.isEmpty()) {
-	                String defaultImagePath = "/static/assets/img/logo.png";
-	                thumbnailBase64 = encodeImageToBase64(defaultImagePath);
+	            if (imgTags.isEmpty()) {	               
+	                thumbnailBase64 = "basic";
 	            } else {
 	                Element firstImgTag = imgTags.first();
 	                String imgUrl = firstImgTag.attr("src");
@@ -99,24 +94,11 @@ public class BoardService {
 	                logger.info("thumbnailBase64 : " + thumbnailBase64);
 	                baos.close();
 	            }
-	        }
+	  
 	    } catch (IOException e) {
 	        logger.error("IOException occurred: " + e.getMessage());
 	    }
 	    return thumbnailBase64;
-	}
-
-	private String encodeImageToBase64(String imagePath) throws IOException {
-	    String base64String = "";
-	    try (InputStream inputStream = getClass().getResourceAsStream(imagePath)) {
-	        if (inputStream != null) {
-	            byte[] imageData = IOUtils.toByteArray(inputStream);
-	            base64String = Base64.getEncoder().encodeToString(imageData);
-	        } else {
-	            logger.error("Image not found at path: " + imagePath);
-	        }
-	    }
-	    return base64String;
 	}
 
 	public String text(int postNum) {
@@ -131,6 +113,16 @@ public class BoardService {
 		
 		
 		return textOnly;
+	}
+
+	public int boardUpdate(String postNum, HashMap<String, String> param) {
+		logger.info("게시글 수정 서비스 : "+postNum);
+		
+		param.put("postNum", postNum);
+		
+		int success = boardDAO.boardUpdate(param);
+		
+		return success;
 	}
 
 

@@ -1389,3 +1389,13 @@ rotate(
 .contact .common-form .form-group {
 	margin-bottom: 20px;
 }
+
+.thumbnail img{
+	display: block;
+	margin: 0 auto;
+}
+
+.bg-custom {
+	background-color : #ffffff;
+	border: none;
+}

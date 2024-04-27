@@ -42,6 +42,9 @@
 	select content from post where post_num = #{postNum}
 </select>
 
+<update id="boardUpdate" parameterType="hashmap" >
+	update post set title = #{title}, content = #{content}, small_category_num = #{category} where post_num = #{postNum}
+</update>
 
 
 

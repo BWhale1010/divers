@@ -47,7 +47,7 @@ public class BoardController {
 	
 	@GetMapping("/board/detail/{postNum}")
 	public String boardDetail(@PathVariable int postNum, Model model) {
-		logger.info("postNum : "+ postNum);
+		logger.info("게시판 보기 postNum : "+ postNum);
 		
 		BoardDTO post = boardService.postDetail(postNum);
 		
@@ -55,5 +55,19 @@ public class BoardController {
 		
 		return "/board/post";
 	}
+	
+	@GetMapping("/board/edit/{postNum}")
+	public String boardEdit(@PathVariable int postNum, Model model) {
+		logger.info("게시판 수정 postNum : "+ postNum);
+		
+		BoardDTO post = boardService.postDetail(postNum);
+		ArrayList<BoardDTO> categoryNum = boardService.categoryLIst();
+		
+		model.addAttribute("post", post);
+		model.addAttribute("categoryNum", categoryNum);
+		
+		return "/board/update";
+	}
+
 
 }

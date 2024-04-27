@@ -41,7 +41,7 @@ public class BoardApiController {
 		logger.info("썸네일 요청 : "+postNum);
 		String thumbnail = boardService.thumbnail(postNum);
 		String text = boardService.text(postNum);
-		logger.info("text : "+text);
+		logger.info("thumbnail : "+thumbnail);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -49,6 +49,17 @@ public class BoardApiController {
 		map.put("text", text);
 		
 		return map;
+	}
+	
+	@PostMapping("/board/edit/{postNum}")
+	public int boardUpdate(@PathVariable String postNum, @RequestParam HashMap<String, String> param ){
+		logger.info("게시글 수정 컨트롤러 : "+ postNum);
+		logger.info("title : "+ param.get("title"));
+		
+		int success = boardService.boardUpdate(postNum, param);
+		
+		
+		return success;
 	}
 	
 	

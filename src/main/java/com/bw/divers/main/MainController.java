@@ -1,5 +1,6 @@
 package com.bw.divers.main;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class MainController {
 	@Autowired UserService userService;
 
 	@GetMapping("/")
-	public String main(Model model, HttpSession session) {
+	public String main(Model model, HttpSession session, HttpServletRequest req) {
 		String msg = "로그인이 완료되었습니다.";
 		
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
@@ -38,6 +39,7 @@ public class MainController {
 			
 			String roleNum =  Integer.toString(userDTO.getRole_num());
 			int user_num = userDTO.getUser_num();
+			session = req.getSession();
 			session.setAttribute("roleNum", roleNum);
 			session.setAttribute("user_num", user_num);
 		}

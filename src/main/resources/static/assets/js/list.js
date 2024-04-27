@@ -34,23 +34,30 @@ function listAdd(page, boardId){
 
 function listDraw(list){
 	var content ="";
-	console.log("추천수 : "+list[0].recommend);
-	console.log("aa : "+ list[0].text);
+	console.log("aa : "+ list[0].thumbnail);
 	
 	list.forEach(function(item){
-		
 
-	   
 	   if(item.content == ""){
 			content += 
 		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
 		   '<img src="data:image/jpeg;base64,' + item.thumbnail + '" class="img-fluid"></a><div>'+
 		   '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">•</span>'+
-		   '<span>'+item.board_date+'</span></div><h3><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h3><p>(그림만 작성된 글입니다)</p>'+
+		   '<span>'+item.board_date+'</span></div><h3><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h3><p>(이미지만 작성된 글입니다)</p>'+
 		   '<div class="d-flex align-items-center author"><div class="photo"><img src="#" alt="" class="img-fluid"></div>'+
 		   '<div class="name"><h3 class="m-0 p-0">'+item.nickname+'</h3></div></div><div class="post-meta">'+
 		   '<span class="date">조회수 '+item.count+'</span> <span class="mx-1">•</span> <span>추천수 '+item.recommend+'</span></div></div></div>';		   
-	   }else{		   
+	   }else if(item.thumbnail == "basic"){
+		   	content += 
+		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
+		   '<img src="/assets/img/divers_thumbnail.png" class="img-fluid" style="width: 70%;"></a><div>'+
+		   '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">•</span>'+
+		   '<span>'+item.board_date+'</span></div><h3><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h3><p>'+item.content+'</p>'+
+		   '<div class="d-flex align-items-center author"><div class="photo"><img src="#" alt="" class="img-fluid"></div>'+
+		   '<div class="name"><h3 class="m-0 p-0">'+item.nickname+'</h3></div></div><div class="post-meta">'+
+		   '<span class="date">조회수 '+item.count+'</span> <span class="mx-1">•</span> <span>추천수 '+item.recommend+'</span></div></div></div>';	    
+	   }
+	   else{		   
 			content += 
 		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
 		   '<img src="data:image/jpeg;base64,' + item.thumbnail + '" class="img-fluid"></a><div>'+
@@ -81,7 +88,7 @@ function thumbnail(list) {
                 success: function(data) {
                     list[i].thumbnail = data.thumbnail;
                     list[i].content = data.text;
-                    console.log("여기 : "+list[i].content);
+                    console.log("여기 : "+list[i].thumbnail);
                     complet++;
                     
                     if(complet === list.length){

@@ -17,6 +17,8 @@ public interface BoardDAO {
 
 	String thumbnail(int postNum);
 
+	int boardUpdate(HashMap<String, String> param);
+
 
 
 
