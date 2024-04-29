@@ -1399,3 +1399,14 @@ rotate(
 	background-color : #ffffff;
 	border: none;
 }
+
+.pagination .page-item .page-link{
+	color: rgba(var(--color-primary-rgb), 0.8);
+}
+
+.pagination .active .page-link{
+	background-color: rgba(var(--color-primary-rgb), 0.8);
+	border-color: rgba(var(--color-primary-rgb), 0.8);
+	color: #ffffff;
+}
+

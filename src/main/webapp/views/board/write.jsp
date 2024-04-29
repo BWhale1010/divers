@@ -168,6 +168,6 @@ $('.summernote').summernote({
 
 </script>
 
-<script src="/assets/js/board.js"></script>
+<script src="/assets/js/write.js"></script>
 
 <%@include file="../layout/footer.jsp"%>

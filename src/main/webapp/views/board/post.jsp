@@ -68,7 +68,7 @@
 								  <a class="dropbtn">• • •</a>
 								  <div class="dropdown-content">
 								    <a href="/board/edit/${post.post_num }">수정하기</a>
-								    <a href="#">삭제하기</a>
+								    <a onclick="deletePost(${post.post_num}, ${post.small_category_num },${post.user_num })">삭제하기</a>
 								  </div>
 								</div>
 		                	</c:when>
@@ -197,4 +197,5 @@
     </section>
   </main><!-- End #main -->
 
+<script src="/assets/js/post.js"></script>
   <%@include file="../layout/footer.jsp" %>

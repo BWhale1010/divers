@@ -7,8 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,10 +61,22 @@ public class BoardApiController {
 		
 		int success = boardService.boardUpdate(postNum, param);
 		
-		
 		return success;
 	}
 	
+	@PutMapping("/board/delete/{postNum}")
+	public int boardDelete(@PathVariable int postNum, @RequestParam int user_num, 
+			HttpSession session) {
+		logger.info("게시판 삭제 postNum : "+postNum);
+		int success = 0;
+		int login_userNum = (int) session.getAttribute("user_num");
+		
+		if(login_userNum == user_num) {
+			success = boardService.boardDelete(postNum);
+		}		
+		
+		return success;
+	}
 	
 	
 	

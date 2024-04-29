@@ -14,7 +14,7 @@ public class BoardDTO {
 	private String title;
 	private String content;
 	private int count;
-	private int post_blind;
+
 	private String nickname;
 	
 	private String small_class_name;
@@ -40,6 +40,11 @@ public class BoardDTO {
 	private int thumb_post_user_num;
 	
 	private int recommend;
+	
+	private int post_state_num;
+	private String post_state_name;
+	private int comment_state_num;
+	private String comment_state_name;
 	
 	public int getPost_num() {
 		return post_num;
@@ -89,12 +94,7 @@ public class BoardDTO {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public int getPost_blind() {
-		return post_blind;
-	}
-	public void setPost_blind(int post_blind) {
-		this.post_blind = post_blind;
-	}
+
 	public String getSmall_class_name() {
 		return small_class_name;
 	}
@@ -197,6 +197,31 @@ public class BoardDTO {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
+	public int getPost_state_num() {
+		return post_state_num;
+	}
+	public void setPost_state_num(int post_state_num) {
+		this.post_state_num = post_state_num;
+	}
+	public String getPost_state_name() {
+		return post_state_name;
+	}
+	public void setPost_state_name(String post_state_name) {
+		this.post_state_name = post_state_name;
+	}
+	public int getComment_state_num() {
+		return comment_state_num;
+	}
+	public void setComment_state_num(int comment_state_num) {
+		this.comment_state_num = comment_state_num;
+	}
+	public String getComment_state_name() {
+		return comment_state_name;
+	}
+	public void setComment_state_name(String comment_state_name) {
+		this.comment_state_name = comment_state_name;
+	}
+
 	
 	
 	

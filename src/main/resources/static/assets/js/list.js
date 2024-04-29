@@ -1,6 +1,15 @@
 var total = 5;
 var boardId  = $("#boardId").val();
 
+var flag = true;
+
+function flag(){
+	if(!flag){
+		flag = true;
+	}
+}
+
+
 listAdd(1, boardId);
 
 function listAdd(page, boardId){
@@ -14,11 +23,11 @@ function listAdd(page, boardId){
 			thumbnail(data.list);
 			
 			console.log(data.list);
-			var total = data.total;
+//			var total = data.total;
 			
 			$('#pagination').twbsPagination({
 				startPage : 1,
-				totalPages: total,
+				totalPages: data.total,
 				visiblePages: 5,
 				onPageClick: function(e,page){
 					console.log(e);
@@ -107,4 +116,7 @@ function thumbnail(list) {
     }
 
 }
+
+
+
 

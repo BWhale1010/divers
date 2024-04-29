@@ -19,6 +19,8 @@ public interface BoardDAO {
 
 	int boardUpdate(HashMap<String, String> param);
 
+	int boardDelete(int postNum);
+
 
 
 

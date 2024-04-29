@@ -125,5 +125,10 @@ public class BoardService {
 		return success;
 	}
 
+	public int boardDelete(int postNum) {
+		logger.info("게시글 삭제 서비스 : "+postNum);
+		return boardDAO.boardDelete(postNum);
+	}
+
 
 }

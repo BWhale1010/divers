@@ -494,15 +494,15 @@
   
   <script >
 //   var msg = "${msg}"
-  var user = "${user.role_name}"
+//   var user = "${user.role_name}"
 
 //   	if(msg != ""){
 //   		alert(msg);
 //   	}
   
-	if(user != ""){
-  		alert(user);
-  	}
+// 	if(user != ""){
+//   		alert(user);
+//   	}
   </script>
 
 <%@include file="layout/footer.jsp"%>
