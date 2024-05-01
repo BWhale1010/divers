@@ -25,7 +25,7 @@ public class BoardDTO {
 	private int comment_num;
 	private Date comment_date;
 	private String comment;
-	private Boolean comment_blind;
+
 	
 	private int report_num;
 	private int sort_num;
@@ -130,12 +130,6 @@ public class BoardDTO {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-	public Boolean getComment_blind() {
-		return comment_blind;
-	}
-	public void setComment_blind(Boolean comment_blind) {
-		this.comment_blind = comment_blind;
 	}
 	public int getReport_num() {
 		return report_num;

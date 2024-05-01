@@ -50,6 +50,24 @@
 	update post set post_state_num = 3 where post_num = #{postNum}
 </update>
 
+<insert id="commentWrite" parameterType="hashmap">
+	insert into comment (user_num, post_num, comment) values(#{user_num}, #{post_num}, #{comment})
+</insert>
 
+<select id="commentTotalCount" resultType="int">
+	select count(*) from comment where post_num = #{post_num} and comment_state_num = 1
+</select>
+
+<select id="commentList" resultType="board">
+	SELECT c.comment_num, c.user_num, c.post_num, c.comment_date, c.comment,
+		u.nickname, ANY_VALUE(p.new_filename) AS new_filename, COUNT(tc.thumb_comment_user) AS recommend
+	FROM comment c  
+	JOIN `user` u ON c.user_num = u.user_num
+	left JOIN profile p ON u.user_num = p.user_num
+	LEFT JOIN thumb_comment tc ON c.comment_num = tc.comment_num
+	WHERE c.post_num = #{post_num}
+	GROUP BY c.comment_num
+	order by c.comment_date desc limit 10 offset #{offset}
+</select>
 
 </mapper>

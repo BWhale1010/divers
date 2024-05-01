@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +20,16 @@ public class SecurityConfig {
 	
 	@Autowired
 	private LoginHandler loginHandler;
+	
+	@Autowired
+	private LoginSuccessHandler loginSuccessHandler;
+	
+	@Autowired HttpSessionRequestCache requestCache;
+	
+	@Bean
+	public HttpSessionRequestCache requestCache() {
+		return new HttpSessionRequestCache();
+	}
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -41,7 +52,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/user/loginProc")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/")
+                .successHandler(loginSuccessHandler)
                 .failureHandler(loginHandler).permitAll()
                 .and()
             .logout()
@@ -50,7 +61,8 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
             .csrf().disable()
-            .httpBasic().disable();
+            .httpBasic().disable()
+            ;
         
         return http.build();
     }

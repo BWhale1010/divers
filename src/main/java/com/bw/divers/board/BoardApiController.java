@@ -78,6 +78,31 @@ public class BoardApiController {
 		return success;
 	}
 	
+	@PostMapping("/comment/write")
+	public int commentWrite( @RequestParam HashMap<String, Object> params, HttpSession session) {
+		logger.info("댓글 작성 컨트롤러");
+		int success = 0;
+		
+		String user_num = (String) params.get("user_num");
+		logger.info("user_num : "+user_num);
+
+		String login_userNum = String.valueOf((int)session.getAttribute("user_num"));
+		logger.info("login_userNum : "+login_userNum);
+		
+		if(login_userNum.equals(user_num)) {
+			success = boardService.commentWrite(params);
+		}
+		
+		return success;
+	}
+	
+	@PostMapping("/comment/list")
+	public HashMap<String, Object> commentList(@RequestParam int page, int post_num){
+		logger.info("댓글 리스트 post_num : "+post_num);
+		
+		return boardService.commentList(page, post_num);
+	}
+	
 	
 	
 	

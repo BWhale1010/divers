@@ -21,6 +21,14 @@ public interface BoardDAO {
 
 	int boardDelete(int postNum);
 
+	int commentWrite(HashMap<String, Object> params);
+
+	int commentTotalCount(int post_num);
+
+	ArrayList<BoardDTO> commentList(int offset, int post_num);
+
+	
+
 
 
 

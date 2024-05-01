@@ -30,7 +30,8 @@
 </style>
 
   <main id="main">
-
+<input type="hidden" id="loginId" value="${sessionScope.user_num }">
+<input type="hidden" id="post_num" value="${post.post_num }">
     <section class="single-post-content">
       <div class="container">
         <div class="row">
@@ -82,86 +83,32 @@
 		    </div>
 		</div>
               
-              <div class="comment d-flex mb-4">
-                <div class="flex-shrink-0">
-                  <div class="avatar avatar-sm rounded-circle">
-                    <img class="avatar-img" src="/assets/img/person-5.jpg" alt="">
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-2 ms-sm-3">
-                
-                  <div class="comment-meta d-flex align-items-baseline">
-                    <h6 class="me-2">Jordan Singer</h6>
-                    <span class="text-muted">2d</span>
-                  </div>
-                  <div class="comment-body">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non minima ipsum at amet doloremque qui magni, placeat deserunt pariatur itaque laudantium impedit aliquam eligendi repellendus excepturi quibusdam nobis esse accusantium.
-                  </div>
-                  <div>
-                  
-    		        <div class="card-body text-end">
-		                <a href="#"><img src="/assets/img/thumb.png" style="width: 3%"></a> 0
-		                <span style="margin: 0 10px;">|</span> 
-		                <a href="#">신고하기</a>       
-		            </div>
-                  
-                  
-                  </div>
-                </div>
+              <div id="commentList">             
               </div>
               
-              <div class="comment d-flex">
-                <div class="flex-shrink-0">
-                  <div class="avatar avatar-sm rounded-circle">
-                    <img class="avatar-img" src="/assets/img/person-2.jpg" alt="">
-                  </div>
-                </div>
-                <div class="flex-shrink-1 ms-2 ms-sm-3">
-                  <div class="comment-meta d-flex">
-                    <h6 class="me-2">Santiago Roberts</h6>
-                    <span class="text-muted">4d</span>
-                  </div>
-                  <div class="comment-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto laborum in corrupti dolorum, quas delectus nobis porro accusantium molestias sequi.
-                  </div>
-                </div>
+              <ul class="pagination" id="pagination"></ul>
+
               </div>
               
-            </div>
-            
-            <br>
+                          <br>
             
                       <!-- 댓글쓰기  -->
 				<div class="col-12 mb-3">
-                    <label for="comment-message">Message</label>
-                    <textarea class="form-control" id="comment-message" placeholder="Enter your name" cols="30" rows="10" style="height: 60px;"></textarea>
+                    <label for="comment-message">comment</label>
+                    <textarea class="form-control" id="comment" placeholder="댓글을 작성해 주세요." cols="30" rows="10" style="height: 60px;"></textarea>
                   </div>
                   
                   <div class="col-12">
-                    <input type="submit" class="btn btn-primary" value="댓글 쓰기">
+                    <input id="comment-btn" type="button" class="btn btn-primary" value="댓글 쓰기">
                   </div>
+              
+            </div>
             
             
-            
-            
-          </div>
-          
-
-           
-          
-          <div class="col-md-3">
+                      <div class="col-md-3">
   
   <%@include file="./sidebar.jsp" %>
 
-<!--             <div class="aside-block"> -->
-<!--               <h3 class="aside-title">Video</h3> -->
-<!--               <div class="video-post"> -->
-<!--                 <a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video"> -->
-<!--                   <span class="bi-play-fill"></span> -->
-<!--                   <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"> -->
-<!--                 </a> -->
-<!--               </div> -->
-<!--             </div>End Video -->
 
             <div class="aside-block">
               <h3 class="aside-title">Categories</h3>
@@ -192,8 +139,19 @@
             </div><!-- End Tags -->
 
           </div>
+
+            
+            
+            
+            
+          </div>
+          
+
+           
+          
+
         </div>
-      </div>
+<!--       </div> -->
     </section>
   </main><!-- End #main -->
 

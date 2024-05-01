@@ -130,5 +130,28 @@ public class BoardService {
 		return boardDAO.boardDelete(postNum);
 	}
 
+	public int commentWrite(HashMap<String, Object> params) {
+		logger.info("댓글 작성 서비스");
+		return boardDAO.commentWrite(params);
+	}
+
+	public HashMap<String, Object> commentList(int page, int post_num) {
+		logger.info("댓글 리스트 서비스 post_num : "+post_num);
+		
+		int offset = (page-1)*10;
+		int totalCount = boardDAO.commentTotalCount(post_num);
+		logger.info("totalCoutn : "+totalCount);
+		int totalPages = totalCount%10>0?(totalCount/10)+1:(totalCount/10);
+		
+		logger.info("총 페이지 : "+totalPages);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<BoardDTO> list = boardDAO.commentList(offset, post_num);
+		
+		result.put("total", totalPages);
+		result.put("list", list);
+		
+		return result;
+	}
+
 
 }

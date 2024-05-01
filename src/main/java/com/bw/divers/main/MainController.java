@@ -1,13 +1,10 @@
 package com.bw.divers.main;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +21,7 @@ public class MainController {
 	@Autowired UserService userService;
 
 	@GetMapping("/")
-	public String main(Model model, HttpSession session, HttpServletRequest req) {
+	public String main(Model model, HttpSession session) {
 		String msg = "로그인이 완료되었습니다.";
 		
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
@@ -39,7 +36,7 @@ public class MainController {
 			
 			String roleNum =  Integer.toString(userDTO.getRole_num());
 			int user_num = userDTO.getUser_num();
-			session = req.getSession();
+
 			session.setAttribute("roleNum", roleNum);
 			session.setAttribute("user_num", user_num);
 		}

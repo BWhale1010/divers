@@ -117,7 +117,7 @@
 
 			<div class="position-relative">
 			<c:choose>
-				<c:when test="${empty user }">
+				<c:when test="${empty sessionScope.user_num }">
 						<a href="/user/login" class="hover-login" data-text="로그인"><img src="/assets/img/login.png" style="width: 25px; margin: 0 7px 0 7px;" alt="로그인"></a>
 						<a href="/user/joinCheck" class="hover-join" data-text="회원가입"><img src="/assets/img/join.png" style="width: 25px; margin: 0 7px 0 7px;" alt="회원가입"></a>
 				</c:when>
