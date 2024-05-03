@@ -39,6 +39,18 @@
 								<button id="login-btn" type="submit" >로그인</button>
 							</div>
 						</div>
+						
+						<br>
+						
+						<div class="btn-group d-flex justify-content-center">
+							<div class="text-center">
+								<a href="/user/idFind">아이디 찾기</a>
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="text-center">
+								<a href="#">비밀번호 찾기</a>
+							</div>
+						</div>
 
 					</form>
 				</div>

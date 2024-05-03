@@ -8,35 +8,14 @@
 		<div class="container" data-aos="fade-up">
 
 			<div class="col-lg-12 text-center mb-5">
-				<h1 class="page-title">회원가입</h1>
+				<h1 class="page-title">아이디 찾기</h1>
 			</div>
 			<div class="col-md-8 offset-md-2">
 				<div class="form mt-5">
-					<form action="/join" method="post" role="form" class="php-email-form">
+					<form action="/user/idFind" method="post" role="form" class="php-email-form">
 
-					<div>
-						<label for="username" style="margin-bottom: 10px">아이디</label>
-						<div class="form-group col-md-6">
-							<input type="text" class="form-control" id="username" placeholder="아이디를 입력해주세요." required> 
-							<span class="msg1"></span>
-						</div>
-					</div>
-
-						<div class="row">
-							<label for="password" style="margin-bottom: 10px">비밀번호</label>
-							<div class="form-group col-md-6">
-								<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요." required> 
-								<span class="msg2 d-flex"></span>
-							</div>
-
-							<label for="password" style="margin-bottom: 10px">비밀번호 확인</label>
-							<div class="form-group col-md-6">					
-									<input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 한 번 더 입력해주세요." required> 
-									<span class="msg3"></span>								
-							</div>
-						</div>
-
-						<label for="email" style="margin-bottom: 10px">이메일</label>
+			
+					<label for="email" style="margin-bottom: 10px">이메일</label>
 						<div class="form-group d-flex flex-column">
 
 							<div class="align-horizontal">
@@ -60,7 +39,6 @@
 
 						</div>
 
-						<label for="emailChk" style="margin-bottom: 10px">이메일 인증</label>
 						<div class="row">
 							<div class="form-group col-md-6">
 								<input type="text" class="form-control" id="emailCheck" placeholder="인증번호를 입력해주세요." required> 
@@ -68,26 +46,11 @@
 							</div>
 
 							<div class="form-group col-md-6">
-								<button type="button" id="email-btn" class="ml-5">인증번호 받기</button>
+								<button type="button" id="email-idFind-btn" class="ml-5">인증번호 받기</button>
 							</div>
 						</div>
-
-
-						<label for="nickname" style="margin-bottom: 10px">닉네임</label>
-						<div class="row">
-							<div class="form-group col-md-6">
-								<input type="text" class="form-control" id="nickname" placeholder="닉네임을 입력해주세요." required>
-								<span class="msg6 d-flex"></span>
-							</div>
-
-							<div class="form-group col-md-6">
-								<button type="button" id="niname-btn"  class="ml-5">닉네임 추천</button>
-							</div>
-						</div>
-
-
-
-						<br> <br> <br>
+						
+						<br> <br> 
 
 						<div class="btn-group d-flex justify-content-center">
 							<div class="text-center">
@@ -95,20 +58,26 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="text-center">
-								<button id="join-btn"  type="button">회원 가입</button>
+								<button id="idFind-btn" type="button"  onclick="idFind()">아이디 찾기</button>
 							</div>
 						</div>
-
+						
+						<br>
+						
 					</form>
 				</div>
 			</div>
-			<!-- End Contact Form -->
-
 		</div>
+
+
+
 	</section>
 
 </main>
 <!-- End #main -->
-<script src="/assets/js/join.js"></script>
+<script>
 
+</script>
+
+<script src="/assets/js/idFind.js"></script>
 <%@include file="../layout/footer.jsp"%>

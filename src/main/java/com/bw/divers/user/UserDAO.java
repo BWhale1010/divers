@@ -18,5 +18,7 @@ public interface UserDAO {
 
 	UserDTO getUserbyUsername(String username);
 
+	String idFind(String email);
+
 
 }

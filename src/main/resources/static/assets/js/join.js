@@ -186,7 +186,7 @@ let index = {
 	
 		            $('.msg4').html('이메일을 선택해 주세요.');
 		        } else {
-		                                 
+		            index.emailConcat($("#email2").val());    
 		        }
 		    }
 		    break;
@@ -343,11 +343,12 @@ $(document).ready(function(){
 		})
 	}
 	,emailSend:function(email){
+		var func  = "join"
 		if(index.email1){
 			$.ajax({
 			tyle: "GET", 
 			url:"/user/email",
-			data:{'email':email},
+			data:{'email':email, 'func': func},
 			dataType: 'json',
 			success:function(data){
 				$('.msg5').html('인증번호를 입력해 주세요.');

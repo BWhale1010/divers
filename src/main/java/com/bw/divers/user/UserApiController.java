@@ -46,10 +46,11 @@ public HashMap<String, Object> emailCheck(@RequestParam String email) {
 }
 
 @GetMapping("/user/email")
-public String mailSend(String email) {
+public String mailSend(String email, String func) {
 	logger.info("이메일 요청 컨트롤러 : "+email);
+	logger.info("이메일 요청 컨트롤러 : "+func);
 	
-	return userService.mailSend(email);
+	return userService.mailSend(email, func);
 }
 
 @GetMapping("/user/check-nickname")

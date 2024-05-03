@@ -51,33 +51,80 @@ public class UserService {
 		return userDAO.nicknameCheck(nickname);
 	}
 	
-	public String mailSend(String email) {
+	public String mailSend(String email, String func) {
 		logger.info("이메일 요청 서비스 email : "+email);
 		makeRandomNum();
 		String setFrom = sendEmail;
 		String toMail = email;
-		String title = "DVIERS 회원가입 인증번호 입니다.";
-		String content = 
-				
-				"<div style=\"text-align: center;\">" +
-                        "<img src=\"cid:logo\">" +
-                        "<br><br>" +
-                        "<hr style=\"width: 50%;\">" +
-                        "<br><br>" +
-                        "<p>DVIERS 회원 가입을 환영합니다!</p>" +
-                        "<br><br>" +
-                        "<p>아래의 인증 번호를 정확하게 입력해 주세요.</p>" +
-                        "<br><br>" +
-                        "<p style=\"font-size: 24px;\">" + authNumber + "</p>" +
-                        "<br><br>" +
-                        "<p>본 인증번호를 입력하셔야 회원가입이 가능합니다.</p>" +
-                        "<br><br>" +
-                        "<hr style=\"width: 50%;\">" +
-                        "<br>" +
-                        "<p style=\"font-size: 15px;\"> localhoat:8000 </p>"+
-                        "<br><br>" +
-                        "</div>";
+		String title = "";
+		String content = "";
 		
+		if(func == "join") {
+			title = "DVIERS 회원가입 인증번호 입니다.";
+			content = 					
+			"<div style=\"text-align: center;\">" +
+                    "<img src=\"cid:logo\">" +
+                    "<br><br>" +
+                    "<hr style=\"width: 50%;\">" +
+                    "<br><br>" +
+                    "<p>DVIERS 회원 가입을 환영합니다!</p>" +
+                    "<br><br>" +
+                    "<p>아래의 인증 번호를 정확하게 입력해 주세요.</p>" +
+                    "<br><br>" +
+                    "<p style=\"font-size: 24px;\">" + authNumber + "</p>" +
+                    "<br><br>" +
+                    "<p>본 인증번호를 입력하셔야 회원가입이 가능합니다.</p>" +
+                    "<br><br>" +
+                    "<hr style=\"width: 50%;\">" +
+                    "<br>" +
+                    "<p style=\"font-size: 15px;\"> localhoat:8000 </p>"+
+                    "<br><br>" +
+                    "</div>";
+		}else if(func == "idFind") {
+			title = "DVIERS 아이디 찾기 인증번호 입니다.";
+			content = 					
+			"<div style=\"text-align: center;\">" +
+                    "<img src=\"cid:logo\">" +
+                    "<br><br>" +
+                    "<hr style=\"width: 50%;\">" +
+                    "<br><br>" +
+                    "<p>DVIERS 아이디 찾기 인증 번호입니다.</p>" +
+                    "<br><br>" +
+                    "<p>아래의 인증 번호를 정확하게 입력해 주세요.</p>" +
+                    "<br><br>" +
+                    "<p style=\"font-size: 24px;\">" + authNumber + "</p>" +
+                    "<br><br>" +
+                    "<p>본 인증번호를 입력하셔야 아이디 찾기가 가능합니다.</p>" +
+                    "<br><br>" +
+                    "<hr style=\"width: 50%;\">" +
+                    "<br>" +
+                    "<p style=\"font-size: 15px;\"> localhoat:8000 </p>"+
+                    "<br><br>" +
+                    "</div>";			
+		}else {
+			title = "DVIERS 비밀번호 재설정 인증번호 입니다.";
+			content = 					
+			"<div style=\"text-align: center;\">" +
+                    "<img src=\"cid:logo\">" +
+                    "<br><br>" +
+                    "<hr style=\"width: 50%;\">" +
+                    "<br><br>" +
+                    "<p>DVIERS 비밀번호 재설정 인증 번호입니다.</p>" +
+                    "<br><br>" +
+                    "<p>아래의 인증 번호를 정확하게 입력해 주세요.</p>" +
+                    "<br><br>" +
+                    "<p style=\"font-size: 24px;\">" + authNumber + "</p>" +
+                    "<br><br>" +
+                    "<p>본 인증번호를 입력하셔야 비밀번호 재설정이 가능합니다.</p>" +
+                    "<br><br>" +
+                    "<hr style=\"width: 50%;\">" +
+                    "<br>" +
+                    "<p style=\"font-size: 15px;\"> localhoat:8000 </p>"+
+                    "<br><br>" +
+                    "</div>";		
+			
+		}
+	
 		mailSend(setFrom, toMail, title, content);
 		
 		return Integer.toString(authNumber);
@@ -171,6 +218,10 @@ public class UserService {
 	public UserDTO getUserbyUsername(String username) {
 		
 		return userDAO.getUserbyUsername(username);
+	}
+	public String idFind(String email) {
+		logger.info("아이디 찾기 서비스");
+		return userDAO.idFind(email);
 	}
 
 

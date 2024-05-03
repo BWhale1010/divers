@@ -45,6 +45,27 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/user/idFind")
+	public String idFind() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication instanceof AnonymousAuthenticationToken) {
+			return "/user/idFind";
+		}
+		
+		return "redirect:/";
+	}
+	
+	@PostMapping("/user/idFind")
+	public String idFindResult(@RequestParam String email, Model model) {
+		logger.info("아이디 찾기 email : "+email);
+		String username = userService.idFind(email);
+		
+		model.addAttribute("username", username);
+		model.addAttribute("email", email);
+		
+		return "/user/idFindResult";
+	}
+	
 
 
 }

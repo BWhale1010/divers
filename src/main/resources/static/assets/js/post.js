@@ -42,7 +42,7 @@ function commentDraw(list){
         + '<div class="flex-grow-1 ms-2 ms-sm-3"><div class="comment-meta d-flex align-items-baseline">'
         + '<h6 class="me-2">' + item.nickname + '</h6><span class="text-muted">' + item.comment_date + '</span></div>'
         + '<div class="comment-body">' + item.comment + '</div>'
-        + '<div><div class="card-body text-end"><a id="'+item.comment_num+'" onclick="commentRecommend(this.id)"><img src="'
+        + '<div><div class="card-body text-end"><a id="'+item.comment_num+'" onclick="commentRecommend('+item.comment_num+')"><img src="'
         + (item.is_recommended == 1 ? '/assets/img/thumb_color.png' : '/assets/img/thumb.png') + '" style="width: 3%"></a>'
         + item.recommend + '<span style="margin: 0 10px;">|</span>';
         

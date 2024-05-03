@@ -32,4 +32,8 @@
 	select * from user, `role` r where user.role_num = r.role_num and user.username = #{username}
 </select>
 
+<select id="idFind" resultType="String">
+	select username from user where email = #{email}
+</select>
+
 </mapper>
