@@ -46,6 +46,9 @@ public class BoardDTO {
 	private int comment_state_num;
 	private String comment_state_name;
 	
+	private int commentCount;
+	private int is_recommended;
+	
 	public int getPost_num() {
 		return post_num;
 	}
@@ -214,6 +217,18 @@ public class BoardDTO {
 	}
 	public void setComment_state_name(String comment_state_name) {
 		this.comment_state_name = comment_state_name;
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	public int getIs_recommended() {
+		return is_recommended;
+	}
+	public void setIs_recommended(int is_recommended) {
+		this.is_recommended = is_recommended;
 	}
 
 	

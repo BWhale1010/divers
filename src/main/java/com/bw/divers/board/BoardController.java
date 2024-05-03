@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +48,17 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/detail/{postNum}")
-	public String boardDetail(@PathVariable int postNum, Model model) {
+	public String boardDetail(@PathVariable int postNum, Model model, HttpSession session) {
 		logger.info("게시판 보기 postNum : "+ postNum);
-		
-		BoardDTO post = boardService.postDetail(postNum);
+		Integer user_numSession = (Integer) session.getAttribute("user_num");
+		int user_num = 0;
+		if(user_numSession != null) {
+			user_num = user_numSession.intValue();
+		}else {
+			user_num = 0;
+		}
+		logger.info("user_num : "+user_num);
+		BoardDTO post = boardService.postDetail(postNum, user_num);
 		
 		model.addAttribute("post", post);
 		
@@ -58,10 +66,12 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/edit/{postNum}")
-	public String boardEdit(@PathVariable int postNum, Model model) {
+	public String boardEdit(@PathVariable int postNum, Model model, HttpSession session) {
 		logger.info("게시판 수정 postNum : "+ postNum);
 		
-		BoardDTO post = boardService.postDetail(postNum);
+		int user_num = (int) session.getAttribute("user_num");
+		
+		BoardDTO post = boardService.postDetail(postNum, user_num);
 		ArrayList<BoardDTO> categoryNum = boardService.categoryLIst();
 		
 		model.addAttribute("post", post);

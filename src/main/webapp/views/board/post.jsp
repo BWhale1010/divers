@@ -30,8 +30,10 @@
 </style>
 
   <main id="main">
+
 <input type="hidden" id="loginId" value="${sessionScope.user_num }">
 <input type="hidden" id="post_num" value="${post.post_num }">
+<input type="hidden" id="postUser" value="${post.user_num }">
     <section class="single-post-content">
       <div class="container">
         <div class="row">
@@ -56,12 +58,31 @@
 		<div class="card bg-custom">
 		    <div class="row">
 		        <div class="col">
-		            <h4 class="comment-title py-4">2 댓글</h4>
+
+		        	<c:choose>
+			        	<c:when test="${empty post.commentCount }">
+			        		 <h4 class="comment-title py-4">댓글 0</h4>
+			        	</c:when>
+			        	<c:otherwise>
+			        	  <h4 class="comment-title py-4">댓글 ${post.commentCount }</h4>
+			        	</c:otherwise>	        	
+		        	</c:choose>
+
 		        </div>
 		        <div class="col">
 		            <div class="card-body text-end">
-		                <a href="#"><img src="/assets/img/thumb.png" style="width: 6%"></a> ${post.recommend }
-		                <span style="margin: 0 10px;">|</span>
+		            <c:choose>
+		            	<c:when test="${post.is_recommended == 0 }">
+			            	<a onclick="postRecommend()"><img src="/assets/img/thumb.png" style="width: 6%"></a> ${post.recommend }
+			                <span style="margin: 0 10px;">|</span>
+		            	</c:when>
+		            	<c:otherwise>
+		            		<a onclick="postRecommend()"><img src="/assets/img/thumb_color.png" style="width: 6%"></a> ${post.recommend }
+			                <span style="margin: 0 10px;">|</span>
+		            	</c:otherwise>
+		            
+		            </c:choose>
+
 		                
 		                <c:choose>
 		                	<c:when test="${sessionScope.user_num == post.user_num}">	                		
@@ -69,7 +90,7 @@
 								  <a class="dropbtn">• • •</a>
 								  <div class="dropdown-content">
 								    <a href="/board/edit/${post.post_num }">수정하기</a>
-								    <a onclick="deletePost(${post.post_num}, ${post.small_category_num },${post.user_num })">삭제하기</a>
+								    <a onclick="/deletePost(${post.post_num}, ${post.small_category_num },${post.user_num })">삭제하기</a>
 								  </div>
 								</div>
 		                	</c:when>
@@ -99,6 +120,8 @@
                   </div>
                   
                   <div class="col-12">
+                  	<input id="cancel-btn" type="button" class="btn btn-primary" value="취소" style="display: none;">
+                  	<input id="commentEdit-btn" type="button" class="btn btn-primary" value="댓글 수정" style="display: none;">
                     <input id="comment-btn" type="button" class="btn btn-primary" value="댓글 쓰기">
                   </div>
               

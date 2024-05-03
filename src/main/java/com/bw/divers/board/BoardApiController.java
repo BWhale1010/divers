@@ -97,13 +97,70 @@ public class BoardApiController {
 	}
 	
 	@PostMapping("/comment/list")
-	public HashMap<String, Object> commentList(@RequestParam int page, int post_num){
+	public HashMap<String, Object> commentList(@RequestParam int page, int post_num, HttpSession session){
 		logger.info("댓글 리스트 post_num : "+post_num);
 		
-		return boardService.commentList(page, post_num);
+		return boardService.commentList(page, post_num, session);
 	}
 	
+	@PutMapping("/comment/delete/{comment_num}")
+	public int commentDelete(@PathVariable int comment_num, @RequestParam int user_num, HttpSession session) {
+		logger.info("comment_num : "+comment_num);
+		int success = 0;
+		
+		int login_userNum = (int) session.getAttribute("user_num");
+		
+		if(login_userNum == user_num) {
+			success = boardService.commentDelete(comment_num);
+		}
+		
+		return success;
+	}
 	
+	@PutMapping("/comment/edit/{comment_num}")
+	public int commentEdit(@PathVariable int comment_num, @RequestParam String comment, int user_num, HttpSession session) {
+		logger.info("comment_num : "+comment_num);
+		logger.info("comment : "+comment);
+		logger.info("user_num : "+user_num);
+		int success = 0;
+		
+		int login_userNum = (int) session.getAttribute("user_num");
+		
+		if(login_userNum == user_num) {
+			success = boardService.commentEdit(comment_num, comment);
+		}
+		
+		return success;
+	}
+	
+	@PutMapping("/board/thumb/{postNum}")
+	public int postThumb(@PathVariable int postNum, @RequestParam int user_num, HttpSession session) {
+		logger.info("게시글 추천 postNum : "+postNum);
+		logger.info("게시글 추천 user_num : "+user_num);
+		int success = 0;
+		
+		int login_userNum = (int) session.getAttribute("user_num");
+		
+		if(login_userNum == user_num) {
+			success = boardService.postThumb(postNum, user_num);
+		}
+		
+		return success;
+	}
+	
+	@PostMapping("/comment/thumb/{comment_num}")
+	public int commentThumb(@PathVariable int comment_num, @RequestParam int user_num, HttpSession session) {
+		logger.info("댓글 추천 comment_num : "+comment_num);
+		int success = 0;
+		
+		int login_userNum = (int) session.getAttribute("user_num");
+		
+		if(login_userNum == user_num) {
+			success = boardService.commentThumb(comment_num, user_num);
+		}
+		
+		return success;
+	}
 	
 	
 }

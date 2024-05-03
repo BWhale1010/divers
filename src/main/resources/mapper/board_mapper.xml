@@ -29,13 +29,35 @@
 </select>
 
 <select id="postDetail" resultType="board" parameterType="int">
-	select p.post_num , p.user_num , p.small_category_num , p.board_date , p.title , p.count , p.post_state_num, p.content, p.small_category_num,
-		u.nickname , sc.small_class_name, count(tp.thumb_post_user_num) as recommend
-	from post p join `user` u on p.user_num = u.user_num 
-	join small_category sc on p.small_category_num = sc.small_category_num
-	left join thumb_post tp on p.post_num = tp.post_num
-	where p.post_num = #{postNum}
-	group by p.post_num;
+	SELECT 
+	    p.post_num, 
+	    p.user_num, 
+	    p.small_category_num, 
+	    p.board_date, 
+	    p.title, 
+	    p.count, 
+	    p.post_state_num, 
+	    p.content, 
+	    p.small_category_num,
+	    u.nickname, 
+	    sc.small_class_name, 
+	    (SELECT COUNT(DISTINCT tp1.thumb_post_user_num) FROM thumb_post tp1 WHERE tp1.post_num = p.post_num) AS recommend,
+	    COUNT(c.comment) AS commentCount, 
+	    CASE WHEN tp.thumb_post_user_num IS NOT NULL THEN 1 ELSE 0 END AS is_recommended
+	FROM 
+	    post p 
+	JOIN 
+	    `user` u ON p.user_num = u.user_num 
+	JOIN 
+	    small_category sc ON p.small_category_num = sc.small_category_num
+	LEFT JOIN 
+	    comment c ON p.post_num = c.post_num AND c.comment_state_num = 1
+	LEFT JOIN 
+	    thumb_post tp ON p.post_num = tp.post_num AND tp.thumb_post_user_num = #{user_num}
+	WHERE 
+	    p.post_num = 18
+	GROUP BY 
+	    p.post_num;
 </select>
 
 <select id="thumbnail" resultType="String" parameterType="int">
@@ -59,15 +81,56 @@
 </select>
 
 <select id="commentList" resultType="board">
-	SELECT c.comment_num, c.user_num, c.post_num, c.comment_date, c.comment,
-		u.nickname, ANY_VALUE(p.new_filename) AS new_filename, COUNT(tc.thumb_comment_user) AS recommend
+	SELECT 
+	    c.comment_num, 
+	    c.user_num, 
+	    c.post_num, 
+	    c.comment_date, 
+	    c.comment,
+	    u.nickname, 
+	    ANY_VALUE(p.new_filename) AS new_filename, 
+	    (select count(distinct tc1.thumb_comment_user)from thumb_comment tc1 where tc1.comment_num = c.comment_num) AS recommend,
+	    CASE WHEN tc.thumb_comment_user IS NOT NULL THEN 1 ELSE 0 END AS is_recommended
 	FROM comment c  
 	JOIN `user` u ON c.user_num = u.user_num
-	left JOIN profile p ON u.user_num = p.user_num
-	LEFT JOIN thumb_comment tc ON c.comment_num = tc.comment_num
-	WHERE c.post_num = #{post_num}
-	GROUP BY c.comment_num
-	order by c.comment_date desc limit 10 offset #{offset}
+	LEFT JOIN profile p ON u.user_num = p.user_num
+	LEFT JOIN thumb_comment tc ON c.comment_num = tc.comment_num and tc.thumb_comment_user = #{user_num}
+	WHERE c.post_num = #{post_num} AND c.comment_state_num = 1
+	GROUP BY c.comment_num, tc.thumb_comment_user
+	ORDER BY c.comment_date DESC 
+	LIMIT 10 OFFSET #{offset}
 </select>
+
+<update id="commentDelete">
+	update comment set comment_state_num = 3 where comment_num = #{comment_num}
+</update>
+
+<update id="commentEdit">
+	update comment set comment = #{comment} where comment_num = #{comment_num}
+</update>
+
+<select id="postThumbCheck" resultType="int">
+	select count(thumb_post_num) from thumb_post where post_num = #{postNum} and thumb_post_user_num = #{user_num}
+</select>
+
+<insert id="postThumbPlus">
+	insert into thumb_post(post_num, thumb_post_user_num) values(#{postNum}, #{user_num})
+</insert>
+
+<delete id="postThumbMinus">
+	delete from thumb_post where post_num = #{postNum} and thumb_post_user_num = #{user_num}
+</delete>
+
+<select id="commentThumbCheck" resultType="int">
+	select count(thumb_comment_num) from thumb_comment tc where tc.comment_num = #{comment_num} and tc.thumb_comment_user = #{user_num}
+</select>
+
+<insert id="commentThumbPlus">
+	insert into thumb_comment(comment_num, thumb_comment_user)values(#{comment_num}, #{user_num})
+</insert>
+
+<delete id="commentThumbMinus">
+	delete from thumb_comment where comment_num = #{comment_num} and thumb_comment_user = #{user_num}
+</delete>
 
 </mapper>

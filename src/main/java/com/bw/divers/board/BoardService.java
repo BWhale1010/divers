@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -65,9 +66,10 @@ public class BoardService {
 		return result;
 	}
 
-	public BoardDTO postDetail(int postNum) {
+	public BoardDTO postDetail(int postNum, int user_num) {
 		logger.info("글 상세보기 서비스 : "+postNum);
-		return boardDAO.postDetail(postNum);
+		
+		return boardDAO.postDetail(postNum, user_num);
 	}
 
 	public String thumbnail(int postNum) {
@@ -135,7 +137,7 @@ public class BoardService {
 		return boardDAO.commentWrite(params);
 	}
 
-	public HashMap<String, Object> commentList(int page, int post_num) {
+	public HashMap<String, Object> commentList(int page, int post_num, HttpSession session) {
 		logger.info("댓글 리스트 서비스 post_num : "+post_num);
 		
 		int offset = (page-1)*10;
@@ -143,14 +145,64 @@ public class BoardService {
 		logger.info("totalCoutn : "+totalCount);
 		int totalPages = totalCount%10>0?(totalCount/10)+1:(totalCount/10);
 		
+		Integer login_userNum = (Integer) session.getAttribute("user_num");
+		int user_num = 0;
+		if(login_userNum != null) {
+			user_num = login_userNum.intValue();
+		}else {
+			user_num = 0;
+		}
+		
+		
 		logger.info("총 페이지 : "+totalPages);
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		ArrayList<BoardDTO> list = boardDAO.commentList(offset, post_num);
+		ArrayList<BoardDTO> list = boardDAO.commentList(offset, post_num,user_num);
 		
 		result.put("total", totalPages);
 		result.put("list", list);
 		
 		return result;
+	}
+
+	public int commentDelete(int comment_num) {
+		logger.info("댓글 삭제 서비스");
+		return boardDAO.commentDelete(comment_num);
+	}
+
+	public int commentEdit(int comment_num, String comment) {
+		logger.info("댓글 수정 서비스");
+		return boardDAO.commentEdit(comment_num, comment);
+	}
+
+	public int postThumb(int postNum, int user_num) {
+		logger.info("게시글 추천 서비스");
+		
+		int postThumbCheck = boardDAO.postThumbCheck(postNum, user_num);
+		logger.info("postThumbCheck : "+ postThumbCheck);
+		
+		if(postThumbCheck >0) {
+			int postThumbMinus = boardDAO.postThumbMinus(postNum, user_num);
+			return postThumbMinus;
+		}else {
+			int postThumbPlus = boardDAO.postThumbPlus(postNum, user_num);
+			return postThumbPlus;
+		}
+		
+	}
+
+	public int commentThumb(int comment_num, int user_num) {
+		logger.info("댓글 추천 서비스");
+		
+		int commentThumbCheck = boardDAO.commentThumbCheck(comment_num, user_num);
+		
+		if(commentThumbCheck >0) {
+			int commentThumbMinus = boardDAO.commentThumbMinus(comment_num, user_num);
+			return commentThumbMinus;
+		}else {
+			int commentThumbPlus = boardDAO.commentThumbPlus(comment_num, user_num);
+			return commentThumbPlus;
+		}
+		
 	}
 
 

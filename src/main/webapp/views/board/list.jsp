@@ -6,6 +6,7 @@
   <main id="main">
     <section>
     <input id="boardId" type="hidden" value= ${boardId }>
+    <input id="user_num" type="hidden" value=${sessionScope.user_num }>
       <div class="container">
         <div class="row">
 

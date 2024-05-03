@@ -43,11 +43,17 @@ function listAdd(page, boardId){
 
 function listDraw(list){
 	var content ="";
-	console.log("aa : "+ list[0].thumbnail);
-	
+	//console.log("aa : "+ list[0].thumbnail);
+	var user_num = $("#user_num").val();
+	console.log("user_num : "+user_num);
+	if(user_num == ""){
+		user_num = 0;
+		console.log("user_num : "+user_num);
+	}
 	list.forEach(function(item){
 
 	   if(item.content == ""){
+		   
 			content += 
 		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
 		   '<img src="data:image/jpeg;base64,' + item.thumbnail + '" class="img-fluid"></a><div>'+
