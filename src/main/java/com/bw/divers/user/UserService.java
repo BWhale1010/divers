@@ -223,6 +223,21 @@ public class UserService {
 		logger.info("아이디 찾기 서비스");
 		return userDAO.idFind(email);
 	}
+	public String findEmail(String username) {
+		logger.info("비밀번호 재설정 이메일 확인 username : "+username);
+		String findEmail = userDAO.findEmail(username);
+		
+		if(findEmail == null) {
+			findEmail = "";
+		}
+		return findEmail;
+	}
+	public int pwResetFunc(String username, String password) {
+		logger.info("비밀번호 재설정 username : "+username);
+		String enc_password = enc_password(password);
+		
+		return userDAO.pwResetFunc(username, enc_password);
+	}
 
 
 	

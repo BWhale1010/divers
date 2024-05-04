@@ -2,6 +2,7 @@ var allEmail = null;
 var emailCheck = false;
 var emailCode = null;
 var emailCodeCheck = false;
+var idCheck = false;
 
 function groSpace(val){
 	var newval = val.replace(/\s/g,"");
@@ -13,7 +14,11 @@ function validReg(id, val){
 	
 	var reg;
 	
-	switch(id){
+	switch(id){		
+		case "username":
+			reg = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/;
+		break;
+		
 		case "email1":
 			reg = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*$/;
 		break;
@@ -30,12 +35,11 @@ function validReg(id, val){
 	return reg.test(val);
 }
 
-
 $(function(){
 	
 	$("input[type='text']").on("input", function(){
-		emailCheck = false;
-		emailCodeCheck = false;
+		
+		
 		
 		var cid = this.id;
 	    
@@ -46,8 +50,23 @@ $(function(){
 		}
 		
 		switch(cid){
+	        case "username":
+				idCheck = false;
+	            if(!regValue){					
+	                $('.msg1').html('형식에 맞지 않는 아이디 입니다.');      
+	            } else {               
+	                if(emailCodeCheck){
+						$('.msg1').html('<b style="color:blue">비밀번호 재설정을 진행해주세요.</b>');
+					}else{
+						$('.msg1').html('<b style="color:blue">이메일을 입력해 주세요.</b>');
+					}
+	                idCheck = true;
+	            }
+	            break;
+			
 			case "email1":
 				emailCheck = false;
+				emailCodeCheck = false;
 				if(!regValue) {
 		        $('.msg4').html('이메일을 확인해 주세요.');
 		    }else {
@@ -67,10 +86,9 @@ $(function(){
 		    break;
 		    
 		   case "emailCheck":
+			   emailCodeCheck = false;
 				emailAuth(emailCode);            	
            break;
-           
-           
 		}
 	})
 })
@@ -111,6 +129,7 @@ $(function(){
         addEmailCheck(emailAddVal);
     });
 })
+
 function emailConcat(domain){
 	var local = $("#email1").val();
 
@@ -156,8 +175,8 @@ function emailCheckFunc(email){
 		dataType: "json",
 		success:function(data){				
 			if(data.success > 0){
-		
-				$('.msg4').html('인증번호 받기를 진행해주세요.');					
+				$('.msg4').html('인증번호 받기를 진행해주세요.');
+				$('.msg1').html('');		
 				emailCheck = true;
 				
 			}else{
@@ -171,14 +190,14 @@ function emailCheckFunc(email){
 	})
 }
 
-	
-$("#email-idFind-btn").on("click", function(){
+$("#email-pwReset-btn").on("click", function(){
 	emailCodeCheck = false;
+	$('.msg4').html('');
 	emailSend(allEmail);
 })
 
 function emailSend(email){
-	var func = "idFind";
+	var func = "pwReset";
 	if(emailCheck){
 		$.ajax({
 		tyle: "GET", 
@@ -205,37 +224,63 @@ function emailAuth(code){
 		$('.msg5').html('<b style="color:blue">이메일 인증이 완료되었습니다.</b>');
 		emailCodeCheck = true;
 		emailCheck = true;
-		console.log("emailCodeCheck : "+emailCodeCheck);
-		console.log("emailCheck : "+emailCheck);
+
 		$('.msg4').html('');
 	}else{
 		$('.msg5').html('인증번호가 다릅니다.');
 	}		
 }
 
+function pwReset(){
+	console.log("emailCodeCheck : "+emailCodeCheck);
+	console.log("emailCheck : "+emailCheck);
+	console.log("idCheck : "+idCheck);
+	if(emailCodeCheck && emailCheck && idCheck){
+		var username = $("#username").val()
+		var email = allEmail;
 
-function idFind() {
-    if (emailCheck && emailCodeCheck) {
-        let f = document.createElement('form');
-        f.setAttribute('method', 'post');
-        f.setAttribute('action', '/user/idFind');
-
-        // input 요소 생성
-        let input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", "email");
-        input.setAttribute("value", allEmail);
-
-        // input 요소를 폼에 추가
-        f.appendChild(input);
-
-        // 폼을 문서에 추가하고 제출
-        document.body.appendChild(f);
-        f.submit();
-    }else if(!emailCheck){
+		$.ajax({
+			type : 'post',
+			url : '/user/pwResetCheck',
+			data : {'username':username, 'email': email},
+			dataType : 'json',
+			success : function(data){
+				console.log(data);
+				if(data == 1){
+			        let f = document.createElement('form');
+			        f.setAttribute('method', 'post');
+			        f.setAttribute('action', '/user/pwResetResult');
+			
+			        let input1 = document.createElement("input");
+			        input1.setAttribute("type", "hidden");
+			        input1.setAttribute("name", "email");
+			        input1.setAttribute("value", email);
+			        
+			        let input2 = document.createElement("input");
+			        input2.setAttribute("type", "hidden");
+			        input2.setAttribute("name", "username");
+			        input2.setAttribute("value", username);
+			
+			        f.appendChild(input1);
+			        f.appendChild(input2);
+			
+			        document.body.appendChild(f);
+			        f.submit();
+				}else{
+					alert("아이디와 이메일이 일치하는 계정이 없습니다.");
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+	}else if(!idCheck){
+		$("#username").focus();
+	}else if(!emailCheck){
 		$("#email1").focus();
 	}else{
 		$("#emailCheck").focus();
 	}
-}
+	
 
+}

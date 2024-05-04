@@ -20,5 +20,9 @@ public interface UserDAO {
 
 	String idFind(String email);
 
+	String findEmail(String username);
+
+	int pwResetFunc(String username, String enc_password);
+
 
 }

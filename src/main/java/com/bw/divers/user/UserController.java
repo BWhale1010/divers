@@ -66,6 +66,28 @@ public class UserController {
 		return "/user/idFindResult";
 	}
 	
+	@GetMapping("/user/pwReset")
+	public String pwReset() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication instanceof AnonymousAuthenticationToken) {
+			return "/user/pwReset";
+		}
+		
+		return "redirect:/";
+	}
+	
+	@PostMapping("/user/pwResetResult")
+	public String pwResetResult(@RequestParam String email, String username, Model model) {
+		logger.info("비밀번호 재설정 이동 email, username : ",email, username);
+		
+		model.addAttribute("email", email);
+		model.addAttribute("username", username);
+		
+		return "/user/pwResetResult";
+	}
+	
+
+
 
 
 }

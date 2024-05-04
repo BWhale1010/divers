@@ -1410,3 +1410,38 @@ rotate(
 	color: #ffffff;
 }
 
+.profile-picture {
+    width: 150px; /* 프로필 사진 원의 너비 */
+    height: 150px; /* 프로필 사진 원의 높이 */
+    border-radius: 50%; /* 프로필 사진을 원 모양으로 만들기 */
+    overflow: hidden; /* 내부 이미지를 원 형태로 자르기 */
+    margin-bottom: 20px; /* 하단 여백만 주기 */
+/*     float: left;  */
+    margin-right: 20px; /* 인풋란과의 간격을 조절 */
+}
+
+.profile-picture img {
+    width: auto; 
+    height: 100%; 
+/*     float: left;  */
+    border-radius: 50%; 
+}
+
+.profile-margin {
+    margin-right: 120px; 
+}
+
+.button-margin{
+	margin-right: 140px;
+}
+
+@media (max-width: 992px) {
+    #mypageButton {
+        flex-direction: column;
+        align-items: center;
+    }
+    .button-margin{
+    margin-top: 10px;
+	margin-right: 0px;
+}
+}

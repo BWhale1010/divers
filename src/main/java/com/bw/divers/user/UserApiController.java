@@ -88,8 +88,31 @@ public HashMap<String, Object> join(@RequestParam HashMap<String, String> params
 		
 		return map;
 	}
-	
+}
 
+@PostMapping("/user/pwResetCheck")
+public int pwResetCheck(@RequestParam String username, @RequestParam String email) {
+	logger.info("비밀번호 재설정 username : "+username);
+	logger.info("비밀번호 재설정 email : "+email);
+	int result = 0;
+	String findEmail = userService.findEmail(username);
+	
+	if(findEmail.equals(email)) {
+		result = 1;
+	}
+	logger.info("result : "+result);
+	return result;
+}
+
+@PostMapping("/user/pwReset")
+public int pwResetFunc(@RequestParam String username, @RequestParam String password, Model model, RedirectAttributes rttr) {
+	logger.info("비밀번호 재설정 기능");
+	int result = 0;
+	
+	result = userService.pwResetFunc(username, password);
+	logger.info("result : "+result);
+
+	return result;
 }
 
 

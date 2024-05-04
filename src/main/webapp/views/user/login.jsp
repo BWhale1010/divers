@@ -48,7 +48,7 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="text-center">
-								<a href="#">비밀번호 찾기</a>
+								<a href="/user/pwReset">비밀번호 찾기</a>
 							</div>
 						</div>
 

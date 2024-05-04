@@ -31,9 +31,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         
     	String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	UserDTO userDTO = userService.getUserbyUsername(username);
+    	
     	session = request.getSession();
     	int user_num = userDTO.getUser_num();
+    	int role_num = userDTO.getRole_num();
+    	
     	session.setAttribute("user_num", user_num);
+    	session.setAttribute("role_num", role_num);
     	
     	String targetUrl = determineTargetUrl(request, response, authentication);
         if (response.isCommitted()) {

@@ -37,7 +37,7 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="text-center">
-								<button id="-btn"  type="button">비밀번호 찾기</button>
+								<button onclick="location.href='/user/pwReset'" type="button">비밀번호 찾기</button>
 							</div>
 						</div>
 
