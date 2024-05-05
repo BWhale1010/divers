@@ -1,6 +1,9 @@
 var firstNickname = null;
 var newNickname = null;
 var nicknameChk= false;
+var passwordChk = false;
+var password = false;
+var passwordOriChk = false;
 
 function groSpace(val){
 	var newval = val.replace(/\s/g,"");
@@ -13,6 +16,18 @@ function validReg(id, val){
 	var reg;
 	
 	switch(id){
+		case "passwordOri":
+			reg = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>]{6,20}$/;
+		break;
+		
+		case "password":
+			reg = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>]{6,20}$/;
+		break;
+			
+		case "passwordCheck":
+			reg = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>]{6,20}$/;
+		break;
+		
 		case "nickname":
 			reg = /^[a-zA-Z0-9가-힣]{2,10}$/;		
 		break;
@@ -24,7 +39,7 @@ function validReg(id, val){
 $(function(){
 	firstNickname = $("#nickname").val();
 	console.log("firstNickname : "+firstNickname)
-	$("input[type='text']").on("input", function(){
+	$("input[type='text'], input[type='password']").on("input", function(){
 		nicknameChk = false;
 		var cid = this.id;
 		var cv = groSpace($(this).val());
@@ -32,19 +47,48 @@ $(function(){
     	var regValue = validReg(cid, checkValue);
 	
 		switch(cid){
-		case "nickname":
-			console.log("nickname : "+checkValue);
-			console.log(regValue);
-			   if(!regValue){
-				   $(".msg5").html('형식에 맞지 않는 닉네임입니다.');
-			   }else{
-				   if(firstNickname == checkValue){
-					   $(".msg5").html('현재 사용 중인 닉네임입니다.');
+			case "passwordOri":
+				$('.msg1').html('');
+				passwordMatch(checkValue);
+				break;
+			
+	        case "password":
+	
+	            if(!regValue){
+	                $('.msg2').html('형식에 맞지 않는 비밀번호 입니다.');
+	                password = false;
+	            } else {        
+	                $('.msg2').html('<b style="color:blue">사용가능한 비밀번호 입니다.</b>');
+					password = true;
+	            }
+	            break;
+	            
+	        case "passwordCheck":
+	
+	            if(checkValue != $("#password").val()){
+					passwordChk = false;
+	                $('.msg3').html('비밀번호가 일치하지 않습니다.');
+	            } else {
+	              
+	                $('.msg3').html('<b style="color:blue">비밀번호가 일치합니다.</b>');
+					passwordChk = true;
+	            }
+	            break;
+				
+				
+			case "nickname":
+				console.log("nickname : "+checkValue);
+				console.log(regValue);
+				   if(!regValue){
+					   $(".msg5").html('형식에 맞지 않는 닉네임입니다.');
 				   }else{
-					   nicknameCheck(checkValue);
-				   }
-			   }    	
-            break;
+					   if(firstNickname == checkValue){
+						   $(".msg5").html('현재 사용 중인 닉네임입니다.');
+					   }else{
+						   nicknameCheck(checkValue);
+					   }
+				   }    	
+	            break;
 		}
 	})
 })
@@ -97,6 +141,68 @@ $("#save-btn").on("click", function(){
 		$("#nickname").focus();
 	}
 })
+
+function passwordMatch(password){
+	var username = $("#username").val();
+	$.ajax({
+		type : 'post',
+		url : '/mypage/passwordMatch',
+		data : {'username':username, 'password': password},
+		dataType : 'json',
+		success : function(data){
+			if(data == 1){
+				passwordOriChk = true;
+			}else{
+				passwordOriChk = false;
+			}
+		},
+		error : function(e){
+			console.log(e);
+		}
+		
+	})
+}
+
+function pwReset(){
+	if(password && passwordChk && passwordOriChk){
+		var username = $("#username").val();
+		var new_password = $("#password").val();
+		$.ajax({
+			type : 'post',
+			url : '/user/pwReset',
+			data : {'username':username, 'password':new_password},
+			dataType : 'json',
+			success : function(data){
+				var msg = "비밀번호가 재설정 되었습니다."
+				if(data == 1){
+					$(".close").click();
+					alert(msg);
+					$("#passwordOri").val('');
+					$("#password").val('');
+					$("#passwordCheck").val('');
+					$('.msg1').html('');
+					$('.msg2').html('');
+					$('.msg3').html('');
+				}else{
+					msg = "비밀번호 재설정에 실패하였습니다."
+					alert(msg);
+				}
+			},
+			error: function(e){
+				console.log(e);
+			}
+		})
+		
+	}else if(!password){
+		$("#password").focus();
+	}else if(!passwordOriChk){
+		$('.msg1').html('비밀번호가 일치하지 않습니다.');
+		$("#passwordOri").focus();
+	}
+	else{
+		$("#passwordCheck").focus();
+	}
+}
 
 function imgUrl(input){
 	if(input.files && input.files[0]){

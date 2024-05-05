@@ -36,16 +36,21 @@
 										<label for="nickname" style="margin-bottom: 10px">닉네임</label> 
 										<input type="text" class="form-control" id="nickname" value="${user.nickname}"> 
 										<span class="msg5 d-flex"></span>
-										<button style="margin-top: 10px" type="button" id="nickname-btn" class="ml-5">닉네임 추천</button>
+										<button style="margin-top: 10px" type="button" id="nickname-btn" class="ml-5">닉네임 추천</button>								
+									</div>
+									<div>
+										<button type="button" id="pw-btn" class="ml-5" data-toggle="modal" data-target="#pwModal">비밀번호 변경</button>
 									</div>
 								</div>
 							</div>
 
 							<br>
+							<br>
+							<br>
 
 							<div class="row justify-content-center">
 								<div id="mypageButton" class="col-md-9 d-flex justify-content-between align-items-center">
-									<button id="nickname-btn" type="button" style="text-align: left;">탈퇴</button>
+									<button id="withdraw-btn" type="button" style="text-align: left;">탈퇴</button>
 									<div class="button-margin">
 										<button type="button" onclick="location.href='/';">취소</button>
 										<button id="save-btn" type="button">저장</button>
@@ -64,6 +69,13 @@
 
 </main>
 <!-- End #main -->
-<%@ include file="./profileModal.jsp" %>
+<script>
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
+</script>
 <script src="/assets/js/mypage.js"></script>
+<%@ include file="./profileModal.jsp" %>
+<%@ include file="./pwModal.jsp" %>
 <%@include file="../layout/footer.jsp"%>

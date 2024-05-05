@@ -8,5 +8,9 @@
 	update user set nickname = #{nickname} where username =  #{username}
 </update>
 
+<select id="oriPassword" resultType="String">
+	select password from user where username = #{username}
+</select>
+
 
 </mapper>
