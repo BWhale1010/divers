@@ -29,7 +29,10 @@
 </select>
 
 <select id="getUserbyUsername" resultType="user">
-	select * from user, `role` r where user.role_num = r.role_num and user.username = #{username}
+	select u.*, p.new_filename, r.role_name from user u
+		join `role` r on u.role_num = r.role_num
+	left join profile p on u.user_num = p.user_num 
+	where u.username = #{username};	
 </select>
 
 <select id="idFind" resultType="String">

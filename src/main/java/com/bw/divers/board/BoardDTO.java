@@ -49,6 +49,8 @@ public class BoardDTO {
 	private int commentCount;
 	private int is_recommended;
 	
+	private String new_filename;
+	
 	public int getPost_num() {
 		return post_num;
 	}
@@ -229,6 +231,12 @@ public class BoardDTO {
 	}
 	public void setIs_recommended(int is_recommended) {
 		this.is_recommended = is_recommended;
+	}
+	public String getNew_filename() {
+		return new_filename;
+	}
+	public void setNew_filename(String new_filename) {
+		this.new_filename = new_filename;
 	}
 
 	

@@ -17,7 +17,13 @@
 							<div class="row justify-content-center">
 								<div class="col-md-4 profile-margin text-center">
 									<div class="profile-picture mx-auto">
-										<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">
+										<c:if test="${user.new_filename == null }">
+											<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">
+										</c:if>
+										<c:if test="${user.new_filename != null }">
+											<img src="/photo/${user.new_filename }" style="display: block;">
+										</c:if>
+										
 									</div>
 									<button style="margin-top: 10px; margin-bottom: 20px;" type="button" id="profile-btn" class="ml-5" data-toggle="modal" data-target="#profileModal">사진 변경</button>
 

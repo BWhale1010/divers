@@ -215,3 +215,27 @@ function imgUrl(input){
 		document.getElementById('profilePreview').src="";
 	}
 }
+
+function delProfile(){
+	var check = confirm("프로필 이미지를 삭제하시겠습니까?");
+	
+	if(check){
+		var user_num = $("#user_num").val();
+
+		$.ajax({
+			type : 'post',
+			url : '/mypage/delProfile',
+			data : {'user_num':user_num},
+			dataType : 'json',
+			success : function(data){
+				if(data>0){
+					location.href ="/mypage"
+				}
+			},
+			error: function(e){
+				console.log(e);
+			}
+		})
+		
+	}
+}

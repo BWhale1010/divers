@@ -51,37 +51,18 @@ function listDraw(list){
 		console.log("user_num : "+user_num);
 	}
 	list.forEach(function(item){
+		var thumbnailSrc = item.thumbnail === 'basic' ? '/assets/img/divers_thumbnail.png' : 'data:image/jpeg;base64,' + item.thumbnail;
+		var contentText = item.content === '' ? '(이미지만 작성된 글입니다)' : item.content;
+		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/photo/" + item.new_filename;
 
-	   if(item.content == ""){
-		   
-			content += 
-		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
-		   '<img src="data:image/jpeg;base64,' + item.thumbnail + '" class="img-fluid"></a><div>'+
-		   '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">•</span>'+
-		   '<span>'+item.board_date+'</span></div><h3><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h3><p>(이미지만 작성된 글입니다)</p>'+
-		   '<div class="d-flex align-items-center author"><div class="photo"><img src="#" alt="" class="img-fluid"></div>'+
-		   '<div class="name"><h3 class="m-0 p-0">'+item.nickname+'</h3></div></div><div class="post-meta">'+
-		   '<span class="date">조회수 '+item.count+'</span> <span class="mx-1">•</span> <span>추천수 '+item.recommend+'</span></div></div></div>';		   
-	   }else if(item.thumbnail == "basic"){
-		   	content += 
-		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
-		   '<img src="/assets/img/divers_thumbnail.png" class="img-fluid" style="width: 70%;"></a><div>'+
-		   '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">•</span>'+
-		   '<span>'+item.board_date+'</span></div><h3><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h3><p>'+item.content+'</p>'+
-		   '<div class="d-flex align-items-center author"><div class="photo"><img src="#" alt="" class="img-fluid"></div>'+
-		   '<div class="name"><h3 class="m-0 p-0">'+item.nickname+'</h3></div></div><div class="post-meta">'+
-		   '<span class="date">조회수 '+item.count+'</span> <span class="mx-1">•</span> <span>추천수 '+item.recommend+'</span></div></div></div>';	    
-	   }
-	   else{		   
-			content += 
-		   '<div class="d-md-flex post-entry-2 half" id="'+item.post_num+'"><a href="/board/detail/'+item.post_num+'" class="me-4 thumbnail">'+
-		   '<img src="data:image/jpeg;base64,' + item.thumbnail + '" class="img-fluid"></a><div>'+
-		   '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">•</span>'+
-		   '<span>'+item.board_date+'</span></div><h3><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h3><p>'+item.content+'</p>'+
-		   '<div class="d-flex align-items-center author"><div class="photo"><img src="#" alt="" class="img-fluid"></div>'+
-		   '<div class="name"><h3 class="m-0 p-0">'+item.nickname+'</h3></div></div><div class="post-meta">'+
-		   '<span class="date">조회수 '+item.count+'</span> <span class="mx-1">•</span> <span>추천수 '+item.recommend+'</span></div></div></div>';	   
-	   }
+	   content +=
+        '<div class="d-md-flex post-entry-2 half" id="' + item.post_num + '"><a href="/board/detail/' + item.post_num + '" class="me-4 thumbnail">' +
+        '<img src="' + thumbnailSrc + '" class="img-fluid"></a><div>' +
+        '<div class="post-meta"><span class="date">' + item.small_class_name + '</span> <span class="mx-1">•</span>' +
+        '<span>' + item.board_date + '</span></div><h3><a href="/board/detail/' + item.post_num + '">' + item.title + '</a></h3><p>' + contentText + '</p>' +
+        '<div class="d-flex align-items-center author"><div class="photo"><img src="'+profileImg+'" alt="" class="img-fluid"></div>' +
+        '<div class="name"><h3 class="m-0 p-0">' + item.nickname + '</h3></div></div><div class="post-meta">' +
+        '<span class="date">조회수 ' + item.count + '</span> <span class="mx-1">•</span> <span>추천수 ' + item.recommend + '</span></div></div></div>';
 	});
 
 	

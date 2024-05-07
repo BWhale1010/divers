@@ -1,17 +1,30 @@
 package com.bw.divers.mypage;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.bw.divers.user.UserDTO;
+import com.bw.divers.user.UserService;
 
 @Service
 @MapperScan("com.bw.divers.mypage")
 public class MypageService {
 	@Autowired MypageDAO mypageDAO;
 	@Autowired PasswordEncoder encoder;
+	@Autowired UserService userService;
+	@Value("${file.location}") private String location;
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public int mypageUpdate(String username, String nickname) {
@@ -37,6 +50,39 @@ public class MypageService {
 		String enc_pw = encoder.encode(password);
 		
 		return enc_pw;
+	}
+
+	public void profile(MultipartFile profileImg, int user_num) {
+		
+		
+		int row = mypageDAO.imgCheck(user_num);
+		
+		if(row>0) {
+			int delProfile = mypageDAO.delProfile(user_num);
+			logger.info("기존 프로필 제거 : "+delProfile);
+		}
+		
+		
+		String oriFileName = profileImg.getOriginalFilename();
+		logger.info("oriFileName : "+oriFileName);
+		String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+		
+		String newFileName = System.currentTimeMillis()+ext;
+		
+		try {
+			byte[] arr = profileImg.getBytes();
+			Path path = Paths.get(location+newFileName);
+			Files.write(path, arr);
+			mypageDAO.addProfile(user_num, oriFileName, newFileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int delProfile(int user_num) {
+		logger.info("프로필 이미지 삭제 서비스");
+		int result = mypageDAO.delProfile(user_num);
+		return result;
 	}
 
 }

@@ -18,6 +18,8 @@ public class UserDTO{
 	
 	private String role_name;
 	
+	private String new_filename;
+	
 	public String getRole_name() {
 		return role_name;
 	}
@@ -77,6 +79,12 @@ public class UserDTO{
 	}
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
+	}
+	public String getNew_filename() {
+		return new_filename;
+	}
+	public void setNew_filename(String new_filename) {
+		this.new_filename = new_filename;
 	}
 
 	

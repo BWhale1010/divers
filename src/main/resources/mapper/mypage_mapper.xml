@@ -12,5 +12,17 @@
 	select password from user where username = #{username}
 </select>
 
+<select id="imgCheck" resultType="int">
+	select count(*) from profile where user_num = #{user_num}
+</select>
+
+<delete id="delProfile">
+	delete from profile where user_num = #{user_num}
+</delete>
+
+<insert id="addProfile">
+	insert into profile(user_num, ori_filename, new_filename)values(#{user_num}, #{oriFileName}, #{newFileName})
+</insert>
+
 
 </mapper>
