@@ -2,6 +2,7 @@ package com.bw.divers.board;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,69 +20,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BoardController {
-	
+
 	Logger logger = LoggerFactory.getLogger(getClass());
-	@Autowired BoardService boardService;
-	
+	@Autowired
+	BoardService boardService;
+
 	@GetMapping("/board/list/{boardId}")
 	public String boardList(@PathVariable int boardId, Model model) {
-		
-		logger.info("boardId"+boardId);
-		
-		model.addAttribute("boardId", boardId);
 
-		
+		model.addAttribute("small_category_num", boardId);
 		return "board/list";
 	}
-	
+
 	@GetMapping("/board/write")
 	public String boardWrite(@RequestParam int boardId, Model model, HttpServletRequest request) {
-		
-		logger.info("boardId : "+boardId);
+
+		logger.info("boardId : " + boardId);
 
 		ArrayList<BoardDTO> categoryNum = boardService.categoryLIst();
-		
+
 		model.addAttribute("boardId", boardId);
 		request.setAttribute("categoryNum", categoryNum);
 
-		
 		return "board/write";
 	}
-	
+
 	@GetMapping("/board/detail/{postNum}")
 	public String boardDetail(@PathVariable int postNum, Model model, HttpSession session) {
-		logger.info("게시판 보기 postNum : "+ postNum);
+		logger.info("게시판 보기 postNum : " + postNum);
 		Integer user_numSession = (Integer) session.getAttribute("user_num");
 		int user_num = 0;
-		if(user_numSession != null) {
+		if (user_numSession != null) {
 			user_num = user_numSession.intValue();
-		}else {
+		} else {
 			user_num = 0;
 		}
-		logger.info("user_num : "+user_num);
+		logger.info("user_num : " + user_num);
 		BoardDTO post = boardService.postDetail(postNum, user_num);
-		
+
 		model.addAttribute("post", post);
-		
+
 		return "/board/post";
 	}
-	
+
 	@GetMapping("/board/edit/{postNum}")
 	public String boardEdit(@PathVariable int postNum, Model model, HttpSession session) {
-		logger.info("게시판 수정 postNum : "+ postNum);
-		
+		logger.info("게시판 수정 postNum : " + postNum);
+
 		int user_num = (int) session.getAttribute("user_num");
-		
+
 		BoardDTO post = boardService.postDetail(postNum, user_num);
 		ArrayList<BoardDTO> categoryNum = boardService.categoryLIst();
-		
+
 		model.addAttribute("post", post);
 		model.addAttribute("categoryNum", categoryNum);
-		
+
 		return "/board/update";
 	}
-	
-
-
 
 }

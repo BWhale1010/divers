@@ -34,6 +34,7 @@
 <input type="hidden" id="loginId" value="${sessionScope.user_num }">
 <input type="hidden" id="post_num" value="${post.post_num }">
 <input type="hidden" id="postUser" value="${post.user_num }">
+<input type="hidden" id="small_category_num" value="${post.small_category_num }">
     <section class="single-post-content">
       <div class="container">
         <div class="row">
@@ -124,6 +125,7 @@
                   	<input id="commentEdit-btn" type="button" class="btn btn-primary" value="댓글 수정" style="display: none;">
                     <input id="comment-btn" type="button" class="btn btn-primary" value="댓글 쓰기">
                   </div>
+                  
               
             </div>
             
@@ -147,19 +149,7 @@
               </ul>
             </div><!-- End Categories -->
 
-            <div class="aside-block">
-              <h3 class="aside-title">Tags</h3>
-              <ul class="aside-tags list-unstyled">
-                <li><a href="category.html">Business</a></li>
-                <li><a href="category.html">Culture</a></li>
-                <li><a href="category.html">Sport</a></li>
-                <li><a href="category.html">Food</a></li>
-                <li><a href="category.html">Politics</a></li>
-                <li><a href="category.html">Celebrity</a></li>
-                <li><a href="category.html">Startups</a></li>
-                <li><a href="category.html">Travel</a></li>
-              </ul>
-            </div><!-- End Tags -->
+
 
           </div>
 

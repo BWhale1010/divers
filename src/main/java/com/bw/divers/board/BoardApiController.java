@@ -1,14 +1,17 @@
 package com.bw.divers.board;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,10 +36,12 @@ public class BoardApiController {
 	}
 	
 	@PostMapping("/board/listAdd")
-	public HashMap<String, Object> listAdd(int page, int category) {
+	public HashMap<String, Object> listAdd(int page, int category, String search_word) {
 		logger.info("page : "+page);
+		logger.info("category : "+category);
+		logger.info("search_word : "+search_word);
 		
-		return boardService.listAdd(page, category);
+		return boardService.listAdd(page, category, search_word);
 	}
 	
 	@PostMapping("/board/thumbnail/{postNum}")
@@ -161,6 +166,8 @@ public class BoardApiController {
 		
 		return success;
 	}
+
+
 	
 	
 }

@@ -12,21 +12,34 @@
 	insert into post(small_category_num, title, content, user_num) values(#{category}, #{title}, #{content}, #{user_num})
 </insert>
 
-<select id="totalCount" resultType="int" parameterType="int">
-	select count(*) from post where small_category_num = #{category} and post_state_num = 1
+<select id="totalCount" resultType="int" parameterType="hashmap">
+	SELECT COUNT(*) FROM post p 
+	WHERE small_category_num = #{category}
+	AND post_state_num = 1 
+	AND (
+		#{search_word} = '' OR
+    	p.title LIKE CONCAT('%', #{search_word}, '%') or
+    	p.content LIKE CONCAT('%', #{search_word}, '%')
+    )
 </select>
 
-<select id="boardList" resultType="board">
+<select id="boardList" resultType="board" parameterType="hashmap">
 	SELECT p.post_num, p.board_date, p.title, p.content, p.count, p.post_state_num, p.user_num,
 	       u.nickname, sc.small_class_name, COUNT(tp.thumb_post_user_num) as recommend,
-	       (select new_filename from profile p2 where p.user_num = p2.user_num) as new_filename
+	       (SELECT new_filename FROM profile p2 WHERE p.user_num = p2.user_num) as new_filename
 	FROM post p
 	JOIN `user` u ON p.user_num = u.user_num
 	JOIN small_category sc ON p.small_category_num = sc.small_category_num
 	LEFT JOIN thumb_post tp ON p.post_num = tp.post_num
-	WHERE p.small_category_num = 1 and p.post_state_num = 1
+	WHERE p.small_category_num = #{category} AND p.post_state_num = 1
+	  AND (
+	    #{search_word} = '' OR
+	    p.title LIKE CONCAT('%', #{search_word}, '%') OR
+	    p.content LIKE CONCAT('%', #{search_word}, '%')
+	  )
 	GROUP BY p.post_num
-	ORDER BY p.board_date desc limit 5 offset #{offset};
+	ORDER BY p.board_date DESC
+	LIMIT 5 OFFSET #{offset}
 </select>
 
 <select id="postDetail" resultType="board" parameterType="int">
@@ -39,7 +52,6 @@
 	    p.count, 
 	    p.post_state_num, 
 	    p.content, 
-	    p.small_category_num,
 	    u.nickname, 
 	    sc.small_class_name, 
 	    (SELECT COUNT(DISTINCT tp1.thumb_post_user_num) FROM thumb_post tp1 WHERE tp1.post_num = p.post_num) AS recommend,

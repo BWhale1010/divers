@@ -17,10 +17,6 @@
 <link href="/assets/img/favicon.png" rel="icon">
 <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-
-
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -91,7 +87,7 @@
 									<li><a href="/board/list/7">해외 야구</a></li>
 								</ul></li>
 
-							<li><a href="board/list/8">E-SPORTS</a></li>
+							<li><a href="/board/list/8">E-SPORTS</a></li>
 						</ul></li>
 
 					<li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>

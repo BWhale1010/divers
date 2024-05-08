@@ -50,16 +50,27 @@ public class BoardService {
 		return row;
 	}
 
-	public HashMap<String, Object> listAdd(int page, int category) {
+	public HashMap<String, Object> listAdd(int page, int category, String search_word) {
+		HashMap<String, Object> map1 = new HashMap<String, Object>();
 		int offset = (page-1)*5;
-		int totalCount = boardDAO.totalCount(category);
+		map1.put("category", category);
+		map1. put("search_word", search_word);
+		
+		int totalCount = boardDAO.totalCount(map1);
+		logger.info("totalCount : "+totalCount);
+		
 		int totalPages = totalCount%5>0?(totalCount/5)+1:(totalCount/5);
-		
+		map1. put("offset", offset);
+
 		logger.info("총 페이지 : "+totalPages);
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		ArrayList<BoardDTO> list = boardDAO.boardList(offset, category);
-		logger.info("content : "+list.get(0).getContent());
+
+		logger.info("category : "+map1.get("category"));
+		logger.info("search_word : "+map1.get("search_word"));
+		logger.info("offset : "+map1.get("offset"));
 		
+		ArrayList<BoardDTO> list = boardDAO.boardList(map1);
+		logger.info("list 개수 : "+list.size());
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("total", totalPages);
 		result.put("list", list);
 		

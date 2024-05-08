@@ -9,9 +9,9 @@ public interface BoardDAO {
 
 	int boardWrite(HashMap<String, Object> params);
 
-	int totalCount(int category);
+	int totalCount(HashMap<String, Object> map1);
 
-	ArrayList<BoardDTO> boardList(int offset, int category);
+	ArrayList<BoardDTO> boardList(HashMap<String, Object> map1);
 
 	BoardDTO postDetail(int postNum, int user_num);
 
