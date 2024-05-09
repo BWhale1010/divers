@@ -1,8 +1,10 @@
 var total = 5;
 var search_username = '';
+
 listAdd(1, search_username)
+
 function listAdd(page, search_username){
-	
+
 	$.ajax({
 		type : 'post',
 		url : '/manage/listAdd',
@@ -39,6 +41,7 @@ function listAdd(page, search_username){
 }
 
 function listDraw(list){
+
     var content = "";
     console.log(list);
     list.forEach(function(item){
@@ -83,4 +86,7 @@ function listDraw(list){
     // content를 #userList에 추가
     $("#userList").empty().append(content);
 }
+
+
+
 

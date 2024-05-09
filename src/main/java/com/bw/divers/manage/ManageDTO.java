@@ -18,8 +18,9 @@ public class ManageDTO {
 	private int platform_sort;
 	private int state_num;
 	private int role_num;
+
 	private Date join_date;
-	
+
 	private String role_name;
 	private String platform_name;
 	private String state_name;
@@ -32,6 +33,7 @@ public class ManageDTO {
 	private int alter_num;
 	private String sort_name;
 	private String alter_name;
+
 	
 	private int post_num;
 	private int small_category_num;
@@ -69,4 +71,5 @@ public class ManageDTO {
 	private int commentCount;
 	private int is_recommended;
 	private int postCount;
+
 }

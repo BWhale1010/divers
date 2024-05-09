@@ -71,6 +71,10 @@
 
 
 
+<<<<<<< HEAD
 <script src="/assets/js/manage/userList.js"></script>
+=======
+<!-- <script src="/assets/js/manage/userLIst.js"></script> -->
+>>>>>>> 05fb38cdab01439a07de2aae007b9e93a5eec8e2
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script> -->
 <%@include file="../layout/footer.jsp"%>
