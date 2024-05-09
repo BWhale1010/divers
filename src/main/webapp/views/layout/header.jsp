@@ -106,6 +106,17 @@
 
 							<li><a href="/board/list/13">영화</a></li>
 						</ul></li>
+						
+					<c:if test="${sessionScope.role_num == 1 || sessionScope.role_num == 2 }">
+					<li class="dropdown"><a href="#"><span>관리자</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+		
+							<li><a href="/manage/userList">회원 관리</a></li>
+
+							<li><a href="/manage/board">게시판 관리</a></li>
+						</ul></li>	
+					</c:if>
+
 
 				</ul>
 			</nav>
