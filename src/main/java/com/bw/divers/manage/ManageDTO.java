@@ -6,8 +6,9 @@ import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
-@Alias("manage")
+
 @Data
+@Alias("manage")
 public class ManageDTO {
 	
 	private int user_num;
@@ -17,7 +18,7 @@ public class ManageDTO {
 	private int platform_sort;
 	private int state_num;
 	private int role_num;
-	private Date join_data;
+	private Date join_date;
 	
 	private String role_name;
 	private String platform_name;
@@ -31,6 +32,41 @@ public class ManageDTO {
 	private int alter_num;
 	private String sort_name;
 	private String alter_name;
-
-
+	
+	private int post_num;
+	private int small_category_num;
+	private int category;
+	private Date board_date;
+	private String title;
+	private String content;
+	private int count;
+	
+	private String small_class_name;
+	private int big_category_num;
+	
+	private String big_class_name;
+	
+	private int comment_num;
+	private Date comment_date;
+	private String comment;
+	
+	private int report_num;
+	private String report_detail;
+	
+	private int thumb_comment_num;
+	private int thumb_comment_user;
+	
+	private int thumb_post_num;
+	private int thumb_post_user_num;
+	
+	private int recommend;
+	
+	private int post_state_num;
+	private String post_state_name;
+	private int comment_state_num;
+	private String comment_state_name;
+	
+	private int commentCount;
+	private int is_recommended;
+	private int postCount;
 }
