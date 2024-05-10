@@ -10,8 +10,16 @@
 			<div class="row">
 
 				<div class="col-md-9" data-aos="fade-up">
-					<h3 class="category-title">유저 관리</h3>
-
+					<div>
+						<h3 class="category-title">유저 관리</h3>
+						
+					    <div>
+					    	<span onclick="listAdd(1, '','','')">기본 순</span> |
+					        <span onclick="sortUsers('join_date')">가입 순</span> <span id="join_dateSort">↑</span> |
+					        <span onclick="sortUsers('reportCount')">신고 순</span> <span id="reportCountSort">↑</span> |
+					        <span onclick="sortUsers('sspsCount')">정지 순</span> <span id="sspsCountSort">↑</span>
+					    </div>
+					</div>
 					<div id="userList"></div>
 
 					<div class="text-start py-4">
@@ -71,10 +79,6 @@
 
 
 
-<<<<<<< HEAD
 <script src="/assets/js/manage/userList.js"></script>
-=======
-<!-- <script src="/assets/js/manage/userLIst.js"></script> -->
->>>>>>> 05fb38cdab01439a07de2aae007b9e93a5eec8e2
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script> -->
+
 <%@include file="../layout/footer.jsp"%>

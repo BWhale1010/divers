@@ -71,5 +71,8 @@ public class ManageDTO {
 	private int commentCount;
 	private int is_recommended;
 	private int postCount;
+	
+	private int reportCount;
+	private int sspsCount;
 
 }

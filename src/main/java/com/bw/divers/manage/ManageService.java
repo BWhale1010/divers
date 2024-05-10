@@ -15,14 +15,26 @@ public class ManageService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired ManageDAO manageDAO;
 
-	public HashMap<String, Object> listAdd(int page, String search_username) {
+	public HashMap<String, Object> listAdd(int page, String search_username, String sort, String direction) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int offset =(page-1)*10;
 		map.put("search_username", search_username);
 		
 		int totalCount = manageDAO.totalCount(map);
 		int totalPages = totalCount%5>0?(totalCount/5)+1:(totalCount/5);
+		
+		if (direction == null || direction.equals("")) {
+		    direction = "asc";
+		}
+		
 		map.put("offset", offset);
+		map.put("sort", sort);
+		map.put("direction", direction);
+		
+		logger.info("search_username : "+search_username);
+		logger.info("offset : "+offset);
+		logger.info("sort : "+sort);
+		logger.info("direction : "+direction);
 		
 		ArrayList<ManageDTO> list = manageDAO.userList(map);
 		
@@ -33,6 +45,16 @@ public class ManageService {
 		logger.info("total : "+totalPages);
 		
 		return result;
+	}
+
+	public int userRole(HashMap<String, Object> param) {
+		
+		return manageDAO.userRole(param);
+	}
+
+	public int userState(HashMap<String, Object> param) {
+		
+		return manageDAO.userState(param);
 	}
 
 }

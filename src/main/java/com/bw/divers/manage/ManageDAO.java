@@ -9,4 +9,9 @@ public interface ManageDAO {
 
 	ArrayList<ManageDTO> userList(HashMap<String, Object> map);
 
+	int userRole(HashMap<String, Object> param);
+
+	int userState(HashMap<String, Object> param);
+
+
 }

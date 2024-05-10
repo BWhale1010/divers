@@ -15,10 +15,29 @@ public class ManageApiController {
 	@Autowired ManageService manageService;
 	
 	@PostMapping("/manage/listAdd")
-	public HashMap<String, Object> listAdd(@RequestParam int page, String search_username){
+	public HashMap<String, Object> listAdd(@RequestParam int page, String search_username, String sort, String direction){
 		logger.info("유저리스트 컨트롤러");
 		
-		return manageService.listAdd(page, search_username);
+		return manageService.listAdd(page, search_username, sort, direction);
 	}
+	
+	@PostMapping("/manage/userRole")
+	public int userRole(@RequestParam HashMap<String, Object> param) {
+		int result = 0;
+		
+		result = manageService.userRole(param);
+		
+		return result;
+	}
+	
+	@PostMapping("/manage/userState")
+	public int userState(@RequestParam HashMap<String, Object> param) {
+		int result = 0;
+		
+		result = manageService.userState(param);
+		
+		return result;
+	}
+
 
 }

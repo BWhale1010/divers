@@ -13,18 +13,47 @@
 </select>
 
 <select id="userList" resultType="manage" parameterType="hashmap">
-	select u.user_num, u.username, u.email, u.nickname, u.state_num, u.role_num, u.join_date,
-		p.new_filename, (select count(*) from post p2 where p2.user_num = u.user_num) as postCount, (select count(*) from comment c where c.user_num = u.user_num) as commentCount
-	from `user` u
-	left join profile p on u.user_num = p.user_num
-	where (
-		#{search_username} = '' or
-		username like concat('%', #{search_username}, '%')
-	)
-	order by u.role_num
-	limit 10 offset #{offset}
-	
+SELECT 
+    u.user_num, 
+    u.username, 
+    u.email, 
+    u.nickname, 
+    u.state_num, 
+    u.role_num, 
+    u.join_date,
+    p.new_filename, 
+    (SELECT COUNT(*) FROM post p2 WHERE p2.user_num = u.user_num) AS postCount, 
+    (SELECT COUNT(*) FROM comment c WHERE c.user_num = u.user_num) AS commentCount,
+    (SELECT COUNT(r.user_num) FROM report r JOIN `user` u1 ON u1.user_num = r.user_num WHERE u1.user_num = u.user_num) AS reportCount,
+    (SELECT COUNT(l.sort_num) FROM log l JOIN `user` u2 ON u2.user_num = l.user_num WHERE u2.user_num = u.user_num AND l.sort_num = 2) AS sspsCount
+FROM 
+    `user` u
+LEFT JOIN 
+    profile p ON u.user_num = p.user_num
+WHERE 
+    (#{search_username} = '' OR 
+    username LIKE CONCAT('%', #{search_username}, '%') or
+    nickname like concat('%', #{search_username}, '%')
+    )
+ORDER BY 
+    CASE WHEN #{sort} = "" THEN u.role_num end asc,
+    CASE WHEN #{sort} = 'join_date'  and #{direction} = 'asc' THEN u.join_date end asc,
+    CASE WHEN #{sort} = 'join_date'  and #{direction} = 'desc' THEN u.join_date end desc,
+    CASE WHEN #{sort} = 'reportCount' and #{direction} = 'asc' THEN reportCount end asc,
+    CASE WHEN #{sort} = 'reportCount' and #{direction} = 'desc' THEN reportCount end desc,
+    CASE WHEN #{sort} = 'sspsCount' and #{direction} = 'asc' THEN sspsCount end asc,
+    CASE WHEN #{sort} = 'sspsCount' and #{direction} = 'desc' THEN sspsCount end desc
+LIMIT 10 OFFSET #{offset};
+
 </select>
+
+<update id="userRole" parameterType="hashmap">
+	update user set role_num = #{role_num} where username = #{username}
+</update>
+
+<update id="userState" parameterType="hashmap">
+	update user set state_num = #{state_num} where username = #{username}
+</update>
 
 
 
