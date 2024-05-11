@@ -1445,3 +1445,8 @@ rotate(
 	margin-right: 0px;
 }
 }
+
+.scroll{
+	max-height: 200px;
+	overflow-y: auto; 
+}

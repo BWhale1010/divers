@@ -38,6 +38,12 @@ public class ManageApiController {
 		
 		return result;
 	}
+	
+	@PostMapping("/manage/userInfo")
+	public HashMap<String, Object> userInfo(@RequestParam int user_num){
+		
+		return manageService.userInfo(user_num);
+	}
 
 
 }

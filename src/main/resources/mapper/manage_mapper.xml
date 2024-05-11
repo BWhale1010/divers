@@ -55,6 +55,27 @@ LIMIT 10 OFFSET #{offset};
 	update user set state_num = #{state_num} where username = #{username}
 </update>
 
+<select id="userInfo" parameterType="int" resultType="manage">
+	select u.username, u.nickname, u.email, u.role_num, u.state_num,
+		(SELECT COUNT(r.user_num) FROM report r JOIN `user` u1 ON u1.user_num = r.user_num WHERE u1.user_num = u.user_num) AS reportCount,
+    	(SELECT COUNT(l.sort_num) FROM log l JOIN `user` u2 ON u2.user_num = l.user_num WHERE u2.user_num = u.user_num AND l.sort_num = 2) AS sspsCount
+	from `user` u where u.user_num = #{user_num}
+</select>
+
+<select id="userPost" parameterType="int" resultType="manage">
+	select p.post_num, p.title, p.board_date, p.count, p.post_state_num from post p where p.user_num = #{user_num}
+</select>
+
+<select id="userComment" parameterType="int" resultType="manage">
+	select c.comment_num, c.comment_date, c.comment, c.comment_state_num, 
+		(select count(tc.thumb_comment_user) from thumb_comment tc where tc.comment_num = c.comment_num) as thumbCommentCount  
+	from comment c where c.user_num = #{user_num} group by c.comment_num
+</select>
+
+<select id="userReport" parameterType="int" resultType="manage">
+	select count(r.post_num) as postReportCount, count(r.comment_num) as commentReportCount from report r where r.user_num = #{user_num};
+</select>
+
 
 
 </mapper>

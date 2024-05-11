@@ -57,4 +57,20 @@ public class ManageService {
 		return manageDAO.userState(param);
 	}
 
+	public HashMap<String, Object> userInfo(int user_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ManageDTO> info = manageDAO.userInfo(user_num);
+		ArrayList<ManageDTO> post = manageDAO.userPost(user_num);
+		ArrayList<ManageDTO> comment = manageDAO.userComment(user_num);
+		ArrayList<ManageDTO> report = manageDAO.userReport(user_num);
+		
+		map.put("info", info);
+		map.put("post", post);
+		map.put("comment", comment);
+		map.put("report", report);
+		
+		return map;
+	}
+
 }

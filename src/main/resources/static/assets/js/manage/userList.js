@@ -3,6 +3,9 @@ var search_username = '';
 var sort = '';
 var direction = '';
 var page = 1;
+
+var modalUser_num = '';
+
 listAdd(page, search_username, sort, direction);
 
 function listAdd(page, search_username, sort, direction){
@@ -98,19 +101,19 @@ function listDraw(list){
         
         var report = '';
         if(item.role_num == 3){
-			report = '<div class="col-md-3" style="position: relative;"><div style="position : absolute; top:50%; left:50%; transform: translate(-50%, -50%);">'+
-        '<div><span style="margin-right: 10px;">신고 횟수 : '+item.reportCount+'번</span></div><div style="margin-top: 20px;"><span style="margin-right: 10px;">정지 횟수 : '+item.sspsCount+'번</span></div></div></div>';
+			report = '<div class="col-md-3" style="position: relative;"><a data-toggle="modal" href="#userModal" data-usernum="'+item.user_num+'"><div style="position : absolute; top:50%; left:50%; transform: translate(-50%, -50%);">'+
+        '<div><span style="margin-right: 10px;">신고 횟수 : '+item.reportCount+'번</span></div><div style="margin-top: 20px;"><span style="margin-right: 10px;">정지 횟수 : '+item.sspsCount+'번</span></div></div></a></div>';
 		}
 
         // content 변수에 문자열 추가
         content += '<div class="row" style="margin-top:15px;"><div class="col-md-3" style="display: flex; flex-direction: column; align-items: center;">'+
-        '<a href="" style="display: flex; align-items: center;"><img src="'+profileImg+'" style="width:150px; margin-bottom:15px; border-radius:50%;"></a>'+
+        '<a data-toggle="modal" href="#userModal" data-usernum="'+item.user_num+'" style="display: flex; align-items: center;"><img src="'+profileImg+'" style="width:150px; margin-bottom:15px; border-radius:50%;"></a>'+
         '<span style="margin-right: 10px;">아이디: '+item.username+'</span></div>'+
-        '<div class="col-md-3" style="position: relative;"><div style="position : absolute; top:50%; transform: translate(0, -50%);">'+
+        '<div class="col-md-3" style="position: relative;"><a data-toggle="modal" href="#userModal" data-usernum="'+item.user_num+'"><div style="position : absolute; top:50%; transform: translate(0, -50%);">'+
         '<div class="post-meta"><span class="date">회원번호 : '+item.user_num+'</span> <span class="mx-1">•</span> <span>가입일 : '+item.join_date+'</span>'+
         '</div><div><span style="margin-right: 10px;">이메일 : '+item.email+'</span></div>'+
         '<div><span style="margin-right: 10px;">닉네임 : '+item.nickname+'</span></div><div>'+
-        '<span>게시글 : '+item.postCount+'개 </span><span class="mx-1">•</span><span style="margin-right: 10px;">댓글 : '+item.commentCount+'개</span></div></div></div>'+
+        '<span>게시글 : '+item.postCount+'개 </span><span class="mx-1">•</span><span style="margin-right: 10px;">댓글 : '+item.commentCount+'개</span></div></div></a></div>'+
         '<div class="col-md-3" style="position: relative;"><div style="position : absolute; top:50%; left:50%; transform: translate(-50%, -50%);">'+
         '<div class="form-group d-flex flex-column"><label for="category">회원 등급</label><select id='+item.username+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>'+
         '<div class="form-group d-flex flex-column" style="margin-top: 10px;"><label for="category">회원 상태</label><select id='+item.username+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div></div></div>'+
@@ -201,9 +204,98 @@ function sortUsers(sortBy) {
 	listAdd(page, search_username, sortBy, sortDirections[sortBy]);
 }
 
-$("#search-btn").on("click", function(){
-	search_username = $("#search-word").val();
-	console.log("username : "+search_username);
-	
-	listAdd(page, search_username, sort, direction);
-})
+$('#userModal').on('show.bs.modal', function (event) {
+    var userNum = $(event.relatedTarget).data('usernum');
+    modalInfo(userNum);
+});
+
+function modalInfo(userNum) {
+    $.ajax({
+		type : 'post',
+		url : '/manage/userInfo',
+		data : {'user_num': userNum},
+		dataType : 'json',
+		success : function(data){
+			
+			modalDraw(data.info, data.post, data.comment, data.report);
+		},
+		error : function(e){
+			console.log(e);
+		}
+		
+	})
+}
+
+function modalDraw(info, post, comment, report) {
+    console.log(report);
+    var content = "";
+    var content1 = "";
+    
+
+    var roleOptions = '';
+    if (info[0].role_num == 1) {
+        roleOptions = '<option value="1" selected disabled>최고 관리자</option><option value="2" disabled>관리자</option><option value="3" disabled>회원</option>';
+    } else if (info[0].role_num == 2) {
+        roleOptions = '<option value="1" disabled>최고 관리자</option><option value="2" selected>관리자</option><option value="3">회원</option>';
+    } else if (info[0].role_num == 3) {
+        roleOptions = '<option value="1" disabled>최고 관리자</option><option value="2" selected>관리자</option><option value="3" selected>회원</option>';
+    }
+
+    var stateOptions = '';
+    if (info[0].state_num == 3) {
+        switch (info[0].state_num) {
+            case 1:
+                stateOptions = '<option value="1" selected>정상</option><option value="2">정지</option><option value="3" disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
+                break;
+            case 2:
+                stateOptions = '<option value="1">정상</option><option value="2" selected>정지</option><option value="3" disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
+                break;
+            case 3:
+            case 4:
+                stateOptions = '<option value="1" disabled>정상</option><option value="2" disabled>정지</option><option value="3" selected disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
+                break;
+        }
+    } else {
+        switch (info[0].state_num) {
+            case 1:
+                stateOptions = '<option value="1" selected disabled>정상</option><option value="2" disabled>정지</option><option value="3" disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
+                break;
+            case 2:
+                stateOptions = '<option value="1" disabled>정상</option><option value="2" selected disabled>정지</option><option value="3" disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
+                break;
+            case 3:
+            case 4:
+                stateOptions = '<option value="1" disabled>정상</option><option value="2" disabled>정지</option><option value="3" selected disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
+                break;
+        }
+    }
+
+    content += '<div class="col-md-6" style="position: relative;"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:100%;">' +
+        '<div><span>아이디 : ' + info[0].username + '</span></div><div><span>닉네임 : ' + info[0].nickname + '</span></div><div><span>이메일 : ' + info[0].email + '</span></div>' +
+        '<div><span>정지 횟수 : ' + info[0].reportCount + '</span></div><div><span>신고 횟수 : ' + info[0].sspsCount + '</span></div></div></div>' +
+        '<div class="col-md-6" style="position: relative"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;"><div class="d-flex flex-column" style="width: 50%"><label>회원 등급</label>' +
+        '<select>' + roleOptions + '</select></div>' +
+        '<div class="d-flex flex-column" style="margin-top: 10px; width: 50%;"><label>회원 상태</label><select>' + stateOptions + '</select></div>' +
+        '<div style="margin-top: 10px;" class="d-flex flex-column"><span>게시판 리스트 | 회원 로그</span></div></div></div>';
+        
+        
+       content1 += '<div class="col-md-6 text-left"><h4>게시글 리스트</h4><div class="scroll">';
+
+    post.forEach(function(item) {
+        content1 += '<div>' + item.title + item.count + item.board_date + '</div>' ;
+    });
+    
+    content1 += '</div><div><span>신고횟수 : ' +  report[0].postReportCount + '번</span></div></div>'+
+    '<div class="col-md-6 text-right"><h4>댓글 리스트</h4><div class="scroll">';
+
+    comment.forEach(function(item) {
+        content1 += '<div>' + item.title + item.thumbCommentCount + item.comment_date + '</div>';
+        
+    });
+    
+    content1 += '</div><div><span>신고횟수 : ' + report[0].commentReportCount + '</span></div></div>';
+
+    $("#information").empty().append(content);
+    $("#boardList").empty().append(content1);
+} 
+

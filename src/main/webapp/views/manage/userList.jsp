@@ -80,5 +80,5 @@
 
 
 <script src="/assets/js/manage/userList.js"></script>
-
+<%@ include file="./userModal.jsp" %>
 <%@include file="../layout/footer.jsp"%>

@@ -13,5 +13,13 @@ public interface ManageDAO {
 
 	int userState(HashMap<String, Object> param);
 
+	ArrayList<ManageDTO> userInfo(int user_num);
+
+	ArrayList<ManageDTO> userPost(int user_num);
+
+	ArrayList<ManageDTO> userComment(int user_num);
+
+	ArrayList<ManageDTO> userReport(int user_num);
+
 
 }

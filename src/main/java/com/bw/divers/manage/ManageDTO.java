@@ -74,5 +74,11 @@ public class ManageDTO {
 	
 	private int reportCount;
 	private int sspsCount;
+	
+	private int thumbPostCount;
+	private int thumbCommentCount;
+	
+	private int postReportCount;
+	private int commentReportCount;
 
 }
