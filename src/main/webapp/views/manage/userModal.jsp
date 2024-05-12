@@ -17,17 +17,12 @@
       <div class="modal-body">   	
 		<div class="row justify-content-center" >
 			<div class="col-md-4 text-center">
-				<div class="profile-picture mx-auto">
-					<c:if test="${user.new_filename == null }">
-						<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">
-					</c:if>
-					<c:if test="${user.new_filename != null }">
-						<img src="/photo/${user.new_filename }" style="display: block;">
-					</c:if>	
-				</div>
+				<div class="profile-picture mx-auto" id="profile"></div>
 			</div>
+			
 			<div id="information"  class="row col-md-8" style="position: relative;"></div>
 			<div id="boardList" class="row col-md-12 justify-content-center" style="margin-top: 25px;"></div>
+
 		</div>
       </div>
       
@@ -37,7 +32,6 @@
       	</div>
       	<div class="col text-end">
       		<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-        	<button type="submit" class="btn btn-primary">저장</button>
       	</div>
       </div>
       </form>

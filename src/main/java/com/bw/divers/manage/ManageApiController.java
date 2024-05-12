@@ -44,6 +44,18 @@ public class ManageApiController {
 		
 		return manageService.userInfo(user_num);
 	}
+	
+	@PostMapping("/manage/userLog")
+	public HashMap<String, Object> userLog(@RequestParam int user_num){
+		
+		return manageService.userLog(user_num);
+	}
+	
+	@PostMapping("/manage/userBoard")
+	public HashMap<String, Object> userBoard(@RequestParam int user_num){
+		
+		return manageService.userBoard(user_num);
+	}
 
 
 }

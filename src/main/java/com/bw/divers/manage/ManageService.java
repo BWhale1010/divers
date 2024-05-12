@@ -27,6 +27,10 @@ public class ManageService {
 		    direction = "asc";
 		}
 		
+		if(sort == null) {
+			sort = "";
+		}
+		
 		map.put("offset", offset);
 		map.put("sort", sort);
 		map.put("direction", direction);
@@ -69,6 +73,28 @@ public class ManageService {
 		map.put("post", post);
 		map.put("comment", comment);
 		map.put("report", report);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> userLog(int user_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ManageDTO> log = manageDAO.userLog(user_num);
+		
+		map.put("log", log);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> userBoard(int user_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ManageDTO> post = manageDAO.userPost(user_num);
+		ArrayList<ManageDTO> comment = manageDAO.userComment(user_num);
+		
+		map.put("post", post);
+		map.put("comment", comment);
 		
 		return map;
 	}

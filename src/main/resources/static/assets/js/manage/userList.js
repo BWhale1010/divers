@@ -1,19 +1,27 @@
 var total = 5;
-var search_username = '';
-var sort = '';
-var direction = '';
+var search_username = "";
+var sort = "";
+var direction = "";
 var page = 1;
 
 var modalUser_num = '';
 
 listAdd(page, search_username, sort, direction);
 
+$("#search-btn").on("click", function(){
+    var username = $("#search-word").val();
+    search_username = username;
+    console.log("검색 search_word : "+username);
+    
+     listAdd(1, search_username, sort, direction);
+    
+});
+
 function listAdd(page, search_username, sort, direction){
 	console.log("page : "+page);
 	console.log("search_username : "+search_username);
 	console.log("sort : "+sort);
 	console.log("direction : "+direction);
-
 	$.ajax({
 		type : 'post',
 		url : '/manage/listAdd',
@@ -206,6 +214,7 @@ function sortUsers(sortBy) {
 
 $('#userModal').on('show.bs.modal', function (event) {
     var userNum = $(event.relatedTarget).data('usernum');
+    modalUser_num = userNum;
     modalInfo(userNum);
 });
 
@@ -227,9 +236,20 @@ function modalInfo(userNum) {
 }
 
 function modalDraw(info, post, comment, report) {
-    console.log(report);
+    console.log(info[0]);
     var content = "";
     var content1 = "";
+
+    
+    var profile = '';
+    
+    if(info[0].new_filename == null){
+		profile = '<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">';
+	}else if(info[0].new_filename != null){
+		profile = '<img src="/photo/'+info[0].new_filename+'" style="display: block;">';
+	}
+	
+	$("#profile").empty().append(profile);
     
 
     var roleOptions = '';
@@ -242,7 +262,7 @@ function modalDraw(info, post, comment, report) {
     }
 
     var stateOptions = '';
-    if (info[0].state_num == 3) {
+    if (info[0].role_num == 3) {
         switch (info[0].state_num) {
             case 1:
                 stateOptions = '<option value="1" selected>정상</option><option value="2">정지</option><option value="3" disabled>탈퇴 대기</option><option value="4" disabled>탈퇴</option>';
@@ -274,28 +294,86 @@ function modalDraw(info, post, comment, report) {
         '<div><span>아이디 : ' + info[0].username + '</span></div><div><span>닉네임 : ' + info[0].nickname + '</span></div><div><span>이메일 : ' + info[0].email + '</span></div>' +
         '<div><span>정지 횟수 : ' + info[0].reportCount + '</span></div><div><span>신고 횟수 : ' + info[0].sspsCount + '</span></div></div></div>' +
         '<div class="col-md-6" style="position: relative"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;"><div class="d-flex flex-column" style="width: 50%"><label>회원 등급</label>' +
-        '<select>' + roleOptions + '</select></div>' +
-        '<div class="d-flex flex-column" style="margin-top: 10px; width: 50%;"><label>회원 상태</label><select>' + stateOptions + '</select></div>' +
-        '<div style="margin-top: 10px;" class="d-flex flex-column"><span>게시판 리스트 | 회원 로그</span></div></div></div>';
+        '<select id='+info[0].username+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>' +
+        '<div class="d-flex flex-column" style="margin-top: 10px; width: 50%;"><label>회원 상태</label><select id='+info[0].username+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div>' +
+        '<div style="margin-top: 10px;" class="d-flex flex-column"><span><a id="toggleBoard" onclick="toggle(\'board\');" style="color:blue;">게시판 리스트</a> | <a id="toggleLog" onclick="toggle(\'log\');">회원 로그</a></span></div></div></div>';
         
         
-       content1 += '<div class="col-md-6 text-left"><h4>게시글 리스트</h4><div class="scroll">';
+       content1 += '<div class="col-md-6 text-left"><h4>게시글 리스트</h4><div class="scroll" style="margin-bottom:20px;">';
 
     post.forEach(function(item) {
-        content1 += '<div>' + item.title + item.count + item.board_date + '</div>' ;
+        content1 += '<div><a href="/board/detail/'+item.post_num+'">' + item.title +' | '+ item.count +' | '+ item.board_date + '</a></div>' ;
     });
     
-    content1 += '</div><div><span>신고횟수 : ' +  report[0].postReportCount + '번</span></div></div>'+
-    '<div class="col-md-6 text-right"><h4>댓글 리스트</h4><div class="scroll">';
+    content1 += '</div><div style="margin-top:20px; position:absolute; bottom: 0px;"><span>신고횟수 : ' +  report[0].postReportCount + '번</span></div></div>'+
+    '<div class="col-md-6 text-right"><h4>댓글 리스트</h4><div class="scroll"  style="margin-bottom:10px;">';
 
     comment.forEach(function(item) {
-        content1 += '<div>' + item.title + item.thumbCommentCount + item.comment_date + '</div>';
+        content1 += '<div><a href="/board/detail/'+item.post_num+'">' + item.comment +' | '+ item.thumbCommentCount +' | '+ item.comment_date + '</a></div>';
         
     });
     
-    content1 += '</div><div><span>신고횟수 : ' + report[0].commentReportCount + '</span></div></div>';
+    content1 += '</div><div style="margin-top:20px; position:absolute; bottom: 0px;"><span>신고횟수 : ' + report[0].commentReportCount + '</span></div></div>';
 
     $("#information").empty().append(content);
     $("#boardList").empty().append(content1);
 } 
 
+function toggle(sort){
+	var toggleBoard = document.getElementById('toggleBoard');
+    var toggleLog = document.getElementById('toggleLog');
+	
+	if(sort == 'board'){
+		toggleBoard.classList.add('active');
+		toggleLog.classList.remove('active');
+		$("#toggleBoard").css("color", "blue");
+		$("#toggleLog").css("color", "");
+		
+		$.ajax({
+			type : 'post',
+			url : '/manage/userBoard',
+			data : {'user_num':modalUser_num},
+			dataType : 'json',
+			success : function(data){
+				userBoard(data.post, data, comment);
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})		
+		
+	}else{
+		toggleBoard.classList.remove('active');
+		toggleLog.classList.add('active');
+		$("#toggleBoard").css("color", "");
+		$("#toggleLog").css("color", "blue");
+		
+		$.ajax({
+			type : 'post',
+			url : '/manage/userLog',
+			data : {'user_num':modalUser_num},
+			dataType : 'json',
+			success : function(data){
+				userLog(data.log);
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})		
+	}
+}
+
+function userLog(log){
+	var content = '';
+	content += '<div class="col-md-6 text-center"><h4>로그 리스트</h4><div class="scroll" style="margin-bottom:20px;">';
+	
+	log.forEach(function(item){
+		content+= '<div>'+item.log_num+' | '+item.sort_name+' | '+item.alter_name+' | '+item.alter_date+'</div>';
+	})
+	
+	content += '</div></div>';
+	
+	$("#boardList").empty().append(content);
+}

@@ -14,7 +14,6 @@
 						<h3 class="category-title">유저 관리</h3>
 						
 					    <div>
-					    	<span onclick="listAdd(1, '','','')">기본 순</span> |
 					        <span onclick="sortUsers('join_date')">가입 순</span> <span id="join_dateSort">↑</span> |
 					        <span onclick="sortUsers('reportCount')">신고 순</span> <span id="reportCountSort">↑</span> |
 					        <span onclick="sortUsers('sspsCount')">정지 순</span> <span id="sspsCountSort">↑</span>
@@ -62,7 +61,7 @@
 
 					<div class="aside-block">
 						<h3 class="aside-title">검색</h3>
-						<input id="search-word" type="text" placeholder="Search" class="form-control">
+						<input id="search-word" type="text" placeholder="아이디나 닉네임으로 검색" class="form-control">
 						<button id="search-btn" class="btn btn-dark" type="button" style="margin-top: 10px;">검색</button>
 
 					</div>

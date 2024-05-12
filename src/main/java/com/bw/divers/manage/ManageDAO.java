@@ -21,5 +21,8 @@ public interface ManageDAO {
 
 	ArrayList<ManageDTO> userReport(int user_num);
 
+	ArrayList<ManageDTO> userLog(int user_num);
+
+
 
 }

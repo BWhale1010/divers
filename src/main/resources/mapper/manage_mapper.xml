@@ -58,8 +58,10 @@ LIMIT 10 OFFSET #{offset};
 <select id="userInfo" parameterType="int" resultType="manage">
 	select u.username, u.nickname, u.email, u.role_num, u.state_num,
 		(SELECT COUNT(r.user_num) FROM report r JOIN `user` u1 ON u1.user_num = r.user_num WHERE u1.user_num = u.user_num) AS reportCount,
-    	(SELECT COUNT(l.sort_num) FROM log l JOIN `user` u2 ON u2.user_num = l.user_num WHERE u2.user_num = u.user_num AND l.sort_num = 2) AS sspsCount
-	from `user` u where u.user_num = #{user_num}
+    	(SELECT COUNT(l.sort_num) FROM log l JOIN `user` u2 ON u2.user_num = l.user_num WHERE u2.user_num = u.user_num AND l.sort_num = 2) AS sspsCount,
+    	(select new_filename from profile p where p.user_num = u.user_num ) as new_filename
+	from `user` u 
+	where u.user_num = #{user_name}
 </select>
 
 <select id="userPost" parameterType="int" resultType="manage">
@@ -67,7 +69,7 @@ LIMIT 10 OFFSET #{offset};
 </select>
 
 <select id="userComment" parameterType="int" resultType="manage">
-	select c.comment_num, c.comment_date, c.comment, c.comment_state_num, 
+	select c.comment_num, c.comment_date, c.comment, c.comment_state_num, c.post_num,
 		(select count(tc.thumb_comment_user) from thumb_comment tc where tc.comment_num = c.comment_num) as thumbCommentCount  
 	from comment c where c.user_num = #{user_num} group by c.comment_num
 </select>
@@ -76,6 +78,11 @@ LIMIT 10 OFFSET #{offset};
 	select count(r.post_num) as postReportCount, count(r.comment_num) as commentReportCount from report r where r.user_num = #{user_num};
 </select>
 
-
+<select id="userLog" parameterType="int" resultType="manage">
+	select * from log l
+	join log_factor lf on lf.alter_num = l.alter_num
+	join log_sort ls on ls.sort_num = l.sort_num
+	where l.user_num = #{user_num}
+</select>
 
 </mapper>
