@@ -99,4 +99,77 @@ public class ManageService {
 		return map;
 	}
 
+	public HashMap<String, Object> boardList(int page, String search_word, String sort, String direction, String state) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		
+		int offset = (page-1)*5;
+		param.put("page", page);
+		param.put("search_word", search_word);
+		param.put("sort", sort);
+		param.put("direction", direction);
+		param.put("state", state);
+		
+		int totalCount = manageDAO.boardTotalCount(param);
+		
+		int totalPages = totalCount%5>0?(totalCount/5)+1:(totalCount/5);
+		
+		if (direction == null || direction.equals("")) {
+		    direction = "asc";
+		}
+		
+		if(sort == null) {
+			sort = "";
+		}
+		
+		param.put("offset", offset);
+		
+		ArrayList<ManageDTO> list = manageDAO.boardList(param);
+		
+		result.put("total", totalPages);
+		result.put("list", list);
+		
+		return result;
+	}
+
+	public HashMap<String, Object> commentList(int page, String search_word, String sort, String direction, String state) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		
+		int offset = (page-1)*10;
+		param.put("page", page);
+		param.put("search_word", search_word);
+		param.put("sort", sort);
+		param.put("direction", direction);
+		param.put("state", state);
+		
+		int totalCount = manageDAO.commentTotalCount(param);
+		
+		int totalPages = totalCount%10>0?(totalCount/10)+1:(totalCount/10);
+		
+		if (direction == null || direction.equals("")) {
+		    direction = "asc";
+		}
+		
+		if(sort == null) {
+			sort = "";
+		}
+		
+		param.put("offset", offset);
+		
+		ArrayList<ManageDTO> list = manageDAO.commentList(param);
+		logger.info("totalPages : "+totalPages);
+		result.put("total", totalPages);
+		result.put("list", list);
+		
+		return result;
+	}
+
+	public HashMap<String, Object> reportInfo(int post_num) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result = manageDAO.reportInfo(post_num);
+		
+		return result;
+	}
+
 }

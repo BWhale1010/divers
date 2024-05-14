@@ -56,7 +56,8 @@
 	    sc.small_class_name, 
 	    (SELECT COUNT(DISTINCT tp1.thumb_post_user_num) FROM thumb_post tp1 WHERE tp1.post_num = p.post_num) AS recommend,
 	    COUNT(c.comment) AS commentCount, 
-	    CASE WHEN tp.thumb_post_user_num IS NOT NULL THEN 1 ELSE 0 END AS is_recommended
+	    CASE WHEN tp.thumb_post_user_num IS NOT NULL THEN 1 ELSE 0 END AS is_recommended,
+	    r.report_detail
 	FROM 
 	    post p 
 	JOIN 
@@ -67,10 +68,12 @@
 	    comment c ON p.post_num = c.post_num AND c.comment_state_num = 1
 	LEFT JOIN 
 	    thumb_post tp ON p.post_num = tp.post_num AND tp.thumb_post_user_num = #{user_num}
+	LEFT JOIN
+		report r on r.post_num = p.post_num  
 	WHERE 
 	    p.post_num = #{postNum}
 	GROUP BY 
-	    p.post_num;
+	    p.post_num, r.report_detail;
 </select>
 
 <select id="thumbnail" resultType="String" parameterType="int">
@@ -100,7 +103,8 @@
 	    c.post_num, 
 	    c.comment_date, 
 	    c.comment,
-	    u.nickname, 
+	    u.nickname,
+	    u.role_num,
 	    ANY_VALUE(p.new_filename) AS new_filename, 
 	    (select count(distinct tc1.thumb_comment_user)from thumb_comment tc1 where tc1.comment_num = c.comment_num) AS recommend,
 	    CASE WHEN tc.thumb_comment_user IS NOT NULL THEN 1 ELSE 0 END AS is_recommended,

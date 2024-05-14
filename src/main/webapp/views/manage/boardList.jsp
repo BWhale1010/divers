@@ -9,19 +9,31 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-md-9" data-aos="fade-up">		
-					<h3 class="category-title">유저 관리</h3>
-
-
-
-					<div id="userList"></div>
+				<div class="col-md-9" data-aos="fade-up">
+					<div class="row">
+						<h3 class="category-title"><a id="toggleBoard" onclick="toggle('board')" style="color : blue;">게시글 관리</a> | <a id="toggleComment" onclick="toggle('comment')">댓글 관리</a></h3>
+						
+					    <div class="col-md-6">
+					        <span onclick="sortBoard('board_date')" style="cursor:pointer;">작성 순</span> <span id="board_dateSort">↑</span> |
+					        <span onclick="sortBoard('thumbCount')" style="cursor:pointer;">추천 순</span> <span id="thumbCountSort">↑</span> |
+					        <span onclick="sortBoard('reportCount')" style="cursor:pointer;">신고 순</span> <span id="reportCountSort">↑</span>
+					    </div>
+					    
+					   <div class="col-md-6 text-end" style="padding-right:30px;">
+					        <select id="state" class="select-custom">
+					        	<option value="all">전체</option>
+					        	<option value="normal">정상</option>
+					        	<option value="blind">블라인드</option>
+					        	<option value="delete">삭제</option>
+					        </select>
+					    </div>
+					</div>
+					<div id="boardList" style="margin-top:20px;"></div>
 
 					<div class="text-start py-4">
-							
+
 						<ul class="pagination" id="pagination"></ul>
 
-
-	
 					</div>
 
 
@@ -58,16 +70,16 @@
 
 					<div class="aside-block">
 						<h3 class="aside-title">검색</h3>
-							<input id="search-word" type="text" placeholder="Search" class="form-control">
-							<button id="search-btn" class="btn btn-dark" type="button" style="margin-top: 10px;">검색</button>
+						<input id="search-word" type="text" placeholder="제목이나 내용으로 검색" class="form-control">
+						<button id="search-btn" class="btn btn-dark" type="button" style="margin-top: 10px;">검색</button>
 
 					</div>
 					<!-- End Tags -->
 
 				</div>
-
+</div>
 			</div>
-		</div>
+
 	</section>
 </main>
 <!-- End #main -->
@@ -75,6 +87,5 @@
 
 
 
-<script src="/assets/js/list.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script> -->
+<script src="/assets/js/manage/boardList.js"></script>
 <%@include file="../layout/footer.jsp"%>

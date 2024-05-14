@@ -23,6 +23,16 @@ public interface ManageDAO {
 
 	ArrayList<ManageDTO> userLog(int user_num);
 
+	ArrayList<ManageDTO> boardList(HashMap<String, Object> param);
+
+	int boardTotalCount(HashMap<String, Object> param);
+
+	int commentTotalCount(HashMap<String, Object> param);
+
+	ArrayList<ManageDTO> commentList(HashMap<String, Object> param);
+
+	HashMap<String, Object> reportInfo(int post_num);
+
 
 
 }

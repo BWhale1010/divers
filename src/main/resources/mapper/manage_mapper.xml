@@ -85,4 +85,140 @@ LIMIT 10 OFFSET #{offset};
 	where l.user_num = #{user_num}
 </select>
 
+<select id="boardTotalCount" resultType="int" parameterType="hashmap">
+	SELECT COUNT(*)
+	FROM post p
+	WHERE
+	    (
+	        #{search_word} = '' OR
+	        p.title LIKE CONCAT('%', #{search_word}, '%') OR
+	        p.content LIKE CONCAT('%', #{search_word}, '%')
+	    )
+	    AND
+	    (
+	        #{state} = 'all'
+	        OR (#{state} = 'normal' AND p.post_state_num = 1)
+	        OR (#{state} = 'blind' AND p.post_state_num = 2)
+	        OR (#{state} = 'delete' AND p.post_state_num = 3)
+	    )
+</select>
+
+<select id="boardList" parameterType="hashmap" resultType="manage">
+SELECT 
+    p.post_num, 
+    p.board_date, 
+    p.title, 
+    p.content, 
+    p.count, 
+    p.post_state_num, 
+    p.user_num,
+    u.nickname, 
+    sc.small_class_name, 
+    COUNT(tp.thumb_post_user_num) AS recommend,
+    (SELECT new_filename FROM profile p2 WHERE p.user_num = p2.user_num) AS new_filename,
+    (SELECT COUNT(r.report_num) FROM report r WHERE r.post_num = p.post_num) AS reportCount
+FROM 
+    post p
+JOIN 
+    `user` u ON p.user_num = u.user_num
+JOIN 
+    small_category sc ON p.small_category_num = sc.small_category_num
+LEFT JOIN 
+    thumb_post tp ON p.post_num = tp.post_num
+WHERE 
+    (
+        #{search_word} = '' OR
+        p.title LIKE CONCAT('%', #{search_word}, '%') OR
+        p.content LIKE CONCAT('%', #{search_word}, '%')
+    )
+GROUP BY 
+    p.post_num
+HAVING
+    (
+        #{state} = 'all'
+        OR (#{state} = 'normal' AND p.post_state_num = 1)
+        OR (#{state} = 'blind' AND p.post_state_num = 2)
+        OR (#{state} = 'delete' AND p.post_state_num = 3)
+    )
+ORDER BY
+    CASE WHEN #{sort} = "" THEN p.board_date END DESC,
+    CASE WHEN #{sort} = 'board_date'  AND #{direction} = 'asc' THEN p.board_date END ASC,
+    CASE WHEN #{sort} = 'board_date'  AND #{direction} = 'desc' THEN p.board_date END DESC,
+    CASE WHEN #{sort} = 'thumbCount' AND #{direction} = 'asc' THEN COUNT(tp.thumb_post_user_num) END ASC,
+    CASE WHEN #{sort} = 'thumbCount' AND #{direction} = 'desc' THEN COUNT(tp.thumb_post_user_num) END DESC,
+    CASE WHEN #{sort} = 'reportCount' AND #{direction} = 'asc' THEN reportCount END ASC,
+    CASE WHEN #{sort} = 'reportCount' AND #{direction} = 'desc' THEN reportCount END DESC
+LIMIT 
+    5 OFFSET #{offset};
+</select>
+
+<select id="commentTotalCount" parameterType="hashmap" resultType="int">
+ 	select count(*) from comment c 
+	where(
+		#{search_word} = '' OR
+        c.comment LIKE CONCAT('%', #{search_word}, '%')
+	    )
+	and	(
+		#{state} = 'all'
+        OR (#{state} = 'normal' AND c.comment_state_num  = 1)
+        OR (#{state} = 'blind' AND c.comment_state_num  = 2)
+        OR (#{state} = 'delete' and c.comment_state_num  = 3)
+	)
+</select>
+
+<select id="commentList" parameterType="hashmap" resultType="manage">
+	SELECT 
+	    c.comment_num, 
+	    c.user_num, 
+	    c.post_num, 
+	    c.comment_date, 
+	    c.comment,
+	    u.nickname,
+	    c.comment_state_num,
+	    sc.small_class_name,
+	    p.new_filename,
+	    (SELECT COUNT(DISTINCT tc1.thumb_comment_user) FROM thumb_comment tc1 WHERE tc1.comment_num = c.comment_num) AS recommend,
+	    (SELECT COUNT(r.comment_num) FROM report r WHERE r.comment_num = c.comment_num) AS reportCount
+	FROM comment c
+	JOIN `user` u ON c.user_num = u.user_num
+	JOIN post p3 ON p3.post_num = c.post_num
+	JOIN small_category sc ON p3.small_category_num = sc.small_category_num 
+	LEFT JOIN profile p ON u.user_num = p.user_num
+	WHERE (
+	    #{search_word} = '' OR
+	    c.comment LIKE CONCAT('%', #{search_word}, '%')
+	)
+	GROUP BY c.comment_num, u.nickname, sc.small_class_name, p.new_filename
+	HAVING
+    (
+        #{state} = 'all'
+        OR (#{state} = 'normal' AND c.comment_state_num = 1)
+        OR (#{state} = 'blind' AND c.comment_state_num = 2)
+        OR (#{state} = 'delete' AND c.comment_state_num = 3)
+    )
+	ORDER BY
+	    CASE WHEN #{sort} = "" THEN c.comment_date END DESC,
+	    CASE WHEN #{sort} = 'board_date'  AND #{direction} = 'asc' THEN c.comment_date END ASC,
+	    CASE WHEN #{sort} = 'board_date'  AND #{direction} = 'desc' THEN c.comment_date END DESC,
+	    CASE WHEN #{sort} = 'thumbCount' AND #{direction} = 'asc' THEN recommend END ASC,
+	    CASE WHEN #{sort} = 'thumbCount' AND #{direction} = 'desc' THEN recommend END DESC,
+	    CASE WHEN #{sort} = 'reportCount' AND #{direction} = 'asc' THEN reportCount END ASC,
+	    CASE WHEN #{sort} = 'reportCount' AND #{direction} = 'desc' THEN reportCount END DESC
+	LIMIT 10 OFFSET #{offset}
+</select>
+
+<select id="reportInfo"  parameterType="int" resultType="hashmap">
+	select p.post_num, p.user_num, p.board_date, p.title, p.content, p.count, p.post_state_num,
+		r.report_num, r.sort_num, r.report_detail, r.user_num,
+		sc.small_class_name, ps.post_state_name, u.nickname,
+		(select count(*) from thumb_post tp where tp.post_num = #{post_num}) as recommend,
+		(select count(*) from report r2 where r2.post_num = #{post_num}) as reportCount
+	from post p
+	join small_category sc on sc.small_category_num = p.small_category_num
+	join user u on u.user_num = p.user_num
+	join post_state ps on ps.post_state_num = p.post_state_num
+	left join report r on r.post_num = p.post_num
+	where p.post_num = #{post_num};
+</select>
+
 </mapper>

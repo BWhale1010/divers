@@ -53,8 +53,14 @@ function commentDraw(list){
             + '<a id="'+item.comment_num+'" onclick="commentDelete(this.id, '+item.user_num+')">삭제하기</a></div>'
             + '</div></div></div></div></div>';
     } else {
-        	content +=
+		if(item.role_num == 3){
+			content +=
             '<a href="#" onclick="#">신고하기</a></div></div></div></div>';
+		}else{
+			content +=
+            '<a href="#" onclick="#">블라인드</a></div></div></div></div>';
+		}
+        	
     }
 	})
 	
@@ -250,6 +256,23 @@ function commentRecommend(comment_num){
 			}
 		})
 	}
+}
 
+function postBlind(post_num){
+	var check = confirm("이 게시글을 블라인드 처리하시겠습니까?");
+	if(check){
+		$.ajax({
+			type : 'post',
+			url : '/manage/postBlind',
+			data : {'post_num':post_num},
+			dataType : 'json',
+			success : function(data){
+				location.href = "/board/detail"+post_num;
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+	}
 	
 }

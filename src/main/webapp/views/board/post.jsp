@@ -43,13 +43,35 @@
               <div class="post-meta">
 	              <span class="date">${post.small_class_name }</span> <span class="mx-1">•</span> <span>${post.board_date }</span>
 	              | <span class="date">${post.nickname }</span> <span class="mx-1">•</span> <span>조회수 ${post.count }</span>
+	              <c:if test="${sessionScope.role_num == 1 || sessionScope.role_num == 2}">
+	              	<c:if test="${post.post_state_num == 1}">
+	              		| <span>글 상태 : 정상</span>
+	              	</c:if>
+	              	<c:if test="${post.post_state_num == 2}">
+	              		| <span>글 상태 : 블라인드</span>
+	              	</c:if>
+	              	<c:if test="${post.post_state_num == 3}">
+	              		| <span>글 상태 : 삭제</span>
+	              	</c:if>
+	              	
+	              </c:if>
+	              
               </div>
               
               <h1 class="mb-5">${post.title }</h1> <!-- 제목  -->
               <p>${post.content }</p>
+             
             </div>
             
-            <br><br><hr>
+            <br>
+            <c:if test="${sessionScope.role_num ==1 || sessionScope.role_num == 2}">
+	           <c:if test="${post.report_detail != null }">
+	            	<div class="common-btn">
+	            		<button data-toggle="modal" data-target="#reportModal" data-post_num="${post.post_num}">신고내용</button>
+	            	</div>		
+            	</c:if>
+            </c:if>
+            <br><hr>
             
 
   
@@ -96,7 +118,13 @@
 								</div>
 		                	</c:when>
 		                	<c:otherwise>
-		                		<a href="#">신고하기</a>    
+		                		<c:if test= "${sessionScope.role_num == 3 }">
+		                			<a href="#">신고하기</a>
+		                		</c:if>
+		                		<c:if test="${sessionScope.role_num == 1 || sessionScope.role_num == 2}">
+		                			<a onclick = "postBlind(${post.post_num});">블라인드</a>
+		                		</c:if>
+		                		    
 		                	</c:otherwise>		                
 		                </c:choose>		                
 		                   
@@ -169,4 +197,5 @@
   </main><!-- End #main -->
 
 <script src="/assets/js/post.js"></script>
+<%@ include file="../manage/reportModal.jsp" %>
   <%@include file="../layout/footer.jsp" %>

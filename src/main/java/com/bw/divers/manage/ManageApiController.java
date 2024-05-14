@@ -56,6 +56,25 @@ public class ManageApiController {
 		
 		return manageService.userBoard(user_num);
 	}
+	
+	@PostMapping("/manage/boardList")
+	public HashMap<String, Object> boardList
+	(@RequestParam int page, String search_word, String sort, String direction, String state){
+		
+		return manageService.boardList(page, search_word, sort, direction, state);
+	}
+	
+	@PostMapping("/manage/commentList")
+	public HashMap<String, Object> commentList(@RequestParam int page, String search_word, String sort, String direction, String state){
+		
+		return manageService.commentList(page, search_word, sort, direction, state);
+	}
+	
+	@PostMapping("/manage/reportInfo")
+	public HashMap<String, Object> reportInfo(@RequestParam int post_num){
+		
+		return manageService.reportInfo(post_num);
+	}
 
 
 }

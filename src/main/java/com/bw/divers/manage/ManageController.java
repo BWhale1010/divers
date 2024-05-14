@@ -17,5 +17,12 @@ public class ManageController {
 		
 		return "/manage/userList";		
 	}
+	
+	@GetMapping("/manage/boardList")
+	public String boardList() {
+		logger.info("게시판 관리 컨트롤러 ");
+		
+		return "/manage/boardList";		
+	}
 
 }

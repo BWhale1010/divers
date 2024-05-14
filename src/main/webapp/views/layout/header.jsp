@@ -113,7 +113,7 @@
 		
 							<li><a href="/manage/userList">회원 관리</a></li>
 
-							<li><a href="/manage/board">게시판 관리</a></li>
+							<li><a href="/manage/boardList">신고 관리</a></li>
 						</ul></li>	
 					</c:if>
 
