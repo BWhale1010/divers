@@ -172,4 +172,29 @@ public class ManageService {
 		return result;
 	}
 
+	public int postBlind(int post_num) {
+		
+		return manageDAO.postBlind(post_num);
+	}
+
+	public int commentBlind(int comment_num) {
+		return manageDAO.commentBlind(comment_num);
+	}
+
+	public int commentClear(int comment_num) {
+		return manageDAO.commentClear(comment_num);
+	}
+
+	public int postClear(int post_num) {
+		return manageDAO.postClear(post_num);
+	}
+
+	public int reportWrite(HashMap<String, Object> param) {
+		return manageDAO.reportWrite(param);
+	}
+
+	public int reportPostCheck(int post_num) {
+		return manageDAO.reportPostCheck(post_num);
+	}
+
 }

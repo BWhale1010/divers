@@ -33,6 +33,18 @@ public interface ManageDAO {
 
 	HashMap<String, Object> reportInfo(int post_num);
 
+	int postBlind(int post_num);
+
+	int commentBlind(int comment_num);
+
+	int commentClear(int comment_num);
+
+	int postClear(int post_num);
+
+	int reportWrite(HashMap<String, Object> param);
+
+	int reportPostCheck(int post_num);
+
 
 
 }

@@ -221,4 +221,29 @@ LIMIT
 	where p.post_num = #{post_num};
 </select>
 
+<update id="postBlind" parameterType="int">
+	update post set post_state_num = 2 where post_num = #{post_num}
+</update>
+
+<update id="commentBlind" parameterType="int">
+	update comment set comment_state_num =2 where comment_num = #{comment_num}
+</update>
+
+<update id="commentClear" parameterType="int">
+	update comment set comment_state_num =1 where comment_num = #{comment_num}
+</update>
+
+<update id="postClear" parameterType="int">
+	update post set post_state_num = 1 where post_num = #{post_num}
+</update>
+
+<insert id="reportWrite" parameterType="hashmap">
+	insert into report(sort_num, user_num, post_num, report_detail )
+		values(#{sort_num}, #{user_num}, #{post_num}, #{report_detail})
+</insert>
+
+<select id="reportPostCheck" parameterType="int" resultType="int">
+	select count(*) from report r where r.post_num = #{post_num}
+</select>
+
 </mapper>

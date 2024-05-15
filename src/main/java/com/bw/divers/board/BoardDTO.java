@@ -51,6 +51,9 @@ public class BoardDTO {
 	
 	private String new_filename;
 	
+	private int role_num;
+	
+
 	public int getPost_num() {
 		return post_num;
 	}
@@ -237,6 +240,12 @@ public class BoardDTO {
 	}
 	public void setNew_filename(String new_filename) {
 		this.new_filename = new_filename;
+	}
+	public int getRole_num() {
+		return role_num;
+	}
+	public void setRole_num(int role_num) {
+		this.role_num = role_num;
 	}
 
 	

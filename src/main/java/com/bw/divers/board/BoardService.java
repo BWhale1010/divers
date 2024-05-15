@@ -157,20 +157,24 @@ public class BoardService {
 		int totalPages = totalCount%10>0?(totalCount/10)+1:(totalCount/10);
 		
 		Integer login_userNum = (Integer) session.getAttribute("user_num");
+		Integer role_num = (Integer) session.getAttribute("role_num");
 		int user_num = 0;
+		
 		if(login_userNum != null) {
 			user_num = login_userNum.intValue();
 		}else {
 			user_num = 0;
 		}
-		
+		if(role_num == null) {
+			role_num = 3;
+		}
 		
 		logger.info("총 페이지 : "+totalPages);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = boardDAO.commentList(offset, post_num,user_num);
-		
 		result.put("total", totalPages);
 		result.put("list", list);
+		result.put("role_num", role_num);
 		
 		return result;
 	}

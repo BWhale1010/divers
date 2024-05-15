@@ -11,7 +11,7 @@ function commentList(page, postNum){
 		dataType : 'json',
 		success : function(data){
 			console.log(data)
-			commentDraw(data.list);
+			commentDraw(data.list, data.role_num);
 			
 				$('#pagination').twbsPagination({
 				startPage : 1,
@@ -29,7 +29,7 @@ function commentList(page, postNum){
 	})
 }
 
-function commentDraw(list){
+function commentDraw(list, role_num){
 	var content = "";
 	var loginId = $("#loginId").val();
 	console.log("loginId : "+loginId);
@@ -53,12 +53,12 @@ function commentDraw(list){
             + '<a id="'+item.comment_num+'" onclick="commentDelete(this.id, '+item.user_num+')">삭제하기</a></div>'
             + '</div></div></div></div></div>';
     } else {
-		if(item.role_num == 3){
+		if(role_num == 3 || role_num == null){
 			content +=
             '<a href="#" onclick="#">신고하기</a></div></div></div></div>';
-		}else{
+		}else if(role_num == 1 || role_num == 2){
 			content +=
-            '<a href="#" onclick="#">블라인드</a></div></div></div></div>';
+            '<a onclick="commentBlind('+item.comment_num+','+item.post_num+');">블라인드</a></div></div></div></div>';
 		}
         	
     }
@@ -267,12 +267,131 @@ function postBlind(post_num){
 			data : {'post_num':post_num},
 			dataType : 'json',
 			success : function(data){
-				location.href = "/board/detail"+post_num;
+				if(data == 1){
+					location.href = "/board/detail/"+post_num;	
+				}
 			},
 			error : function(e){
 				console.log(e);
 			}
 		})
 	}
-	
 }
+
+function commentBlind(comment_num, post_num){
+	var check = confirm("이 댓글을 블라인드 처리하시겠습니까?");
+	
+	if(check){
+		$.ajax({
+			type: 'post',
+			url : '/manage/commentBlind',
+			data :{'comment_num':comment_num},
+			dataType : 'json',
+			success : function(data){
+				if(data == 1){
+					location.href = "/board/detail/"+post_num;	
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+	}
+}
+
+function postClear(post_num){
+	var check = confirm("이 게시글의 블라인드를 해제하시겠습니까?");
+	
+	if(check){
+		$.ajax({
+			type : 'post',
+			url : '/manage/postClear',
+			data : {'post_num':post_num},
+			dataType : 'json',
+			success : function(data){
+				if(data == 1){
+					location.href = "/board/detail/"+post_num;
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+	}
+}
+
+function reportWriteModal(post_num){
+	var loginId = $("#loginId").val();
+	var check = confirm("해당 게시글을 신고하시겠습니까?");
+	if(check){
+		if(!loginId){
+		var loginCheck = confirm("로그인을 하시겠습니까?");
+		if (loginCheck) {
+		    var name = "visitedPage";
+		    var currentPageUrl = window.location.pathname;			    	    		 				    
+		    
+		    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
+		    
+		    location.href = "/user/login";
+		}
+	}else{
+		$.ajax({
+			type : 'post',
+			url : '/manage/reportPostCheck',
+			data : {'post_num':post_num},
+			dataType : 'json',
+			success : function(data){
+				if(data == 1){
+					alert("이미 신고된 게시글입니다.");
+				}else{
+					$("#reportWriteModal").modal("show")
+					$("#modalPost_num").val(post_num);
+					$("#loginId").val(loginId);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+	}
+	}
+}
+
+$("#report-btn").on("click",function(){
+	var post_num = $("#modalPost_num").val();
+	var user_num = $("#loginId").val();
+	var reportSelect = $("#reportSelect").val();
+	var reportDetail = $("#reportDetail").val();
+	
+	let param = {
+		'post_num':post_num,
+		'user_num':user_num,
+		'sort_num':reportSelect,
+		'report_detail':reportDetail,
+		
+	} 
+	
+	if(reportSelect == "init" ){
+		alert("신고 분류를 선택해 주세요");
+		
+	}else if(reportDetail == ""){
+		alert("신고 상세이유를 작성해주세요.")
+	}else{
+		$.ajax({
+			type : 'post',
+			url : '/manage/reportWrite',
+			data : param,
+			dataType : 'json',
+			success : function(data){
+				alert("해당 게시글을 신고하였습니다.");
+				if(data == 1){
+					location.href = "/board/detail/"+post_num;
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+			
+		})
+	}
+})

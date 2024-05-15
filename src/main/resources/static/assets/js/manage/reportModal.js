@@ -17,7 +17,6 @@ function modalInfo(post_num){
 			console.log(e);
 		}
 	})
-
 }
 
 function reportDraw(report){
@@ -29,3 +28,7 @@ function reportDraw(report){
               				
     $("#reportInfo").empty().append(content);
 }
+
+$(function(){
+
+})

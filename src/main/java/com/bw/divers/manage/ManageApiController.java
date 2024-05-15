@@ -75,6 +75,56 @@ public class ManageApiController {
 		
 		return manageService.reportInfo(post_num);
 	}
+	
+	@PostMapping("/manage/postBlind")
+	public int postBlind(@RequestParam int post_num) {
+		int row = 0;
+		
+		row = manageService.postBlind(post_num);
+		
+		return row;
+	}
+	
+	@PostMapping("/manage/commentBlind")
+	public int commentBlind(@RequestParam int comment_num) {
+		int row = 0;
+		row = manageService.commentBlind(comment_num);
+		
+		return row;
+	}
+	
+	@PostMapping("/manage/postClear")
+	public int postClear(@RequestParam int post_num) {
+		int row = 0;
+		
+		row = manageService.postClear(post_num);
+		
+		return row;
+	}
+	
+	@PostMapping("/manage/commentClear")
+	public int commentClear(@RequestParam int comment_num) {
+		int row = 0;
+		row = manageService.commentClear(comment_num);
+		
+		return row;
+	}
+	
+	@PostMapping("/manage/reportWrite")
+	public int reportWrite(@RequestParam HashMap<String, Object> param) {
+		int row = 0;
+		
+		row = manageService.reportWrite(param);
+		
+		return row;
+	}
+	
+	@PostMapping("/manage/reportPostCheck")
+	public int reportPostCheck(@RequestParam int post_num) {
+		int row = 0;
+		row = manageService.reportPostCheck(post_num);
+		return row;
+	}
 
 
 }

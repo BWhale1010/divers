@@ -118,11 +118,16 @@
 								</div>
 		                	</c:when>
 		                	<c:otherwise>
-		                		<c:if test= "${sessionScope.role_num == 3 }">
-		                			<a href="#">신고하기</a>
+		                		<c:if test= "${sessionScope.role_num == 3 || sessionScope.role_num == null }">
+		                			<a onclick="reportWriteModal(${post.post_num})" >신고하기</a>
 		                		</c:if>
 		                		<c:if test="${sessionScope.role_num == 1 || sessionScope.role_num == 2}">
-		                			<a onclick = "postBlind(${post.post_num});">블라인드</a>
+		                			<c:if test="${post.post_state_num == 1 }">
+		                				<a onclick = "postBlind(${post.post_num});">블라인드</a>
+		                			</c:if>
+		                			<c:if test="${post.post_state_num == 2 }">
+		                				<a onclick = "postClear(${post.post_num});">블라인드 해제</a>
+		                			</c:if>
 		                		</c:if>
 		                		    
 		                	</c:otherwise>		                
@@ -197,5 +202,6 @@
   </main><!-- End #main -->
 
 <script src="/assets/js/post.js"></script>
+<%@ include file="./reportWriteModal.jsp" %>
 <%@ include file="../manage/reportModal.jsp" %>
   <%@include file="../layout/footer.jsp" %>
