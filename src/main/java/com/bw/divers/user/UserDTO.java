@@ -20,6 +20,13 @@ public class UserDTO{
 	
 	private String new_filename;
 	
+	private int log_num;
+	private Date alter_date;
+	private int sort_num;
+	private int alter_num;
+	private String sort_name;
+	private String alter_name;
+	
 	public String getRole_name() {
 		return role_name;
 	}
@@ -85,6 +92,42 @@ public class UserDTO{
 	}
 	public void setNew_filename(String new_filename) {
 		this.new_filename = new_filename;
+	}
+	public int getLog_num() {
+		return log_num;
+	}
+	public void setLog_num(int log_num) {
+		this.log_num = log_num;
+	}
+	public Date getAlter_date() {
+		return alter_date;
+	}
+	public void setAlter_date(Date alter_date) {
+		this.alter_date = alter_date;
+	}
+	public int getSort_num() {
+		return sort_num;
+	}
+	public void setSort_num(int sort_num) {
+		this.sort_num = sort_num;
+	}
+	public int getAlter_num() {
+		return alter_num;
+	}
+	public void setAlter_num(int alter_num) {
+		this.alter_num = alter_num;
+	}
+	public String getSort_name() {
+		return sort_name;
+	}
+	public void setSort_name(String sort_name) {
+		this.sort_name = sort_name;
+	}
+	public String getAlter_name() {
+		return alter_name;
+	}
+	public void setAlter_name(String alter_name) {
+		this.alter_name = alter_name;
 	}
 
 	

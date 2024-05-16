@@ -143,11 +143,11 @@ $("#save-btn").on("click", function(){
 })
 
 function passwordMatch(password){
-	var username = $("#username").val();
+	var user_num = $("#userNum").val();
 	$.ajax({
 		type : 'post',
 		url : '/mypage/passwordMatch',
-		data : {'username':username, 'password': password},
+		data : {'user_num':user_num, 'password': password},
 		dataType : 'json',
 		success : function(data){
 			if(data == 1){

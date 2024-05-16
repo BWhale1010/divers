@@ -11,7 +11,7 @@ public interface ManageDAO {
 
 	int userRole(HashMap<String, Object> param);
 
-	int userState(HashMap<String, Object> param);
+	int userState(int user_num, int state_num);
 
 	ArrayList<ManageDTO> userInfo(int user_num);
 
@@ -31,7 +31,7 @@ public interface ManageDAO {
 
 	ArrayList<ManageDTO> commentList(HashMap<String, Object> param);
 
-	HashMap<String, Object> reportInfo(int post_num);
+	ArrayList<ManageDTO> reportInfo(int post_num);
 
 	int postBlind(int post_num);
 
@@ -43,7 +43,13 @@ public interface ManageDAO {
 
 	int reportWrite(HashMap<String, Object> param);
 
-	int reportPostCheck(int post_num);
+	int reportPostCheck(int post_num, int user_num);
+
+	int reportCommentCheck(int comment_num, int user_num);
+
+	int reportCommentWrite(HashMap<String, Object> param);
+
+	int logWrite(int user_num, int sort_num, int alter_num);
 
 
 

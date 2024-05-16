@@ -1465,3 +1465,8 @@ rotate(
 a:hover{
 	cursor : pointer;
 }
+
+ .report-info-container {
+     width: 80%; /* 너비를 80%로 설정 */
+     margin: 0 auto; /* 수평 가운데 정렬 */
+ }

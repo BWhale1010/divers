@@ -65,7 +65,7 @@
             
             <br>
             <c:if test="${sessionScope.role_num ==1 || sessionScope.role_num == 2}">
-	           <c:if test="${post.report_detail != null }">
+	           <c:if test="${reportCount > 0 }">
 	            	<div class="common-btn">
 	            		<button data-toggle="modal" data-target="#reportModal" data-post_num="${post.post_num}">신고내용</button>
 	            	</div>		
@@ -118,6 +118,7 @@
 								</div>
 		                	</c:when>
 		                	<c:otherwise>
+		                	<c:if test="${post.role_num == 3 }">
 		                		<c:if test= "${sessionScope.role_num == 3 || sessionScope.role_num == null }">
 		                			<a onclick="reportWriteModal(${post.post_num})" >신고하기</a>
 		                		</c:if>
@@ -129,7 +130,11 @@
 		                				<a onclick = "postClear(${post.post_num});">블라인드 해제</a>
 		                			</c:if>
 		                		</c:if>
-		                		    
+		                		</c:if>
+		                		<c:if test ="${post.role_num == 1 || post.role_num == 2}">
+		                			관리자 게시글
+								</c:if>		       
+		                		
 		                	</c:otherwise>		                
 		                </c:choose>		                
 		                   

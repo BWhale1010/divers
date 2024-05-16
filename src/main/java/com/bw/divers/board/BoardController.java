@@ -57,8 +57,10 @@ public class BoardController {
 		}
 		logger.info("user_num : " + user_num);
 		BoardDTO post = boardService.postDetail(postNum, user_num);
+		int reportCount = boardService.reportCount(postNum);
 
 		model.addAttribute("post", post);
+		model.addAttribute("reportCount", reportCount);
 
 		return "/board/post";
 	}

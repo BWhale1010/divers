@@ -162,20 +162,19 @@ function roleChange(username, role_num){
 	}
 }
 
-function stateChange(username, state_num){
+function stateChange(user_num, state_num){
 	var state_name = '';
 	if(state_num == 1){
 		state_name = "정상";
 	}else if(state_num == 2){
 		state_name = "정지";
 	}
-	var check = confirm("해당 유저(아이디 :  "+username+")의 회원 상태를 "+state_name+"으로 변경하시겠습니까?")
-	let param = {'username': username, 'state_num':state_num};
+	var check = confirm("해당 유저의 회원 상태를 "+state_name+"으로 변경하시겠습니까?")
 	if(check){
 		$.ajax({
 			type : 'post',
 			url : '/manage/userState',
-			data : param,
+			data : {'user_num': user_num, 'state_num':state_num},
 			dataType : 'json',
 			success : function(data){
 				if(data > 0){
@@ -295,7 +294,7 @@ function modalDraw(info, post, comment, report) {
         '<div><span>정지 횟수 : ' + info[0].reportCount + '</span></div><div><span>신고 횟수 : ' + info[0].sspsCount + '</span></div></div></div>' +
         '<div class="col-md-6" style="position: relative"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;"><div class="d-flex flex-column" style="width: 50%"><label>회원 등급</label>' +
         '<select id='+info[0].username+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>' +
-        '<div class="d-flex flex-column" style="margin-top: 10px; width: 50%;"><label>회원 상태</label><select id='+info[0].username+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div>' +
+        '<div class="d-flex flex-column" style="margin-top: 10px; width: 50%;"><label>회원 상태</label><select id='+info[0].user_num+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div>' +
         '<div style="margin-top: 10px;" class="d-flex flex-column"><span><a id="toggleBoard" onclick="toggle(\'board\');" style="color:blue;">게시판 리스트</a> | <a id="toggleLog" onclick="toggle(\'log\');">회원 로그</a></span></div></div></div>';
         
         

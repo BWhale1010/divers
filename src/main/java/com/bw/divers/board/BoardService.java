@@ -220,5 +220,9 @@ public class BoardService {
 		
 	}
 
+	public int reportCount(int postNum) {
+		return boardDAO.reportCount(postNum);
+	}
+
 
 }

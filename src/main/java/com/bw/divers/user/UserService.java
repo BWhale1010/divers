@@ -1,5 +1,6 @@
 package com.bw.divers.user;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -194,7 +195,6 @@ public class UserService {
 	        msg = "유효한 닉네임이 아닙니다. 다시 입력하세요.";
 	    }
 	    
-	    logger.info("빠져는 나가니?");
 		return msg;
 
 	}
@@ -233,11 +233,20 @@ public class UserService {
 		return findEmail;
 	}
 	public int pwResetFunc(String username, String password) {
-		logger.info("비밀번호 재설정 username : "+username);
 		String enc_password = enc_password(password);
 		
 		return userDAO.pwResetFunc(username, enc_password);
 	}
+	
+	public Date suspDate(int user_num) {
+		return userDAO.suspDate(user_num);
+	}
+
+	public Date withDate(int user_num) {
+		return userDAO.withDate(user_num);
+	}
+
+
 
 
 	

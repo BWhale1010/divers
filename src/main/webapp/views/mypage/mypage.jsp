@@ -26,9 +26,9 @@
 										
 									</div>
 									<button style="margin-top: 10px; margin-bottom: 20px;" type="button" id="profile-btn" class="ml-5" data-toggle="modal" data-target="#profileModal">사진 변경</button>
-
+			
 								</div>
-
+								<input type="hidden" value="${user.user_num }" id="userNum">	
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="username" style="margin-bottom: 10px">아이디</label> 
@@ -56,7 +56,7 @@
 
 							<div class="row justify-content-center">
 								<div id="mypageButton" class="col-md-9 d-flex justify-content-between align-items-center">
-									<button id="withdraw-btn" type="button" style="text-align: left;">탈퇴</button>
+									<button id="withdraw-btn" type="button" style="text-align: left;" onclick="withDraw(${user.user_num});">탈퇴</button>
 									<div class="button-margin">
 										<button type="button" onclick="location.href='/';">취소</button>
 										<button id="save-btn" type="button">저장</button>
@@ -84,4 +84,5 @@ if(msg != ""){
 <script src="/assets/js/mypage.js"></script>
 <%@ include file="./profileModal.jsp" %>
 <%@ include file="./pwModal.jsp" %>
+<%@ include file="./withdrawModal.jsp" %>
 <%@include file="../layout/footer.jsp"%>

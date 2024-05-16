@@ -43,6 +43,8 @@ public interface BoardDAO {
 
 	int commentThumbMinus(int comment_num, int user_num);
 
+	int reportCount(int postNum);
+
 	
 
 

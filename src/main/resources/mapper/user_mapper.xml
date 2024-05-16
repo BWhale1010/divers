@@ -47,4 +47,23 @@
 	update user set password=#{enc_password} where username = #{username}
 </update>
 
+<select id="suspCheck" parameterType="int" resultType="int">
+	select count(*) from log where user_num = #{user_num} and sort_num = 2
+</select>
+
+<select id="suspDate" parameterType="int" resultType="java.sql.Date">
+	select alter_date from log where user_num = #{user_num} order by alter_date desc limit 1
+</select>
+
+<select id="withCheck1" parameterType="int" resultType="int">
+	select count(*) from log where user_num = #{user_num} and log.sort_num = 4 
+</select>
+
+<select id="withDate" parameterType="int" resultType="java.sql.Date">
+	select alter_date from log where user_num = #{user_num} and log.sort_num = 4 
+	order by alter_date desc limit 1;
+</select>
+
+
+
 </mapper>

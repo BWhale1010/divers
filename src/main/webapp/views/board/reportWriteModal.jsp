@@ -16,6 +16,7 @@
       
       <div class="modal-body">
       <input type="hidden"  id="modalPost_num">
+      <input type="hidden"  id="modalComment_num">
       <input type="hidden"  id="loginId">
 		<div class="row" >
 			<div class="col-md-12 post-content" data-aos="fade-up">
@@ -39,7 +40,7 @@
       <div class="modal-footer row">
       	<div class="col text-end">
       		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-      		<button id="report-btn" type="button" class="btn btn-primary" >저장</button>
+      		<button id="report-btn" type="button" class="btn btn-primary"  data-bs-dismiss="modal">저장</button>
       	</div>
       </div>
       </form>

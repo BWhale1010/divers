@@ -1,5 +1,6 @@
 package com.bw.divers.user;
 
+import java.sql.Date;
 import java.util.HashMap;
 
 public interface UserDAO {
@@ -23,6 +24,11 @@ public interface UserDAO {
 	String findEmail(String username);
 
 	int pwResetFunc(String username, String enc_password);
+
+	Date suspDate(int user_num);
+
+	Date withDate(int user_num);
+
 
 
 }

@@ -52,12 +52,11 @@
 	    p.count, 
 	    p.post_state_num, 
 	    p.content, 
-	    u.nickname, 
+	    u.nickname, u.role_num,
 	    sc.small_class_name, 
 	    (SELECT COUNT(DISTINCT tp1.thumb_post_user_num) FROM thumb_post tp1 WHERE tp1.post_num = p.post_num) AS recommend,
 	    COUNT(c.comment) AS commentCount, 
-	    CASE WHEN tp.thumb_post_user_num IS NOT NULL THEN 1 ELSE 0 END AS is_recommended,
-	    r.report_detail
+	    CASE WHEN tp.thumb_post_user_num IS NOT NULL THEN 1 ELSE 0 END AS is_recommended
 	FROM 
 	    post p 
 	JOIN 
@@ -68,12 +67,14 @@
 	    comment c ON p.post_num = c.post_num AND c.comment_state_num = 1
 	LEFT JOIN 
 	    thumb_post tp ON p.post_num = tp.post_num AND tp.thumb_post_user_num = #{user_num}
-	LEFT JOIN
-		report r on r.post_num = p.post_num  
 	WHERE 
 	    p.post_num = #{postNum}
 	GROUP BY 
-	    p.post_num, r.report_detail;
+	    p.post_num
+</select>
+
+<select id="reportCount" parameterType="int" resultType="int">
+ select count(*) from report where post_num = #{postNum}
 </select>
 
 <select id="thumbnail" resultType="String" parameterType="int">

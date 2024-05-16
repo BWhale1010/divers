@@ -3,11 +3,17 @@ package com.bw.divers.manage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.bw.divers.config.SessionManager;
 
 @MapperScan("com.bw.divers.manage")
 @Service
@@ -51,14 +57,24 @@ public class ManageService {
 		return result;
 	}
 
-	public int userRole(HashMap<String, Object> param) {
+	public int userRole(HashMap<String, Object> param, HttpSession session) {
+		int result = 0;
+		int user_num = (int) session.getAttribute("user_num");
+		int sort_num = 7;
+		int alter_num = 2;
 		
-		return manageDAO.userRole(param);
+		int logResult = logSystem(user_num, sort_num, alter_num);
+		
+		if(logResult == 1) {
+			result = manageDAO.userRole(param);
+		}
+		
+		return result;
 	}
 
-	public int userState(HashMap<String, Object> param) {
+	public int userState(int user_num, int state_num) {
 		
-		return manageDAO.userState(param);
+		return manageDAO.userState(user_num, state_num);
 	}
 
 	public HashMap<String, Object> userInfo(int user_num) {
@@ -167,7 +183,11 @@ public class ManageService {
 
 	public HashMap<String, Object> reportInfo(int post_num) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		result = manageDAO.reportInfo(post_num);
+		
+		
+		ArrayList<ManageDTO> list = manageDAO.reportInfo(post_num);
+		
+		result.put("list", list);
 		
 		return result;
 	}
@@ -190,11 +210,40 @@ public class ManageService {
 	}
 
 	public int reportWrite(HashMap<String, Object> param) {
-		return manageDAO.reportWrite(param);
+
+		String comment_num = (String) param.get("comment_num");
+
+		if(comment_num != "") {
+			return manageDAO.reportCommentWrite(param);
+		}else {
+			return manageDAO.reportWrite(param);
+		}
 	}
 
-	public int reportPostCheck(int post_num) {
-		return manageDAO.reportPostCheck(post_num);
+	public int reportPostCheck(int post_num, int user_num) {
+		return manageDAO.reportPostCheck(post_num, user_num);
 	}
+
+	public int suspUser(int user_num, HttpServletRequest request, HttpServletResponse response) {
+		int sort_num = 2;
+		int alter_num = 2;
+		int state_num = 2;
+		userState(user_num, state_num);
+		
+		if(SessionManager.isUserLoggedIn(user_num)) {
+		    SessionManager.logoutUser(user_num, request, response);
+		}
+		
+		return logSystem(user_num, sort_num, alter_num);
+	}
+
+	public int reportCommentCheck(int comment_num, int user_num) {
+		return manageDAO.reportCommentCheck(comment_num, user_num);
+	}
+	
+	public int logSystem(int user_num, int sort_num, int alter_num) {
+		return manageDAO.logWrite(user_num, sort_num, alter_num);
+	}
+
 
 }

@@ -2,12 +2,21 @@ package com.bw.divers.manage;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.bw.divers.config.SessionManager;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 public class ManageApiController {
@@ -22,19 +31,19 @@ public class ManageApiController {
 	}
 	
 	@PostMapping("/manage/userRole")
-	public int userRole(@RequestParam HashMap<String, Object> param) {
+	public int userRole(@RequestParam HashMap<String, Object> param, HttpSession session) {
 		int result = 0;
 		
-		result = manageService.userRole(param);
+		result = manageService.userRole(param, session);
 		
 		return result;
 	}
 	
 	@PostMapping("/manage/userState")
-	public int userState(@RequestParam HashMap<String, Object> param) {
+	public int userState(@RequestParam int user_num, int state_num) {
 		int result = 0;
 		
-		result = manageService.userState(param);
+		result = manageService.userState(user_num, state_num);
 		
 		return result;
 	}
@@ -120,11 +129,28 @@ public class ManageApiController {
 	}
 	
 	@PostMapping("/manage/reportPostCheck")
-	public int reportPostCheck(@RequestParam int post_num) {
+	public int reportPostCheck(@RequestParam int post_num, int user_num) {
 		int row = 0;
-		row = manageService.reportPostCheck(post_num);
+		row = manageService.reportPostCheck(post_num, user_num);
 		return row;
 	}
+	
+	@PostMapping("/manage/suspUser")
+	public int suspUser(@RequestParam int user_num,  HttpServletRequest request, HttpServletResponse response) {
+		int row = 0;
+		row = manageService.suspUser(user_num, request, response);
+		
+		return row;
+	}
+	
+	@PostMapping("/manage/reportCommentCheck")
+	public int reportCommentCheck(@RequestParam int comment_num, int user_num) {
+		int row = 0;
+		row = manageService.reportCommentCheck(comment_num, user_num);
+		return row;
+	}
+	
 
 
 }
+

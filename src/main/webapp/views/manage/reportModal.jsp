@@ -14,21 +14,44 @@
       
       <form action="/manage/#" method="post" enctype="multipart/form-data">
       
-      <div class="modal-body">   	
-		<div class="row" >
-			<div class="col-md-12 post-content" data-aos="fade-up">
-				<div class="single-post" id="reportInfo">
-              	
-              	</div>
-              	
-			</div>
-		</div>
+<div class="modal-body">
+
+
+    <section id="hero-slider" class="hero-slider">
+      <div class="container-md aos-init aos-animate" data-aos="fade-in">
+        <div class="row">
+          <div class="col-12">
+            <div class="swiper sliderFeaturedPosts">
+              
+               <div class="swiper-wrapper" id="reportInfo">
+
+              </div>
+              
+              
+              <div class="custom-swiper-button-next" >
+                <span class="bi-chevron-right" style="color : black"></span>
+              </div>
+              <div class="custom-swiper-button-prev" >
+                <span class="bi-chevron-left" style="color : black"></span>
+              </div>
+
+              <div class="swiper-pagination"></div>
+            
+            </div>
+            
+          </div>
+        </div>
       </div>
+    </section>
+    
+    
+</div>
+
       
       <div class="modal-footer row">
       	<div class="col">
       		<button onclick="suspUser();" type="button" class="btn btn-danger" data-dismiss="modal">회원 정지</button>
-      		<button onclick="blind();;" type="button" class="btn btn-danger" data-dismiss="modal">블라인드</button>
+      		<button onclick="postBlind();" type="button" class="btn btn-danger" data-dismiss="modal">블라인드</button>
       	</div>
       	<div class="col text-end">
       		<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

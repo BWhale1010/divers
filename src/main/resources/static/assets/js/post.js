@@ -53,13 +53,18 @@ function commentDraw(list, role_num){
             + '<a id="'+item.comment_num+'" onclick="commentDelete(this.id, '+item.user_num+')">삭제하기</a></div>'
             + '</div></div></div></div></div>';
     } else {
-		if(role_num == 3 || role_num == null){
-			content +=
-            '<a href="#" onclick="#">신고하기</a></div></div></div></div>';
-		}else if(role_num == 1 || role_num == 2){
-			content +=
-            '<a onclick="commentBlind('+item.comment_num+','+item.post_num+');">블라인드</a></div></div></div></div>';
+		if(item.role_num == 3){
+			if(role_num == 3 || role_num == null){
+				content +=
+	            '<a onclick="commentReportWrite('+item.comment_num+')">신고하기</a></div></div></div></div>';
+			}else if(role_num == 1 || role_num == 2){
+				content +=
+	            '<a onclick="commentBlind('+item.comment_num+','+item.post_num+');">블라인드</a></div></div></div></div>';
+			}
+		}else{
+			content += '관리자 댓글</div></div></div></div>';
 		}
+
         	
     }
 	})
@@ -338,11 +343,11 @@ function reportWriteModal(post_num){
 		$.ajax({
 			type : 'post',
 			url : '/manage/reportPostCheck',
-			data : {'post_num':post_num},
+			data : {'post_num':post_num, 'user_num':loginId},
 			dataType : 'json',
 			success : function(data){
 				if(data == 1){
-					alert("이미 신고된 게시글입니다.");
+					alert("이미 신고한 게시글입니다.");
 				}else{
 					$("#reportWriteModal").modal("show")
 					$("#modalPost_num").val(post_num);
@@ -359,12 +364,14 @@ function reportWriteModal(post_num){
 
 $("#report-btn").on("click",function(){
 	var post_num = $("#modalPost_num").val();
+	var comment_num = $("#modalComment_num").val();
 	var user_num = $("#loginId").val();
 	var reportSelect = $("#reportSelect").val();
 	var reportDetail = $("#reportDetail").val();
 	
 	let param = {
 		'post_num':post_num,
+		'comment_num':comment_num,
 		'user_num':user_num,
 		'sort_num':reportSelect,
 		'report_detail':reportDetail,
@@ -383,15 +390,56 @@ $("#report-btn").on("click",function(){
 			data : param,
 			dataType : 'json',
 			success : function(data){
-				alert("해당 게시글을 신고하였습니다.");
 				if(data == 1){
-					location.href = "/board/detail/"+post_num;
+					if(comment_num == ""){
+						alert("해당 게시글을 신고하였습니다.");	
+					}else{
+						alert("해당 댓글을 신고하였습니다.");
+					}
+					$("#reportSelect").val("init");
+					$("#reportDetail").val("");
 				}
 			},
 			error : function(e){
 				console.log(e);
 			}
-			
 		})
 	}
 })
+
+function commentReportWrite(comment_num){
+	var loginId = $("#loginId").val();
+	var check = confirm("해당 댓글을 신고하시겠습니까?");
+	if(check){
+		if(!loginId){
+		var loginCheck = confirm("로그인을 하시겠습니까?");
+		if (loginCheck) {
+		    var name = "visitedPage";
+		    var currentPageUrl = window.location.pathname;			    	    		 				    
+		    
+		    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
+		    
+		    location.href = "/user/login";
+		}
+	}else{
+		$.ajax({
+			type : 'post',
+			url : '/manage/reportCommentCheck',
+			data : {'comment_num':comment_num, 'user_num':loginId},
+			dataType : 'json',
+			success : function(data){
+				if(data == 1){
+					alert("이미 신고한 댓글입니다.");
+				}else{
+					$("#reportWriteModal").modal("show");
+					$("#modalComment_num").val(comment_num);
+					$("#loginId").val(loginId);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+	}
+	}
+}

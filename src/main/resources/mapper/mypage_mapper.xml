@@ -9,7 +9,7 @@
 </update>
 
 <select id="oriPassword" resultType="String">
-	select password from user where username = #{username}
+	select password from user where user_num = #{user_num}
 </select>
 
 <select id="imgCheck" resultType="int">
