@@ -51,6 +51,8 @@ public interface BoardDAO {
 
 	ArrayList<BoardDTO> newList();
 
+	ArrayList<BoardDTO> popList();
+
 	
 
 

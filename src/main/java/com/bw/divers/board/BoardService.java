@@ -242,5 +242,14 @@ public class BoardService {
 		return map;
 	}
 
+	public HashMap<String, Object> popList() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardDTO> list = boardDAO.popList(); 
+		
+		map.put("list", list);
+		
+		return map;
+	}
+
 
 }

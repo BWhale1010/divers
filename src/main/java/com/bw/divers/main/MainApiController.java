@@ -26,5 +26,11 @@ public class MainApiController {
 		
 		return boardService.newList();
 	}
+	
+	@PostMapping("/main/popList")
+	public HashMap<String, Object> popList(){
+		
+		return boardService.popList();
+	}
 
 }

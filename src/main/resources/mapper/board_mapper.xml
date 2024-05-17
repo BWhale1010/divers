@@ -171,4 +171,13 @@ update post set count = count+1 where post_num = #{postNum}
 	order by p.board_date desc limit 5
 </select>
 
+<select id="popList" resultType="board">
+	select p.post_num, sc.small_class_name, p.board_date, p.title,u.nickname, p.content, p2.new_filename
+	from post p
+	join small_category sc on sc.small_category_num = p.small_category_num 
+	join `user` u on u.user_num = p.user_num
+	join profile p2 on p2.user_num = u.user_num
+	order by p.count desc limit 7
+</select>
+
 </mapper>
