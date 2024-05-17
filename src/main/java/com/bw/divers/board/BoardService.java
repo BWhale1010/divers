@@ -79,7 +79,7 @@ public class BoardService {
 
 	public BoardDTO postDetail(int postNum, int user_num) {
 		logger.info("글 상세보기 서비스 : "+postNum);
-		
+		boardDAO.postCount(postNum);
 		return boardDAO.postDetail(postNum, user_num);
 	}
 
@@ -222,6 +222,24 @@ public class BoardService {
 
 	public int reportCount(int postNum) {
 		return boardDAO.reportCount(postNum);
+	}
+
+	public HashMap<String, Object> recommendList() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardDTO> list = boardDAO.recommendList(); 
+		
+		map.put("list", list);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> newList() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardDTO> list = boardDAO.newList(); 
+		
+		map.put("list", list);
+		
+		return map;
 	}
 
 

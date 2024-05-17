@@ -45,6 +45,12 @@ public interface BoardDAO {
 
 	int reportCount(int postNum);
 
+	void postCount(int postNum);
+
+	ArrayList<BoardDTO> recommendList();
+
+	ArrayList<BoardDTO> newList();
+
 	
 
 

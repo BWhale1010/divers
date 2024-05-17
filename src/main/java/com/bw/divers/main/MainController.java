@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bw.divers.board.BoardService;
 import com.bw.divers.user.UserService;
 
 @Controller
@@ -16,6 +17,7 @@ public class MainController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired UserService userService;
+	@Autowired BoardService boardService;
 
 	@GetMapping("/")
 	public String main(Model model, @RequestParam(value="msg", required = false) String msg) {
@@ -25,7 +27,6 @@ public class MainController {
 			model.addAttribute("msg", msg);
 		}
 		
-
 		return "index";
 	}
 }

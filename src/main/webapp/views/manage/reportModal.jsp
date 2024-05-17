@@ -34,11 +34,8 @@
               <div class="custom-swiper-button-prev" >
                 <span class="bi-chevron-left" style="color : black"></span>
               </div>
-
-              <div class="swiper-pagination"></div>
-            
+              
             </div>
-            
           </div>
         </div>
       </div>

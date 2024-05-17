@@ -81,7 +81,7 @@
 							</div>
 
 							<div class="form-group col-md-6">
-								<button type="button" id="niname-btn"  class="ml-5">닉네임 추천</button>
+								<button type="button" id="nickname-btn"  class="ml-5" >닉네임 추천</button>
 							</div>
 						</div>
 
@@ -110,5 +110,5 @@
 </main>
 <!-- End #main -->
 <script src="/assets/js/join.js"></script>
-
+<script src="/assets/js/nickname.js"></script>
 <%@include file="../layout/footer.jsp"%>

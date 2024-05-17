@@ -98,7 +98,7 @@ function validReg(id, val){
 		break;
 		
 		case "nickname":
-			reg = /^[a-zA-Z0-9가-힣]{2,10}$/;		
+			reg = /^[a-zA-Z0-9가-힣]{2,20}$/;		
 		break;
 		
 		
@@ -124,7 +124,7 @@ let index = {
 	
 	$(function(){
 
-	$("input[type='text'], input[type='password']").on("input", function() {
+	$("input[type='text'], input[type='password']").on("focusout", function() {
 		
 
 	var cid = this.id;

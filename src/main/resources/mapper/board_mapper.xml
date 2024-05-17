@@ -153,4 +153,22 @@
 	delete from thumb_comment where comment_num = #{comment_num} and thumb_comment_user = #{user_num}
 </delete>
 
+<update id="postCount" parameterType="int">
+update post set count = count+1 where post_num = #{postNum} 
+</update>
+
+<select id="recommendList" resultType="board">
+	select p.post_num, p.user_num, p.small_category_num, p.board_date, p.title, p.content, p.count, p.post_state_num,
+		(select count(tp.post_num) from thumb_post tp where p.post_num = tp.post_num) as recommend
+	from post p
+	where p.post_state_num = 1
+	order by recommend desc limit 4
+</select>
+
+<select id="newList" resultType="board">
+	select p.title, p.post_num, u.nickname from post p
+	join `user` u on u.user_num = p.user_num
+	order by p.board_date desc limit 5
+</select>
+
 </mapper>

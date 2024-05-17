@@ -29,7 +29,7 @@ function validReg(id, val){
 		break;
 		
 		case "nickname":
-			reg = /^[a-zA-Z0-9가-힣]{2,10}$/;		
+			reg = /^[a-zA-Z0-9가-힣]{2,20}$/;		
 		break;
 		
 	}
@@ -39,7 +39,7 @@ function validReg(id, val){
 $(function(){
 	firstNickname = $("#nickname").val();
 	console.log("firstNickname : "+firstNickname)
-	$("input[type='text'], input[type='password']").on("input", function(){
+	$("input[type='text'], input[type='password']").on("blur",function(){
 		nicknameChk = false;
 		var cid = this.id;
 		var cv = groSpace($(this).val());
@@ -114,33 +114,38 @@ function nicknameCheck(nickname){
 	})
 }
 
-$("#save-btn").on("click", function(){
+function saveInfo(){
 	var username = $("#username").val();
 	var nickname = newNickname;
-	var saveChk = confirm("변경된 회원정보를 변경하시겠습니까?");
-	
-	if(saveChk && nicknameChk){
-		$.ajax({
-			type : 'put',
-			url : '/mypage/update',
-			data : {'username': username, 'nickname':nickname},
-			dataType : 'json',
-			success : function(data){
-				if(data == 1){
-					alert("회원정보가 변경되었습니다.")
-					location.href="/mypage"
-				}else{
-					alert("회원정보 변경에 실패하였습니다.")
-				}
-			},
-			error: function(e){
-				console.log(e);
-			}
-		})
-	}else{
+	if(!nicknameChk){
 		$("#nickname").focus();
+	}else{
+		var saveChk = confirm("변경된 회원정보를 변경하시겠습니까?");
+		console.log("aa : "+saveChk)
+		console.log("aa : "+nicknameChk)
+		if(saveChk && nicknameChk){
+			$.ajax({
+				type : 'put',
+				url : '/mypage/update',
+				data : {'username': username, 'nickname':nickname},
+				dataType : 'json',
+				success : function(data){
+					if(data == 1){
+						alert("회원정보가 변경되었습니다.");
+						location.href="/mypage";
+					}else{
+						alert("회원정보 변경에 실패하였습니다.");
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}else{
+			$("#nickname").focus();
+		}
 	}
-})
+}
 
 function passwordMatch(password){
 	var user_num = $("#userNum").val();

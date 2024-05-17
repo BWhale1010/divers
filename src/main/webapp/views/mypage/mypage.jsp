@@ -12,7 +12,7 @@
 				</div>
 				<div class="col-md-8 offset-md-2">
 					<div class="form mt-5">
-						<form action="#" method="post" role="form" class="php-email-form">
+						<div class="php-email-form">
 
 							<div class="row justify-content-center">
 								<div class="col-md-4 profile-margin text-center">
@@ -42,7 +42,7 @@
 										<label for="nickname" style="margin-bottom: 10px">닉네임</label> 
 										<input type="text" class="form-control" id="nickname" value="${user.nickname}"> 
 										<span class="msg5 d-flex"></span>
-										<button style="margin-top: 10px" type="button" id="nickname-btn" class="ml-5">닉네임 추천</button>								
+										<button style="margin-top: 10px;" type="button" id="nickname-btn" class="ml-5">닉네임 추천</button>								
 									</div>
 									<div>
 										<button type="button" id="pw-btn" class="ml-5" data-toggle="modal" data-target="#pwModal">비밀번호 변경</button>
@@ -59,12 +59,12 @@
 									<button id="withdraw-btn" type="button" style="text-align: left;" onclick="withDraw(${user.user_num});">탈퇴</button>
 									<div class="button-margin">
 										<button type="button" onclick="location.href='/';">취소</button>
-										<button id="save-btn" type="button">저장</button>
+										<button id="save-btn" type="button" onclick="saveInfo();">저장</button>
 									</div>
 								</div>
 							</div>
 		
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -82,6 +82,7 @@ if(msg != ""){
 }
 </script>
 <script src="/assets/js/mypage.js"></script>
+<script src="/assets/js/nickname.js"></script>
 <%@ include file="./profileModal.jsp" %>
 <%@ include file="./pwModal.jsp" %>
 <%@ include file="./withdrawModal.jsp" %>

@@ -178,7 +178,7 @@ public class UserService {
 		Pattern usernamePattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
 		Pattern passwordPattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d!@#$%^&*()\\-_=+{};:,<.>]{6,20}$");
 		Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
-		Pattern nicknamePattern = Pattern.compile("^[a-zA-Z0-9가-힣]{2,10}$");
+		Pattern nicknamePattern = Pattern.compile("^[a-zA-Z0-9가-힣]{2,20}$");
 		
 		String username = params.get("username");
 		String password = params.get("password");
