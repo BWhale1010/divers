@@ -166,7 +166,7 @@ public class BoardService {
 		
 		Integer login_userNum = (Integer) session.getAttribute("user_num");
 		Integer role_num = (Integer) session.getAttribute("role_num");
-		int user_num = 0;
+		int user_num = 0;	
 		
 		if(login_userNum != null) {
 			user_num = login_userNum.intValue();

@@ -57,9 +57,15 @@ public class ManageService {
 		return result;
 	}
 
-	public int userRole(HashMap<String, Object> param, HttpSession session) {
+	public int userRole(HashMap<String, Object> param) {
 		int result = 0;
-		int user_num = (int) session.getAttribute("user_num");
+		Object userNumObject = param.get("user_num");
+		int user_num = 0;
+		
+		if(userNumObject instanceof String) {
+			user_num = Integer.parseInt((String) userNumObject);
+		}
+		
 		int sort_num = 7;
 		int alter_num = 2;
 		
@@ -99,18 +105,6 @@ public class ManageService {
 		ArrayList<ManageDTO> log = manageDAO.userLog(user_num);
 		
 		map.put("log", log);
-		
-		return map;
-	}
-
-	public HashMap<String, Object> userBoard(int user_num) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		ArrayList<ManageDTO> post = manageDAO.userPost(user_num);
-		ArrayList<ManageDTO> comment = manageDAO.userComment(user_num);
-		
-		map.put("post", post);
-		map.put("comment", comment);
 		
 		return map;
 	}
@@ -184,8 +178,17 @@ public class ManageService {
 	public HashMap<String, Object> reportInfo(int post_num) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
+		 ArrayList<ManageDTO> list = manageDAO.reportInfo(post_num);
 		
-		ArrayList<ManageDTO> list = manageDAO.reportInfo(post_num);
+		result.put("list", list);
+		
+		return result;
+	}
+	
+	public HashMap<String, Object> commentInfo(int comment_num) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		 ArrayList<ManageDTO> list = manageDAO.commentInfo(comment_num);
 		
 		result.put("list", list);
 		
@@ -244,6 +247,8 @@ public class ManageService {
 	public int logSystem(int user_num, int sort_num, int alter_num) {
 		return manageDAO.logWrite(user_num, sort_num, alter_num);
 	}
+
+
 
 
 }

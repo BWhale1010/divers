@@ -230,11 +230,12 @@ function commentDraw(list){
 	list.forEach(function(item){
 		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/photo/" + item.new_filename;
 		var commentClear = item.comment_state_num == 2 ? '<span style="margin: 0 10px;">|</span><a onclick="commentClear('+item.comment_num+');">블라인드 해제</a>' : '';
+		var reportInfo = item.reportCount > 0 ? '<span style="margin: 0 10px;">|</span><a data-toggle="modal" data-target="#reportModal" data-comment_num="'+item.comment_num+'">신고내용</a>' : '';
 		
-		content += '<div class="comment d-flex mb-4"><div class="flex-shrink-0"><div class="avatar avatar-sm rounded-circle">'+
+		content += '<div class="comment d-flex mb-4"><a href="/board/detail/'+item.post_num+'"><div class="flex-shrink-0"><div class="avatar avatar-sm rounded-circle">'+
 		'<img class="avatar-img" src="'+profileImg+'" alt=""></div></div><div class="flex-grow-1 ms-2 ms-sm-3"><div class="comment-meta d-flex align-items-baseline">'+
-		'<h6 class="me-2">'+item.nickname+'</h6><span class="text-muted">'+item.comment_date+'</span></div><div class="comment-body">'+item.comment+'</div>'+
-		'<div><div class="card-body text-end">추천수 : '+item.recommend+'<span style="margin: 0 10px;">|</span>신고수 : '+item.reportCount+''+
+		'<h6 class="me-2">'+item.nickname+'</h6><span class="text-muted">'+item.comment_date+'</span></div><div class="comment-body">'+item.comment+'</div></a>'+
+		'<div><div class="card-body text-end">추천수 : '+item.recommend+'<span style="margin: 0 10px;">|</span>신고수 : '+item.reportCount+''+reportInfo+''+
 		''+commentClear+'</div>'+
 		'</div></div></div></div></div>';
 	})

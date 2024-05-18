@@ -41,11 +41,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         	.authorizeRequests()
-//                .antMatchers("/manage/userRole/**", "/manage/userState/**").hasRole("SUPER")
-//                .antMatchers("/manage/**").hasAnyRole("SUPER", "ADMIN")
-//                .antMatchers("/mypage/**").authenticated()
-                .antMatchers("/assets/**", "/", "/user/**", "/board/list/**", "/board/detail/**").permitAll()
-  
+        		.antMatchers("/manage/reportWrite", "/manage/reportPostCheck", "/manage/reportCommentCheck").permitAll()
+                .antMatchers("/manage/userRole", "/manage/userState").hasRole("SUPER")
+                .antMatchers("/manage/**").hasAnyRole("SUPER", "ADMIN")
+                .antMatchers("/mypage/**", "/board/write", "/board/edit/{postNum}", "/manage/reportWrite", "/manage/reportPostCheck", "/manage/reportCommentCheck").authenticated()
+                .antMatchers("/board/delete/{postNum}", "/comment/write", "/comment/delete/{comment_num}").authenticated()
+                .antMatchers("/comment/edit/{comment_num}", "/board/thumb/{postNum}", "/comment/thumb/{comment_num}", "/manage/reportWrite").authenticated()
+                .antMatchers( "/board/list/**", "/board/detail/**", "/board/listAdd", "/board/thumbnail/{postNum}").permitAll()
+                .antMatchers("/comment/list", "/board/recommendList", "/board/popList", "/board/newList").permitAll()
+                .antMatchers("/assets/**", "/", "/main/**", "/user/**").permitAll()
                 .and()
             .formLogin()
                 .loginPage("/user/login")

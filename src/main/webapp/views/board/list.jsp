@@ -7,6 +7,7 @@
 	<section>
 		<input id="small_category_num" type="hidden" value=${small_category_num }> 
 		<input id="user_num" type="hidden" value=${sessionScope.user_num }>
+		<input id="role_num" type="hidden" value=${sessionScope.role_num }>
 		<div class="container">
 			<div class="row">
 

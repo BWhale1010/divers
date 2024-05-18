@@ -113,7 +113,7 @@
 								  <a class="dropbtn">• • •</a>
 								  <div class="dropdown-content">
 								    <a href="/board/edit/${post.post_num }">수정하기</a>
-								    <a onclick="/deletePost(${post.post_num}, ${post.small_category_num },${post.user_num })">삭제하기</a>
+								    <a onclick="deletePost(${post.post_num}, ${post.small_category_num },${post.user_num })">삭제하기</a>
 								  </div>
 								</div>
 		                	</c:when>
@@ -124,10 +124,10 @@
 		                		</c:if>
 		                		<c:if test="${sessionScope.role_num == 1 || sessionScope.role_num == 2}">
 		                			<c:if test="${post.post_state_num == 1 }">
-		                				<a onclick = "postBlind(${post.post_num});">블라인드</a>
+		                				<a onclick = "postBlind1()">블라인드</a>
 		                			</c:if>
 		                			<c:if test="${post.post_state_num == 2 }">
-		                				<a onclick = "postClear(${post.post_num});">블라인드 해제</a>
+		                				<a onclick = "postClear(${post.post_num})">블라인드 해제</a>
 		                			</c:if>
 		                		</c:if>
 		                		</c:if>

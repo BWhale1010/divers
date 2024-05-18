@@ -58,6 +58,7 @@ function commentDraw(list, role_num){
 				content +=
 	            '<a onclick="commentReportWrite('+item.comment_num+')">신고하기</a></div></div></div></div>';
 			}else if(role_num == 1 || role_num == 2){
+				
 				content +=
 	            '<a onclick="commentBlind('+item.comment_num+','+item.post_num+');">블라인드</a></div></div></div></div>';
 			}
@@ -260,17 +261,18 @@ function commentRecommend(comment_num){
 	}
 }
 
-function postBlind(post_num){
+function postBlind1(){
+	
 	var check = confirm("이 게시글을 블라인드 처리하시겠습니까?");
 	if(check){
 		$.ajax({
 			type : 'post',
 			url : '/manage/postBlind',
-			data : {'post_num':post_num},
+			data : {'post_num':postNum},
 			dataType : 'json',
 			success : function(data){
 				if(data == 1){
-					location.href = "/board/detail/"+post_num;	
+					location.href = "/board/detail/"+postNum;	
 				}
 			},
 			error : function(e){

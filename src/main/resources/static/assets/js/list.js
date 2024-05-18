@@ -123,8 +123,14 @@ $("#search-btn").on("click", function(){
 });
 
 function postWrite(){
+	var role_num = $("#role_num").val();
+	var category = $("#small_category_num").val();
 	var user_num = $("#user_num").val();
-	if(user_num == ""){
+	console.log("aa : "+role_num);
+	if(role_num == 3 && category == 3){
+		alert("공지 게시판은 관리자만 작성할 수 있습니다.");
+	}else{
+		if(user_num == ""){
 		var check = confirm("로그인을 하시겠습니까?");
 		if(check){
 		    var name = "visitedPage";
@@ -134,7 +140,8 @@ function postWrite(){
 		    
 		    location.href = "/user/login";
 		}	
-	}else{
+		}else{
 		location.href='/board/write?boardId='+boardId;
+		}
 	}
 }

@@ -5,6 +5,8 @@ var direction = "";
 var page = 1;
 
 var modalUser_num = '';
+var roleNum = '';
+var sessionRole = $("#sessionRole").val();
 
 listAdd(page, search_username, sort, direction);
 
@@ -123,8 +125,8 @@ function listDraw(list){
         '<div><span style="margin-right: 10px;">닉네임 : '+item.nickname+'</span></div><div>'+
         '<span>게시글 : '+item.postCount+'개 </span><span class="mx-1">•</span><span style="margin-right: 10px;">댓글 : '+item.commentCount+'개</span></div></div></a></div>'+
         '<div class="col-md-3" style="position: relative;"><div style="position : absolute; top:50%; left:50%; transform: translate(-50%, -50%);">'+
-        '<div class="form-group d-flex flex-column"><label for="category">회원 등급</label><select id='+item.username+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>'+
-        '<div class="form-group d-flex flex-column" style="margin-top: 10px;"><label for="category">회원 상태</label><select id='+item.username+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div></div></div>'+
+        '<div class="form-group d-flex flex-column"><label for="category">회원 등급</label><select id='+item.user_num+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>'+
+        '<div class="form-group d-flex flex-column" style="margin-top: 10px;"><label for="category">회원 상태</label><select id='+item.user_num+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div></div></div>'+
         report+'</div>';
     });
 
@@ -132,18 +134,17 @@ function listDraw(list){
     $("#userList").empty().append(content);
 }
 
-function roleChange(username, role_num){
-	console.log("username : "+username);
-	console.log("role_num : "+role_num);
-	var role_name = '';
+function roleChange(user_num, role_num){
+	if(sessionRole == 1){
+			var role_name = '';
 	if(role_num == 2){
 		role_name = "관리자";
 	}else if(role_num == 3){
 		role_name = "회원";
 	}
 	
-	var check = confirm("해당 유저(아이디 :  "+username+")의 회원 등급을 "+role_name+"으로 변경하시겠습니까?");
-	let param = {'username':username, 'role_num':role_num};
+	var check = confirm("해당 유저의 등급을 "+role_name+"으로 변경하시겠습니까?");
+	let param = {'user_num':user_num, 'role_num':role_num};
 	if(check){
 		$.ajax({
 			type : 'post', 
@@ -160,16 +161,22 @@ function roleChange(username, role_num){
 			}
 		})
 	}
+	}else{
+		alert("회원 등급과 상태 변경은 최고관리자만 가능합니다.");
+	}
 }
 
 function stateChange(user_num, state_num){
+	if(sessionRole == 1){
+	console.log(sessionRole);
 	var state_name = '';
 	if(state_num == 1){
 		state_name = "정상";
 	}else if(state_num == 2){
 		state_name = "정지";
 	}
-	var check = confirm("해당 유저의 회원 상태를 "+state_name+"으로 변경하시겠습니까?")
+	
+	var check = confirm("해당 유저의 회원 상태를 "+state_name+"으로 변경하시겠습니까?");
 	if(check){
 		$.ajax({
 			type : 'post',
@@ -186,7 +193,9 @@ function stateChange(user_num, state_num){
 			}
 		})
 	}
-	
+	}else{
+		alert("회원 등급과 상태 변경은 최고관리자만 가능합니다.");
+	}
 }
 
 var sortDirections = {
@@ -238,9 +247,8 @@ function modalDraw(info, post, comment, report) {
     console.log(info[0]);
     var content = "";
     var content1 = "";
-
-    
     var profile = '';
+    roleNum = info[0].role_num;
     
     if(info[0].new_filename == null){
 		profile = '<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">';
@@ -293,7 +301,7 @@ function modalDraw(info, post, comment, report) {
         '<div><span>아이디 : ' + info[0].username + '</span></div><div><span>닉네임 : ' + info[0].nickname + '</span></div><div><span>이메일 : ' + info[0].email + '</span></div>' +
         '<div><span>정지 횟수 : ' + info[0].reportCount + '</span></div><div><span>신고 횟수 : ' + info[0].sspsCount + '</span></div></div></div>' +
         '<div class="col-md-6" style="position: relative"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;"><div class="d-flex flex-column" style="width: 50%"><label>회원 등급</label>' +
-        '<select id='+info[0].username+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>' +
+        '<select id='+info[0].user_num+' onchange="roleChange(this.id, this.value)">' + roleOptions + '</select></div>' +
         '<div class="d-flex flex-column" style="margin-top: 10px; width: 50%;"><label>회원 상태</label><select id='+info[0].user_num+' onchange="stateChange(this.id, this.value)">' + stateOptions + '</select></div>' +
         '<div style="margin-top: 10px;" class="d-flex flex-column"><span><a id="toggleBoard" onclick="toggle(\'board\');" style="color:blue;">게시판 리스트</a> | <a id="toggleLog" onclick="toggle(\'log\');">회원 로그</a></span></div></div></div>';
         
@@ -328,19 +336,7 @@ function toggle(sort){
 		$("#toggleBoard").css("color", "blue");
 		$("#toggleLog").css("color", "");
 		
-		$.ajax({
-			type : 'post',
-			url : '/manage/userBoard',
-			data : {'user_num':modalUser_num},
-			dataType : 'json',
-			success : function(data){
-				userBoard(data.post, data, comment);
-				
-			},
-			error : function(e){
-				console.log(e);
-			}
-		})		
+		modalInfo(modalUser_num);
 		
 	}else{
 		toggleBoard.classList.remove('active');
@@ -364,6 +360,7 @@ function toggle(sort){
 	}
 }
 
+
 function userLog(log){
 	var content = '';
 	content += '<div class="col-md-6 text-center"><h4>로그 리스트</h4><div class="scroll" style="margin-bottom:20px;">';
@@ -375,4 +372,33 @@ function userLog(log){
 	content += '</div></div>';
 	
 	$("#boardList").empty().append(content);
+}
+
+function suspUser(){
+	console.log(sessionRole);
+
+		if(roleNum == 3){
+		console.log("aaaaa : "+user_num);
+		var check = confirm("해당 유저를 일시정지 처리하시겠습니까?");
+	
+			if(check){
+				$.ajax({
+					type : 'post',
+					url : '/manage/suspUser',
+					data : {'user_num':modalUser_num},
+					dataType : 'json',
+					success : function(data){
+						if(data == 1){
+							alert("해당 유저에 대한 일시정지가 완료되었습니다. ");
+						}
+					},
+					error : function(e){
+						console.log(e);
+					}
+				})
+			}
+	}else{
+		alert("관리자는 일시정지가 불가능합니다.");
+	}
+
 }

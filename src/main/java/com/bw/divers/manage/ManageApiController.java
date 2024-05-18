@@ -31,10 +31,10 @@ public class ManageApiController {
 	}
 	
 	@PostMapping("/manage/userRole")
-	public int userRole(@RequestParam HashMap<String, Object> param, HttpSession session) {
+	public int userRole(@RequestParam HashMap<String, Object> param) {
 		int result = 0;
 		
-		result = manageService.userRole(param, session);
+		result = manageService.userRole(param);
 		
 		return result;
 	}
@@ -60,12 +60,6 @@ public class ManageApiController {
 		return manageService.userLog(user_num);
 	}
 	
-	@PostMapping("/manage/userBoard")
-	public HashMap<String, Object> userBoard(@RequestParam int user_num){
-		
-		return manageService.userBoard(user_num);
-	}
-	
 	@PostMapping("/manage/boardList")
 	public HashMap<String, Object> boardList
 	(@RequestParam int page, String search_word, String sort, String direction, String state){
@@ -81,8 +75,14 @@ public class ManageApiController {
 	
 	@PostMapping("/manage/reportInfo")
 	public HashMap<String, Object> reportInfo(@RequestParam int post_num){
-		
+
 		return manageService.reportInfo(post_num);
+	}
+	
+	@PostMapping("/manage/commentInfo")
+	public HashMap<String, Object> commentInfo(@RequestParam int comment_num){
+
+		return manageService.commentInfo(comment_num);
 	}
 	
 	@PostMapping("/manage/postBlind")

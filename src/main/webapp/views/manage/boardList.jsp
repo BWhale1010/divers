@@ -89,3 +89,4 @@
 
 <script src="/assets/js/manage/boardList.js"></script>
 <%@include file="../layout/footer.jsp"%>
+<%@ include file="./reportModal.jsp" %>

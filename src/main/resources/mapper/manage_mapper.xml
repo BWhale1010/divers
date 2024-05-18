@@ -48,7 +48,7 @@ LIMIT 10 OFFSET #{offset};
 </select>
 
 <update id="userRole" parameterType="hashmap">
-	update user set role_num = #{role_num} where username = #{username}
+	update user set role_num = #{role_num} where user_num = #{user_num}
 </update>
 
 <update id="userState" parameterType="int">
@@ -83,6 +83,7 @@ LIMIT 10 OFFSET #{offset};
 	join log_factor lf on lf.alter_num = l.alter_num
 	join log_sort ls on ls.sort_num = l.sort_num
 	where l.user_num = #{user_num}
+	order by l.alter_date desc
 </select>
 
 <select id="boardTotalCount" resultType="int" parameterType="hashmap">
@@ -219,6 +220,20 @@ LIMIT
 	join post_state ps on ps.post_state_num = p.post_state_num
 	left join report r on r.post_num = p.post_num
 	where p.post_num = #{post_num};
+</select>
+
+<select id="commentInfo"  parameterType="int" resultType="manage">
+	select c.comment_num, c.comment_date, sc.small_class_name, u.nickname, u.user_num, r.sort_num, r2.sort_name, 
+		r.report_detail, cs.comment_state_name, u.user_num,
+		(select count(*) from report r3 where r3.comment_num = #{comment_num}) as reportCount
+	from comment c
+	join post p on p.post_num = c.post_num
+	join small_category sc on sc.small_category_num = p.small_category_num 
+	join comment_state cs on c.comment_state_num  = cs.comment_state_num 
+	join `user` u on u.user_num = p.user_num
+	join report r on r.comment_num = c.comment_num
+	join reportsort r2 on r.sort_num = r2.sort_num
+	where c.comment_num  = #{comment_num}
 </select>
 
 <update id="postBlind" parameterType="int">

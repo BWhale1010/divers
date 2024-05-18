@@ -11,7 +11,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
+      <input type="hidden" value="${sessionScope.role_num }" id="sessionRole">
       <form action="/manage/#" method="post" enctype="multipart/form-data">
       
       <div class="modal-body">   	
@@ -28,7 +28,7 @@
       
       <div class="modal-footer row">
       	<div class="col">
-      		<button onclick="delProfile()" type="button" class="btn btn-danger" data-dismiss="modal">회원 정지</button>
+      		<button onclick="suspUser()" type="button" class="btn btn-danger" data-dismiss="modal">회원 정지</button>
       	</div>
       	<div class="col text-end">
       		<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

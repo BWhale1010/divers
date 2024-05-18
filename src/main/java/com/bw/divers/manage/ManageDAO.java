@@ -51,6 +51,13 @@ public interface ManageDAO {
 
 	int logWrite(int user_num, int sort_num, int alter_num);
 
+	int findUser_num(String username);
+
+	ArrayList<ManageDTO> commentInfo(int comment_num);
+
+
+
+
 
 
 }
