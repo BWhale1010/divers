@@ -8,7 +8,7 @@
 	select * from small_category
 </select>
 
-<insert id="boardWrite"  parameterType="hashmap">
+<insert id="boardWrite"  parameterType="hashmap" useGeneratedKeys="true" keyProperty="post_num">
 	insert into post(small_category_num, title, content, user_num) values(#{category}, #{title}, #{content}, #{user_num})
 </insert>
 
@@ -108,15 +108,13 @@
 	    u.role_num,
 	    ANY_VALUE(p.new_filename) AS new_filename, 
 	    (select count(distinct tc1.thumb_comment_user)from thumb_comment tc1 where tc1.comment_num = c.comment_num) AS recommend,
-	    CASE WHEN tc.thumb_comment_user IS NOT NULL THEN 1 ELSE 0 END AS is_recommended,
-	    p2.new_filename
+	    CASE WHEN tc.thumb_comment_user IS NOT NULL THEN 1 ELSE 0 END AS is_recommended
 	FROM comment c  
 	JOIN `user` u ON c.user_num = u.user_num
-	left join profile p2 on u.user_num = p2.user_num
 	LEFT JOIN profile p ON u.user_num = p.user_num
 	LEFT JOIN thumb_comment tc ON c.comment_num = tc.comment_num and tc.thumb_comment_user = #{user_num}
 	WHERE c.post_num = #{post_num} AND c.comment_state_num = 1
-	GROUP BY c.comment_num, tc.thumb_comment_user, p2.new_filename
+	GROUP BY c.comment_num, tc.thumb_comment_user, p.new_filename
 	ORDER BY c.comment_date DESC 
 	LIMIT 10 OFFSET #{offset};
 </select>
@@ -172,12 +170,39 @@ update post set count = count+1 where post_num = #{postNum}
 </select>
 
 <select id="popList" resultType="board">
-	select p.post_num, sc.small_class_name, p.board_date, p.title,u.nickname, p.content, p2.new_filename
+	select p.post_num, p.board_date, p.title, p.content, p.count, sc.small_class_name, u.nickname, 
+	p2.new_filename
 	from post p
-	join small_category sc on sc.small_category_num = p.small_category_num 
+	join small_category sc on sc.small_category_num = p.small_category_num
 	join `user` u on u.user_num = p.user_num
-	join profile p2 on p2.user_num = u.user_num
-	order by p.count desc limit 7
+	left join profile p2 on p2.user_num = p.user_num 
+	order by count desc limit 7
 </select>
+
+<select id="sideRecommend" resultType="board">
+	select p.post_num, p.board_date, p.title, sc.small_class_name, u.nickname,
+		(select count(tp.post_num) from thumb_post tp where tp.post_num = p.post_num) as recommend
+	from post p
+	join small_category sc on sc.small_category_num = p.small_category_num
+	join `user` u on u.user_num = p.user_num
+	order by recommend desc limit 6
+</select>
+
+<select id="sidePop" resultType="board">
+	select p.post_num, p.board_date, p.title, sc.small_class_name, u.nickname, p.count
+	from post p
+	join small_category sc on sc.small_category_num = p.small_category_num
+	join `user` u on u.user_num = p.user_num
+	order by count desc limit 6
+</select>
+
+<select id="sideNew" resultType="board">
+	select p.post_num, p.board_date, p.title, sc.small_class_name, u.nickname, p.count
+	from post p
+	join small_category sc on sc.small_category_num = p.small_category_num
+	join `user` u on u.user_num = p.user_num
+	order by p.board_date desc limit 6
+</select>
+
 
 </mapper>

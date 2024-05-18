@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,8 +47,15 @@ public class BoardService {
 
 	public int boardWrite(HashMap<String, Object> params) {
 		logger.info("게시글 저장 서비스");
-		int row = boardDAO.boardWrite(params);
-		return row;
+		boardDAO.boardWrite(params);
+		Object postNumObject = params.get("post_num");
+		int post_num = 0;
+		
+		if(postNumObject instanceof BigInteger) {
+			post_num = ((BigInteger) postNumObject).intValue();
+		}
+		
+		return post_num;
 	}
 
 	public HashMap<String, Object> listAdd(int page, int category, String search_word) {
@@ -249,6 +257,36 @@ public class BoardService {
 		map.put("list", list);
 		
 		return map;
+	}
+
+	public HashMap<String, Object> sideRecommend() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<BoardDTO> list = boardDAO.sideRecommend();
+		
+		map.put("list", list);
+		
+		return map; 
+	}
+
+	public HashMap<String, Object> sidePop() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<BoardDTO> list = boardDAO.sidePop();
+		
+		map.put("list", list);
+		
+		return map; 
+	}
+
+	public HashMap<String, Object> sideNew() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<BoardDTO> list = boardDAO.sideNew();
+		
+		map.put("list", list);
+		
+		return map; 
 	}
 
 

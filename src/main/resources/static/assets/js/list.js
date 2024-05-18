@@ -122,4 +122,19 @@ $("#search-btn").on("click", function(){
     
 });
 
-
+function postWrite(){
+	var user_num = $("#user_num").val();
+	if(user_num == ""){
+		var check = confirm("로그인을 하시겠습니까?");
+		if(check){
+		    var name = "visitedPage";
+		    var currentPageUrl = window.location.pathname;			    	    		 				    
+		    
+		    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
+		    
+		    location.href = "/user/login";
+		}	
+	}else{
+		location.href='/board/write?boardId='+boardId;
+	}
+}

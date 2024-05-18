@@ -95,48 +95,45 @@ function deletePost(postNum, small_category_num, user_num){
 	}
 }
 
-$(function(){
-		$("#comment-btn").on("click", function(){
-			var comment = $("#comment").val();
-			var loginId = $("#loginId").val();
-			var post_num = $("#post_num").val();		
-			
-			if (!loginId) {
-			    var loginCheck = confirm("로그인을 하시겠습니까?");
-				if (loginCheck) {
-				    var name = "visitedPage";
-				    var currentPageUrl = window.location.pathname;			    	    		 				    
-				    
-				    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
-				    
-				    location.href = "/user/login";
-				}
-
-			}
-			else if(comment === ""){
-				alert("내용을 작성해 주세요.");
-			} else {
-			    let params = {
-			        comment: comment,
-			        post_num: post_num,
-			        user_num: loginId
-			    };
-			    $.ajax({
-			        type: "post",
-			        url: "/comment/write",
-			        data: params,
-			        dataType: "json",
-			        success: function (data) {
-			            console.log(data);
-			            location.href = "/board/detail/" + post_num;
-			        },
-			        error: function (e) {
-			            console.log(e);
-			        }
-			    });
-			}
-		})
-})
+function commentWrite(){
+	var comment = $("#comment").val();
+	var loginId = $("#loginId").val();
+	var post_num = $("#post_num").val();		
+	
+	if (!loginId) {
+	    var loginCheck = confirm("로그인을 하시겠습니까?");
+		if (loginCheck) {
+		    var name = "visitedPage";
+		    var currentPageUrl = window.location.pathname;			    	    		 				    
+		    
+		    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
+		    
+		    location.href = "/user/login";
+		}
+	}
+	else if(comment === ""){
+		alert("내용을 작성해 주세요.");
+	} else {
+	    let params = {
+	        comment: comment,
+	        post_num: post_num,
+	        user_num: loginId
+	    };
+	    $.ajax({
+	        type: "post",
+	        url: "/comment/write",
+	        data: params,
+	        dataType: "json",
+	        success: function (data) {
+	            console.log(data);
+	            location.href = "/board/detail/" + post_num;
+	        },
+	        error: function (e) {
+	            console.log(e);
+	        }
+	    });
+	}
+}
 
 function commentDelete(comment_num, user_num){
 	console.log("comment_num : "+comment_num);
@@ -325,41 +322,43 @@ function postClear(post_num){
 	}
 }
 
+
+
 function reportWriteModal(post_num){
 	var loginId = $("#loginId").val();
 	var check = confirm("해당 게시글을 신고하시겠습니까?");
 	if(check){
-		if(!loginId){
-		var loginCheck = confirm("로그인을 하시겠습니까?");
-		if (loginCheck) {
-		    var name = "visitedPage";
-		    var currentPageUrl = window.location.pathname;			    	    		 				    
-		    
-		    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
-		    
-		    location.href = "/user/login";
-		}
+	if(!loginId){
+	var loginCheck = confirm("로그인을 하시겠습니까?");
+	if (loginCheck) {
+	    var name = "visitedPage";
+	    var currentPageUrl = window.location.pathname;			    	    		 				    
+	    
+	    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(currentPageUrl) + "; path=/";
+	    
+	    location.href = "/user/login";
+	}
 	}else{
-		$.ajax({
-			type : 'post',
-			url : '/manage/reportPostCheck',
-			data : {'post_num':post_num, 'user_num':loginId},
-			dataType : 'json',
-			success : function(data){
-				if(data == 1){
-					alert("이미 신고한 게시글입니다.");
-				}else{
-					$("#reportWriteModal").modal("show")
-					$("#modalPost_num").val(post_num);
-					$("#loginId").val(loginId);
-				}
-			},
-			error : function(e){
-				console.log(e);
+	$.ajax({
+		type : 'post',
+		url : '/manage/reportPostCheck',
+		data : {'post_num':post_num, 'user_num':loginId},
+		dataType : 'json',
+		success : function(data){
+			if(data == 1){
+				alert("이미 신고한 게시글입니다.");
+			}else{
+				$("#reportWriteModal").modal("show")
+				$("#modalPost_num").val(post_num);
+				$("#loginId").val(loginId);
 			}
-		})
-	}
-	}
+		},
+		error : function(e){
+			console.log(e);
+		}
+	})
+}
+}
 }
 
 $("#report-btn").on("click",function(){

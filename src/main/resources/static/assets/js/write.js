@@ -68,8 +68,8 @@ let index ={
 				data: param,
 				dataType: "json",
 				success: function(data){
-					// 게시글 상세보기 완료 후 해당 페이지로 이동
-					location.href="/";
+					console.log(data);
+					location.href="/board/detail/"+data;
 				},
 				error: function(e){
 					console.log(e);

@@ -161,7 +161,7 @@
                   <div class="col-12">
                   	<input id="cancel-btn" type="button" class="btn btn-primary" value="취소" style="display: none;">
                   	<input id="commentEdit-btn" type="button" class="btn btn-primary" value="댓글 수정" style="display: none;">
-                    <input id="comment-btn" type="button" class="btn btn-primary" value="댓글 쓰기">
+                    <input id="comment-btn" onclick="commentWrite();" type="button" class="btn btn-primary" value="댓글 쓰기">
                   </div>
                   
               

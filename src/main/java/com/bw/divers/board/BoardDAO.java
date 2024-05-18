@@ -53,6 +53,13 @@ public interface BoardDAO {
 
 	ArrayList<BoardDTO> popList();
 
+	ArrayList<BoardDTO> sideRecommend();
+
+	ArrayList<BoardDTO> sidePop();
+
+	ArrayList<BoardDTO> sideNew();
+
+
 	
 
 

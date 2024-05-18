@@ -1,17 +1,12 @@
 package com.bw.divers.board;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,10 +24,10 @@ public class BoardApiController {
 		logger.info("게시글 저장 컨트롤러");
 		int user_num = (int) session.getAttribute("user_num");
 		params.put("user_num", user_num);
-		int success = boardService.boardWrite(params);
+		int result  = boardService.boardWrite(params);
 		
 		
-		return success;
+		return result;
 	}
 	
 	@PostMapping("/board/listAdd")
@@ -166,6 +161,25 @@ public class BoardApiController {
 		
 		return success;
 	}
+	
+	@PostMapping("/board/recommendList")
+	public HashMap<String, Object> recommendList(){
+		
+		return boardService.sideRecommend();
+	}
+	
+	@PostMapping("/board/popList")
+	public HashMap<String, Object> popList(){
+		
+		return boardService.sidePop();
+	}
+	
+	@PostMapping("/board/newList")
+	public HashMap<String, Object> newList(){
+		
+		return boardService.sideNew();
+	}
+
 
 
 	

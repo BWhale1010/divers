@@ -61,7 +61,7 @@
 
 
 						<div class="writeBtn" style="display: inline-block; float: right;">
-							<button type="button" onclick="location.href='/board/write?boardId='+boardId">글쓰기</button>
+							<button type="button" onclick="postWrite();">글쓰기</button>
 						</div>
 					</div>
 
