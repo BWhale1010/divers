@@ -124,6 +124,7 @@ function reportDraw(report){
 
 function suspUser(){
 	var user_num = $("#reportUser_num").val();
+	console.log("aa : "+user_num);
 	var check = confirm("해당 유저를 일시정지 처리하시겠습니까?");
 	
 	if(check){

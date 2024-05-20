@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bw.divers.config.SessionManager;
-import com.bw.divers.user.UserDTO;
 import com.bw.divers.user.UserService;
 
 @RestController

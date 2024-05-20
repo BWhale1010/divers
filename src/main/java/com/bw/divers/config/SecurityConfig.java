@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,6 +28,7 @@ public class SecurityConfig {
 	
 	@Autowired HttpSessionRequestCache requestCache;
 	
+	
 	@Bean
 	public HttpSessionRequestCache requestCache() {
 		return new HttpSessionRequestCache();
@@ -35,8 +38,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
+ 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -46,11 +48,11 @@ public class SecurityConfig {
                 .antMatchers("/manage/**").hasAnyRole("SUPER", "ADMIN")
                 .antMatchers("/mypage/withDraw").hasRole("USER")
                 .antMatchers("/mypage/**", "/board/write", "/board/edit/{postNum}", "/manage/reportWrite", "/manage/reportPostCheck", "/manage/reportCommentCheck").authenticated()
-                .antMatchers("/board/delete/{postNum}", "/comment/write", "/comment/delete/{comment_num}").authenticated()
+                .antMatchers("/board/delete/{postNum}", "/comment/write", "/comment/delete/{comment_num}") .authenticated()
                 .antMatchers("/comment/edit/{comment_num}", "/board/thumb/{postNum}", "/comment/thumb/{comment_num}", "/manage/reportWrite").authenticated()
                 .antMatchers( "/board/list/**", "/board/detail/**", "/board/listAdd", "/board/thumbnail/{postNum}").permitAll()
                 .antMatchers("/comment/list", "/board/recommendList", "/board/popList", "/board/newList").permitAll()
-                .antMatchers("/assets/**", "/", "/main/**", "/user/**").permitAll()
+                .antMatchers("/assets/**", "/", "/main/**", "/user/**", "/login/**").permitAll()
                 .and()
             .formLogin()
                 .loginPage("/user/login")
@@ -66,8 +68,7 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
             .csrf().disable()
-            .httpBasic().disable()
-            ;
+            .httpBasic().disable();
         
         return http.build();
     }
@@ -75,8 +76,4 @@ public class SecurityConfig {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	auth.authenticationProvider(authProvider);
     }
-    
-
-
-    
 }

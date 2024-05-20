@@ -5,15 +5,12 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.bw.divers.config.SessionManager;
 
 @MapperScan("com.bw.divers.manage")
 @Service
@@ -233,11 +230,7 @@ public class ManageService {
 		int alter_num = 2;
 		int state_num = 2;
 		userState(user_num, state_num);
-		
-		if(SessionManager.isUserLoggedIn(user_num)) {
-		    SessionManager.logoutUser(user_num, request, response);
-		}
-		
+			
 		return logSystem(user_num, sort_num, alter_num);
 	}
 
@@ -248,8 +241,7 @@ public class ManageService {
 	public int logSystem(int user_num, int sort_num, int alter_num) {
 		return manageDAO.logWrite(user_num, sort_num, alter_num);
 	}
-
-
+	
 
 
 }

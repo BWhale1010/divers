@@ -29,6 +29,10 @@ public interface UserDAO {
 
 	Date withDate(int user_num);
 
+	UserDTO userFind(String username);
+
+	void joinKakao(HashMap<String, Object> userInfo);
+
 
 
 }

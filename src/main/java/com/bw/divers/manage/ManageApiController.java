@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.bw.divers.config.SessionManager;
-
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -149,8 +144,6 @@ public class ManageApiController {
 		row = manageService.reportCommentCheck(comment_num, user_num);
 		return row;
 	}
-	
-
 
 }
 

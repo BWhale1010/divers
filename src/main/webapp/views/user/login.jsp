@@ -40,7 +40,7 @@
 							</div>
 						</div>
 						
-						<br>
+						<br><br>
 						
 						<div class="btn-group d-flex justify-content-center">
 							<div class="text-center">

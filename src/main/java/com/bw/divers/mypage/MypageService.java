@@ -17,9 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bw.divers.config.SessionManager;
 import com.bw.divers.manage.ManageService;
-import com.bw.divers.user.UserDTO;
 import com.bw.divers.user.UserService;
 
 @Service
@@ -122,10 +120,6 @@ public class MypageService {
 		int logResult = manageService.logSystem(user_num, sort_num, alter_num);
 		int state_num = 3;
 		manageService.userState(user_num, state_num);
-		
-		if(SessionManager.isUserLoggedIn(user_num)) {
-		    SessionManager.logoutUser(user_num, request, response);
-		}
 		
 		return logResult;
 	}

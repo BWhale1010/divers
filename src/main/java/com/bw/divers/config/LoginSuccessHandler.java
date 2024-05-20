@@ -92,10 +92,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			response.sendRedirect("/?msg="+URLEncoder.encode(msg, "UTF-8"));
     	}
     	
-
-    	
-    	SessionManager.loginUser(user_num, response);
-    	
     	session.setAttribute("user_num", user_num);
     	session.setAttribute("username", user_name);
     	session.setAttribute("role_num", role_num);

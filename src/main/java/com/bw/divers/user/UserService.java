@@ -3,7 +3,6 @@ package com.bw.divers.user;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.mail.internet.MimeMessage;
@@ -14,14 +13,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 @MapperScan("com.bw.divers.user")
@@ -245,8 +252,89 @@ public class UserService {
 	public Date withDate(int user_num) {
 		return userDAO.withDate(user_num);
 	}
+	
+	public HashMap<String, Object> getAccessToken(String code) throws JsonMappingException, JsonProcessingException {
+		logger.info("카카오  로그인 토큰 발급");
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+		body.add("grant_type", "authorization_code");
+	    body.add("client_id", "d48464db1814a3c7349c752ef9646748");
+	    body.add("redirect_uri", "http://localhost:8000/login/kakao/callback");
+	    body.add("code", code);
+	    
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
+        RestTemplate rt = new RestTemplate();
+        ResponseEntity<String> response = rt.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                kakaoTokenRequest,
+                String.class
+        );
+        
+        String responseBody = response.getBody();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+        String accessToken = jsonNode.get("access_token").asText();
+        
+        logger.info("accessToken : "+accessToken);
+        
+        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        
+        HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
+        response = rt.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoUserInfoRequest,
+                String.class
+        );
+        
+        responseBody = response.getBody();
+        jsonNode = objectMapper.readTree(responseBody);
+        String username = jsonNode.get("id").asText();
+        String nickname = jsonNode.get("properties")
+                .get("nickname").asText();
+        String email = jsonNode.get("kakao_account")
+                .get("email").asText();
+        
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("username", username);
+        map.put("email", email);
+        map.put("nickname", nickname);
+		logger.info("username : "+username);
+		logger.info("email : "+email);
+		logger.info("nickname : "+nickname);
 
-
+		return map;
+      
+	}
+	public UserDTO kakaoUserInfo(HashMap<String, Object> userInfo) {
+		logger.info("userInfo : " + userInfo);
+		
+		String email = (String) userInfo.get("email");
+		String username = "kakao_"+email;
+		String nickname = (String) userInfo.get("nickname");
+		String password = enc_password(username);
+	
+		logger.info("username : "+username);
+		logger.info("email : "+email);
+		
+		userInfo.put("username", username);
+		userInfo.put("nickname", nickname);
+		userInfo.put("platform_sort", 4);
+		userInfo.put("password", password);
+		
+		 UserDTO findInfo = userDAO.userFind(username);
+		
+		if(findInfo == null) {
+			userDAO.joinKakao(userInfo);
+			findInfo = userDAO.userFind(username);
+		}
+		
+		return findInfo;
+	}
 
 
 	

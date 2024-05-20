@@ -64,6 +64,15 @@
 	order by alter_date desc limit 1;
 </select>
 
+<select id="userFind" resultType="user">
+	select * from user where username = #{username}
+</select>
+
+<insert id="joinKakao"  parameterType="hashmap">
+	insert into user(username, email, nickname, password, platform_sort) 
+		values(#{username},#{email}, #{nickname}, #{password}, #{platform_sort})
+</insert>
+
 
 
 </mapper>
