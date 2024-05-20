@@ -215,6 +215,7 @@ public class ManageService {
 	public int reportWrite(HashMap<String, Object> param) {
 
 		String comment_num = (String) param.get("comment_num");
+	
 
 		if(comment_num != "") {
 			return manageDAO.reportCommentWrite(param);

@@ -1,19 +1,25 @@
 var userNum = "";
 
 function withDraw(user_num){
-	var check = confirm("회원 탈퇴를 진행하시겠습니까?");
-	userNum = user_num;
-	if(check){
+	var role_num = $("#role_num").val();
+	
+	if(role_num == 3){
+		var check = confirm("회원 탈퇴를 진행하시겠습니까?");
+		userNum = user_num;
+		if(check){
 		$('#withdrawModal').modal("show");	
+		}
+	}else{
+		alert("관리자는 탈퇴를 할 수 없습니다.");
 	}
+	
+
 }
 
 function withCheck(){
 	
 	var check = confirm("회원 탈퇴를 진행하시겠습니까?");
 	var password = $("#passwordWith").val();
-	var flag1 = false;
-	var flag2 = false;
 	console.log("password : "+password);
 	console.log("userNum : "+userNum);
 	
@@ -50,7 +56,7 @@ function withDrawComplete(user_num){
 		success : function(data){
 			if(data == 1){
 				alert("탈퇴가 완료되었습니다. 탈퇴대기(7일) 중 로그인 시 탈퇴가 취소됩니다.");
-				location.href ="/";
+				location.href = "/user/logout";
 			}
 		},
 		error : function(e){

@@ -18,7 +18,7 @@
         		<img src="/assets/img/profile.png" style="width:200px; margin-bottom:40px;" id="profilePreview">
         	</c:if>
         	<c:if test="${user.new_filename != null }">
-        		<img src="/photo/${user.new_filename }" style="width:200px; margin-bottom:40px;" id="profilePreview">
+        		<img src="/upload/${user.new_filename }" style="width:200px; margin-bottom:40px;" id="profilePreview">
         	</c:if>
         	
         	

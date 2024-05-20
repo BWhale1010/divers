@@ -13,7 +13,7 @@
 				<div class="col-md-8 offset-md-2">
 					<div class="form mt-5">
 						<div class="php-email-form">
-
+							<input id="role_num" type="hidden" value="${user.role_num }">
 							<div class="row justify-content-center">
 								<div class="col-md-4 profile-margin text-center">
 									<div class="profile-picture mx-auto">
@@ -21,7 +21,7 @@
 											<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">
 										</c:if>
 										<c:if test="${user.new_filename != null }">
-											<img src="/photo/${user.new_filename }" style="display: block;">
+											<img src="/upload/${user.new_filename }" style="display: block;">
 										</c:if>
 										
 									</div>

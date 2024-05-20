@@ -66,7 +66,7 @@ function listDraw(list){
     var content = "";
     console.log(list);
     list.forEach(function(item){
-        var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/photo/" + item.new_filename;
+        var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/upload/" + item.new_filename;
 
         // 회원 등급 옵션 생성
         var roleOptions = '';
@@ -253,7 +253,7 @@ function modalDraw(info, post, comment, report) {
     if(info[0].new_filename == null){
 		profile = '<img src="/assets/img/profile.png" alt="프로필 사진" style="display: block;">';
 	}else if(info[0].new_filename != null){
-		profile = '<img src="/photo/'+info[0].new_filename+'" style="display: block;">';
+		profile = '<img src="/upload/'+info[0].new_filename+'" style="display: block;">';
 	}
 	
 	$("#profile").empty().append(profile);

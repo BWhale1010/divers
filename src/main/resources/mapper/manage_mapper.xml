@@ -24,8 +24,11 @@ SELECT
     p.new_filename, 
     (SELECT COUNT(*) FROM post p2 WHERE p2.user_num = u.user_num) AS postCount, 
     (SELECT COUNT(*) FROM comment c WHERE c.user_num = u.user_num) AS commentCount,
-    (SELECT COUNT(r.user_num) FROM report r JOIN `user` u1 ON u1.user_num = r.user_num WHERE u1.user_num = u.user_num) AS reportCount,
-    (SELECT COUNT(l.sort_num) FROM log l JOIN `user` u2 ON u2.user_num = l.user_num WHERE u2.user_num = u.user_num AND l.sort_num = 2) AS sspsCount
+    (SELECT COUNT(l.sort_num) FROM log l JOIN `user` u2 ON u2.user_num = l.user_num WHERE u2.user_num = u.user_num AND l.sort_num = 2) AS sspsCount,
+    ((SELECT count(r.post_num) FROM report r JOIN post p ON p.post_num = r.post_num WHERE p.user_num = u.user_num) + (SELECT count(r2.comment_num)
+      FROM report r2
+      JOIN comment c ON c.comment_num = r2.comment_num
+      WHERE c.user_num = u.user_num)) AS reportCount
 FROM 
     `user` u
 LEFT JOIN 

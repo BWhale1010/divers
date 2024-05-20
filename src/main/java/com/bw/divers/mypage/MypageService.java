@@ -118,7 +118,7 @@ public class MypageService {
 	public int withDraw(int user_num, HttpServletRequest request, HttpServletResponse response) {
 		
 		int sort_num = 4;
-		int alter_num = 3;
+		int alter_num = 1;
 		int logResult = manageService.logSystem(user_num, sort_num, alter_num);
 		int state_num = 3;
 		manageService.userState(user_num, state_num);

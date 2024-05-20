@@ -74,12 +74,14 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     		if(days <= 7) {
     			msg = "탈퇴대기 중 로그인하여 탈퇴가 취소되었습니다.";
     			manageService.userState(user_num, 1);
+    			manageService.logSystem(user_num, 5, 1);
     			response.sendRedirect("/?msg="+URLEncoder.encode(msg, "UTF-8"));
     		}else if(days > 8) {
     			SecurityContextHolder.clearContext();
     			session.invalidate();
     			manageService.userState(user_num, 4);
     			msg = "탈퇴한 회원입니다.";
+    			manageService.logSystem(user_num, 6, 1);
     			response.sendRedirect("/?msg="+URLEncoder.encode(msg, "UTF-8"));
     		}
     		

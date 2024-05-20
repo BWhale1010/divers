@@ -44,6 +44,7 @@ public class SecurityConfig {
         		.antMatchers("/manage/reportWrite", "/manage/reportPostCheck", "/manage/reportCommentCheck").permitAll()
                 .antMatchers("/manage/userRole", "/manage/userState").hasRole("SUPER")
                 .antMatchers("/manage/**").hasAnyRole("SUPER", "ADMIN")
+                .antMatchers("/mypage/withDraw").hasRole("USER")
                 .antMatchers("/mypage/**", "/board/write", "/board/edit/{postNum}", "/manage/reportWrite", "/manage/reportPostCheck", "/manage/reportCommentCheck").authenticated()
                 .antMatchers("/board/delete/{postNum}", "/comment/write", "/comment/delete/{comment_num}").authenticated()
                 .antMatchers("/comment/edit/{comment_num}", "/board/thumb/{postNum}", "/comment/thumb/{comment_num}", "/manage/reportWrite").authenticated()
