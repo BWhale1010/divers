@@ -20,8 +20,6 @@ function withCheck(){
 	
 	var check = confirm("회원 탈퇴를 진행하시겠습니까?");
 	var password = $("#passwordWith").val();
-	console.log("password : "+password);
-	console.log("userNum : "+userNum);
 	
 	if(password == ""){
 		$(".msg3").html("비밀번호를 입력해 주세요.")

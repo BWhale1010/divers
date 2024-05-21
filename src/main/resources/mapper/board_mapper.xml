@@ -157,8 +157,10 @@ update post set count = count+1 where post_num = #{postNum}
 
 <select id="recommendList" resultType="board">
 	select p.post_num, p.user_num, p.small_category_num, p.board_date, p.title, p.content, p.count, p.post_state_num,
-		(select count(tp.post_num) from thumb_post tp where p.post_num = tp.post_num) as recommend
+		(select count(tp.post_num) from thumb_post tp where p.post_num = tp.post_num) as recommend,
+		sc.small_class_name
 	from post p
+	join small_category sc on sc.small_category_num = p.small_category_num
 	where p.post_state_num = 1
 	order by recommend desc limit 4
 </select>
@@ -166,6 +168,7 @@ update post set count = count+1 where post_num = #{postNum}
 <select id="newList" resultType="board">
 	select p.title, p.post_num, u.nickname from post p
 	join `user` u on u.user_num = p.user_num
+	where p.post_state_num = 1
 	order by p.board_date desc limit 5
 </select>
 
@@ -176,6 +179,7 @@ update post set count = count+1 where post_num = #{postNum}
 	join small_category sc on sc.small_category_num = p.small_category_num
 	join `user` u on u.user_num = p.user_num
 	left join profile p2 on p2.user_num = p.user_num 
+	where p.post_state_num = 1
 	order by count desc limit 7
 </select>
 
@@ -185,6 +189,7 @@ update post set count = count+1 where post_num = #{postNum}
 	from post p
 	join small_category sc on sc.small_category_num = p.small_category_num
 	join `user` u on u.user_num = p.user_num
+	where p.post_state_num = 1
 	order by recommend desc limit 6
 </select>
 
@@ -193,6 +198,7 @@ update post set count = count+1 where post_num = #{postNum}
 	from post p
 	join small_category sc on sc.small_category_num = p.small_category_num
 	join `user` u on u.user_num = p.user_num
+	where p.post_state_num = 1
 	order by count desc limit 6
 </select>
 
@@ -201,6 +207,7 @@ update post set count = count+1 where post_num = #{postNum}
 	from post p
 	join small_category sc on sc.small_category_num = p.small_category_num
 	join `user` u on u.user_num = p.user_num
+	where p.post_state_num = 1
 	order by p.board_date desc limit 6
 </select>
 

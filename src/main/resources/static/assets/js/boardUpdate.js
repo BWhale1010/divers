@@ -31,8 +31,6 @@ let index ={
 			var option = category.options[category.selectedIndex].value;
 			var content = $("#content").val();
 			
-			console.log("content : "+content)
-			
 			if(option == "init"){
 				option = null;
 			}
@@ -64,10 +62,6 @@ let index ={
 			}
 			let postNum = $("#postNum").val();
 			
-			console.log("title : "+title);
-			console.log("category : "+category);
-			console.log("content : "+content);
-			console.log("postNum : "+postNum);
 				$.ajax({
 				type:"post",
 				url:"/board/edit/"+postNum,
@@ -85,7 +79,6 @@ let index ={
 	}
 	,nullCheckFunc:function(nullCheck){
 		nullCheck.forEach(function(elem){
-			console.log("aa : "+elem);
 			switch(elem){
 				case "title":
 					$(".msg1").html("제목을 입력해주세요.");

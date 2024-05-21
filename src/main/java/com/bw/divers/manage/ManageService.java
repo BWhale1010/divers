@@ -19,6 +19,7 @@ public class ManageService {
 	@Autowired ManageDAO manageDAO;
 
 	public HashMap<String, Object> listAdd(int page, String search_username, String sort, String direction) {
+		logger.info("유저 리스트 조회 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int offset =(page-1)*10;
 		map.put("search_username", search_username);
@@ -38,23 +39,17 @@ public class ManageService {
 		map.put("sort", sort);
 		map.put("direction", direction);
 		
-		logger.info("search_username : "+search_username);
-		logger.info("offset : "+offset);
-		logger.info("sort : "+sort);
-		logger.info("direction : "+direction);
-		
 		ArrayList<ManageDTO> list = manageDAO.userList(map);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("total", totalPages);
 		result.put("list", list);
 		
-		logger.info("total : "+totalPages);
-		
 		return result;
 	}
 
 	public int userRole(HashMap<String, Object> param) {
+		logger.info("유저 권한 변경 서비스");
 		int result = 0;
 		Object userNumObject = param.get("user_num");
 		int user_num = 0;
@@ -76,11 +71,13 @@ public class ManageService {
 	}
 
 	public int userState(int user_num, int state_num) {
+		logger.info("유저 상태 변경 서비스");
 		
 		return manageDAO.userState(user_num, state_num);
 	}
 
 	public HashMap<String, Object> userInfo(int user_num) {
+		logger.info("유저 정보 조회 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<ManageDTO> info = manageDAO.userInfo(user_num);
@@ -97,6 +94,7 @@ public class ManageService {
 	}
 
 	public HashMap<String, Object> userLog(int user_num) {
+		logger.info("유저 정보 로그 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<ManageDTO> log = manageDAO.userLog(user_num);
@@ -107,6 +105,8 @@ public class ManageService {
 	}
 
 	public HashMap<String, Object> boardList(int page, String search_word, String sort, String direction, String state) {
+		logger.info("게시글 리스트 조회 서비스");
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		
@@ -140,6 +140,8 @@ public class ManageService {
 	}
 
 	public HashMap<String, Object> commentList(int page, String search_word, String sort, String direction, String state) {
+		logger.info("댓글 리스트 조회 서비스");
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		
@@ -173,6 +175,8 @@ public class ManageService {
 	}
 
 	public HashMap<String, Object> reportInfo(int post_num) {
+		logger.info("게시글 신고 정보 조회 서비스");
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		 ArrayList<ManageDTO> list = manageDAO.reportInfo(post_num);
@@ -183,6 +187,8 @@ public class ManageService {
 	}
 	
 	public HashMap<String, Object> commentInfo(int comment_num) {
+		logger.info("댓글 신고 정보 조회 서비스");
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		 ArrayList<ManageDTO> list = manageDAO.commentInfo(comment_num);
@@ -193,23 +199,31 @@ public class ManageService {
 	}
 
 	public int postBlind(int post_num) {
+		logger.info("게시글 블라인드 서비스");
 		
 		return manageDAO.postBlind(post_num);
 	}
 
 	public int commentBlind(int comment_num) {
+		logger.info("댓글 블라인드 서비스");
+		
 		return manageDAO.commentBlind(comment_num);
 	}
 
 	public int commentClear(int comment_num) {
+		logger.info("댓글 블라인드 해제 서비스");
+		
 		return manageDAO.commentClear(comment_num);
 	}
 
 	public int postClear(int post_num) {
+		logger.info("게시글 블라인드 해제 서비스");
+		
 		return manageDAO.postClear(post_num);
 	}
 
 	public int reportWrite(HashMap<String, Object> param) {
+		logger.info("게시글/댓글 신고 작성 서비스");
 
 		String comment_num = (String) param.get("comment_num");
 	
@@ -222,10 +236,13 @@ public class ManageService {
 	}
 
 	public int reportPostCheck(int post_num, int user_num) {
+		logger.info("게시글 신고 확인 서비스");
+		
 		return manageDAO.reportPostCheck(post_num, user_num);
 	}
 
 	public int suspUser(int user_num, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("회원 정지 서비스");
 		int sort_num = 2;
 		int alter_num = 2;
 		int state_num = 2;
@@ -235,10 +252,12 @@ public class ManageService {
 	}
 
 	public int reportCommentCheck(int comment_num, int user_num) {
+		logger.info("댓글 신고 확인 서비스");
 		return manageDAO.reportCommentCheck(comment_num, user_num);
 	}
 	
 	public int logSystem(int user_num, int sort_num, int alter_num) {
+		logger.info("로그 작성 서비스");
 		return manageDAO.logWrite(user_num, sort_num, alter_num);
 	}
 	

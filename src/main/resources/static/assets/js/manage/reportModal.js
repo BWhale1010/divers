@@ -1,9 +1,7 @@
 $('#reportModal').on('show.bs.modal', function (event) {
     var post_num = $(event.relatedTarget).data('post_num');
     var comment_num = $(event.relatedTarget).data('comment_num');
-    console.log("post_num : "+post_num);
-    console.log("comment_num :"+comment_num);
-    
+
     if(post_num === undefined){
 		commentInfo(comment_num);
 	}else{
@@ -48,9 +46,6 @@ function postBlind(){
 	var post_num = $("#reportPost_num").val();
 	var comment_num = $("#reportComment_num").val();
 
-	console.log("post_num :"+post_num);
-	console.log("comment_num :"+comment_num);
-	
 	if(comment_num === undefined){
 		var check = confirm("이 게시글을 블라인드 처리하시겠습니까?");
 		if(check){
@@ -124,7 +119,6 @@ function reportDraw(report){
 
 function suspUser(){
 	var user_num = $("#reportUser_num").val();
-	console.log("aa : "+user_num);
 	var check = confirm("해당 유저를 일시정지 처리하시겠습니까?");
 	
 	if(check){

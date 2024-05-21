@@ -16,8 +16,8 @@
 
 					<div>
 						<label for="username" style="margin-bottom: 10px">아이디</label>
+							<input type="text" class="form-control" id="username" placeholder="아이디는 영문 대·소문자와 숫자를 포함하여 6~20자 사이" required> 
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control" id="username" placeholder="아이디를 입력해주세요." required> 
 							<span class="msg1"></span>
 						</div>
 					</div>
@@ -25,7 +25,7 @@
 						<div class="row">
 							<label for="password" style="margin-bottom: 10px">비밀번호</label>
 							<div class="form-group col-md-6">
-								<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요." required> 
+								<input type="password" class="form-control" id="password" placeholder="아이디는 영문 대·소문자와 숫자를 포함하여 6~20자 사이" required> 
 								<span class="msg2 d-flex"></span>
 							</div>
 
@@ -76,7 +76,7 @@
 						<label for="nickname" style="margin-bottom: 10px">닉네임</label>
 						<div class="row">
 							<div class="form-group col-md-6">
-								<input type="text" class="form-control" id="nickname" placeholder="닉네임을 입력해주세요." required>
+								<input type="text" class="form-control" id="nickname" placeholder="닉네임은 영어, 한글, 숫자를 포함하여 2~20자 사이" required>
 								<span class="msg6 d-flex"></span>
 							</div>
 

@@ -18,7 +18,6 @@ function recommendSideList(){
 
 function drawRecommend(list){
     let content = '';
-    console.log(list);
     list.forEach(function(item){
         
         content += '<div class="post-entry-1 border-bottom">'+
@@ -47,7 +46,6 @@ function popSideList(){
 
 function drawPop(list){
     let content = '';
-    console.log(list);
     list.forEach(function(item){
         
         content += '<div class="post-entry-1 border-bottom">'+
@@ -76,7 +74,6 @@ function newSideList(){
 
 function drawNew(list){
     let content = '';
-    console.log(list);
     list.forEach(function(item){
         
         content += '<div class="post-entry-1 border-bottom">'+

@@ -23,15 +23,14 @@ public class BoardController {
 
 	@GetMapping("/board/list/{boardId}")
 	public String boardList(@PathVariable int boardId, Model model) {
-
+		logger.info("게시판 이동 컨트롤러 : "+boardId);
 		model.addAttribute("small_category_num", boardId);
 		return "board/list";
 	}
 
 	@GetMapping("/board/write")
 	public String boardWrite(@RequestParam int boardId, Model model, HttpServletRequest request) {
-
-		logger.info("boardId : " + boardId);
+		logger.info("게시글 쓰기 이동 컨트롤러 : " + boardId);
 
 		ArrayList<BoardDTO> categoryNum = boardService.categoryLIst();
 
@@ -43,7 +42,7 @@ public class BoardController {
 
 	@GetMapping("/board/detail/{postNum}")
 	public String boardDetail(@PathVariable int postNum, Model model, HttpSession session) {
-		logger.info("게시판 보기 postNum : " + postNum);
+		logger.info("게시글 상세 보기 이동 컨트롤러 : " + postNum);
 		Integer user_numSession = (Integer) session.getAttribute("user_num");
 		int user_num = 0;
 		if (user_numSession != null) {
@@ -63,7 +62,7 @@ public class BoardController {
 
 	@GetMapping("/board/edit/{postNum}")
 	public String boardEdit(@PathVariable int postNum, Model model, HttpSession session) {
-		logger.info("게시판 수정 postNum : " + postNum);
+		logger.info("게시글 수정  이동 컨트롤러 : " + postNum);
 
 		int user_num = (int) session.getAttribute("user_num");
 

@@ -31,7 +31,6 @@ let index ={
 			var option = category.options[category.selectedIndex].value;
 			var content = $("#content").val();
 			
-			console.log("content : "+content)
 			
 			if(option == "init"){
 				option = null;
@@ -68,7 +67,6 @@ let index ={
 				data: param,
 				dataType: "json",
 				success: function(data){
-					console.log(data);
 					location.href="/board/detail/"+data;
 				},
 				error: function(e){
@@ -79,7 +77,6 @@ let index ={
 	}
 	,nullCheckFunc:function(nullCheck){
 		nullCheck.forEach(function(elem){
-			console.log("aa : "+elem);
 			switch(elem){
 				case "title":
 					$(".msg1").html("제목을 입력해주세요.");

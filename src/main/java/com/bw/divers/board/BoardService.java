@@ -32,7 +32,7 @@ public class BoardService {
 	Logger logger = LoggerFactory.getLogger(getClass());	
 	
 	public ArrayList<BoardDTO> categoryLIst() {
-		
+		logger.info("게시판 카테고리 리스트 서비스");
 		 
 		return boardDAO.categoryList();
 	}
@@ -51,22 +51,16 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> listAdd(int page, int category, String search_word) {
+		logger.info("게시글 리스트 조회 서비스");
 		HashMap<String, Object> map1 = new HashMap<String, Object>();
 		int offset = (page-1)*5;
 		map1.put("category", category);
 		map1. put("search_word", search_word);
 		
 		int totalCount = boardDAO.totalCount(map1);
-		logger.info("totalCount : "+totalCount);
 		
 		int totalPages = totalCount%5>0?(totalCount/5)+1:(totalCount/5);
 		map1. put("offset", offset);
-
-		logger.info("총 페이지 : "+totalPages);
-
-		logger.info("category : "+map1.get("category"));
-		logger.info("search_word : "+map1.get("search_word"));
-		logger.info("offset : "+map1.get("offset"));
 		
 		ArrayList<BoardDTO> list = boardDAO.boardList(map1);
 		logger.info("list 개수 : "+list.size());
@@ -115,6 +109,7 @@ public class BoardService {
 	}
 
 	public String text(int postNum) {
+		logger.info("게시글 글 유무 확인 서비스");
 		String text = boardDAO.thumbnail(postNum);
 		Document doc = Jsoup.parse(text);
 		
@@ -123,7 +118,6 @@ public class BoardService {
 		imgElements.remove();
 		
 		String textOnly = doc.text();
-		
 		
 		return textOnly;
 	}
@@ -153,7 +147,6 @@ public class BoardService {
 		
 		int offset = (page-1)*10;
 		int totalCount = boardDAO.commentTotalCount(post_num);
-		logger.info("totalCoutn : "+totalCount);
 		int totalPages = totalCount%10>0?(totalCount/10)+1:(totalCount/10);
 		
 		Integer login_userNum = (Integer) session.getAttribute("user_num");
@@ -169,7 +162,6 @@ public class BoardService {
 			role_num = 3;
 		}
 		
-		logger.info("총 페이지 : "+totalPages);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = boardDAO.commentList(offset, post_num,user_num);
 		result.put("total", totalPages);
@@ -221,10 +213,12 @@ public class BoardService {
 	}
 
 	public int reportCount(int postNum) {
+		logger.info("게시글 신고 개수 확인 서비스");
 		return boardDAO.reportCount(postNum);
 	}
 
 	public HashMap<String, Object> recommendList() {
+		logger.info("메인 추천 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = boardDAO.recommendList(); 
 		
@@ -234,6 +228,7 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> newList() {
+		logger.info("메인 최신 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = boardDAO.newList(); 
 		
@@ -243,6 +238,7 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> popList() {
+		logger.info("메인 인기 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<BoardDTO> list = boardDAO.popList(); 
 		
@@ -252,6 +248,7 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> sideRecommend() {
+		logger.info("사이드 바 추천 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<BoardDTO> list = boardDAO.sideRecommend();
@@ -262,6 +259,7 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> sidePop() {
+		logger.info("사이드 바 인기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<BoardDTO> list = boardDAO.sidePop();
@@ -272,6 +270,7 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> sideNew() {
+		logger.info("사이드 최신 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<BoardDTO> list = boardDAO.sideNew();

@@ -15,7 +15,6 @@ function generateRandomNickname() {
 
 $("#nickname-btn").on("click", function(){
 	const nickname = generateRandomNickname();
-	console.log("Generated nickname: " + nickname);
 	$("#nickname").val(nickname);
 	$("#nickname").focus();
 })

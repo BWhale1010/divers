@@ -5,7 +5,6 @@ var search_word = '';
 listAdd(1, boardId, search_word);
 
 function listAdd(page, boardId, search_word){
-	console.log("search_word : "+search_word);
 	let param = {
 		'page' : page,
 		'category' : boardId,
@@ -23,9 +22,7 @@ function listAdd(page, boardId, search_word){
 			}
 			thumbnail(data.list);
 
-			console.log("페이지 수 : "+data.total);
 			if(total != data.total){
-				console.log("페이지 초기화");
 				total = data.total
 				 $('#pagination').twbsPagination('destroy');
 			}
@@ -49,12 +46,9 @@ function listAdd(page, boardId, search_word){
 
 function listDraw(list){
 	var content ="";
-	//console.log("aa : "+ list[0].thumbnail);
 	var user_num = $("#user_num").val();
-//	console.log("user_num : "+user_num);
 	if(user_num == ""){
 		user_num = 0;
-		console.log("user_num : "+user_num);
 	}
 	list.forEach(function(item){
 		
@@ -83,7 +77,6 @@ function thumbnail(list) {
 	var complet = 0;
 	
     for (let i = 0; i < list.length; i++) {
-//        console.log("썸네일 요청 : " + list[i].post_num);
 
             $.ajax({
                 type: 'post',
@@ -92,7 +85,6 @@ function thumbnail(list) {
                 success: function(data) {
                     list[i].thumbnail = data.thumbnail;
                     list[i].content = data.text;
-//                    console.log("여기 : "+list[i].thumbnail);
                     complet++;
                     
                     if(complet === list.length){
@@ -115,9 +107,6 @@ function thumbnail(list) {
 $("#search-btn").on("click", function(){
     var small_category_num = $("#small_category_num").val();
     var search_word = $("#search-word").val();
-    console.log("검색 small_category_num : "+small_category_num);    
-    console.log("검색 search_word : "+search_word);
-    
      listAdd(1, small_category_num, search_word);
     
 });
@@ -126,7 +115,6 @@ function postWrite(){
 	var role_num = $("#role_num").val();
 	var category = $("#small_category_num").val();
 	var user_num = $("#user_num").val();
-	console.log("aa : "+role_num);
 	if(role_num == 3 && category == 3){
 		alert("공지 게시판은 관리자만 작성할 수 있습니다.");
 	}else{

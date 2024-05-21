@@ -13,14 +13,14 @@ public class ManageController {
 	
 	@GetMapping("/manage/userList")
 	public String userList() {
-		logger.info("유저관리 컨트롤러 ");
+		logger.info("유저 관리 이동 컨트롤러 ");
 		
 		return "/manage/userList";		
 	}
 	
 	@GetMapping("/manage/boardList")
 	public String boardList() {
-		logger.info("게시판 관리 컨트롤러 ");
+		logger.info("게시판 관리 이동 컨트롤러 ");
 		
 		return "/manage/boardList";		
 	}

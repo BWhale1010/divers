@@ -42,7 +42,6 @@ function listAdd(page, search_word, sort, direction, state){
 			thumbnail(data.list); 
 			
 				if(total != data.total){
-					console.log("페이지 초기화");
 					total = data.total
 					 $('#pagination').twbsPagination('destroy');
 				}
@@ -100,7 +99,6 @@ function listDraw(list){
 	
 	if(user_num == ""){
 		user_num = 0;
-		console.log("user_num : "+user_num);
 	}
 	list.forEach(function(item){
 		
@@ -134,7 +132,6 @@ var sortDirections = {
 };
 
 function sortBoard(sortBy) {
-	console.log("sort : "+sortBy)
     var sortSpan = $('#' + sortBy + 'Sort');
     var sortDirection = sortDirections[sortBy];
 
@@ -179,10 +176,6 @@ function toggle(category){
 }
 
 function commentList(page, commentSearch_word, sort, direction, state){
-	console.log("page : "+page);
-	console.log("commentSearch_word : "+commentSearch_word);
-	console.log("sort : "+sort);
-	console.log("direction : "+direction);
 	
 	$.ajax({
 		type : 'post',
@@ -202,7 +195,6 @@ function commentList(page, commentSearch_word, sort, direction, state){
 				commentDraw(data.list);
 			
 				if(total != data.total){
-					console.log("페이지 초기화");
 					total = data.total
 					 $('#pagination').twbsPagination('destroy');
 				}
@@ -248,7 +240,6 @@ $(function(){
 	$("select").on("input change", function(){
 		var category = document.getElementById("state");
 		state = category.options[category.selectedIndex].value;
-		console.log("aaaaa : "+state);
 		$('#pagination').twbsPagination('destroy');
 		if(group == "" || group == "board"){
 			listAdd(page, search_word, sort, direction, state);	

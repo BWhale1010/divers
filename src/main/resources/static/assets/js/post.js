@@ -3,14 +3,12 @@ var user_num = $("#loginId").val();
 commentList(1, postNum);
 
 function commentList(page, postNum){
-	console.log("postNum : "+postNum);
 	$.ajax({
 		type : 'post',
 		url : '/comment/list',
 		data : {'page' : page, 'post_num' : postNum},
 		dataType : 'json',
 		success : function(data){
-			console.log(data)
 			commentDraw(data.list, data.role_num);
 			
 				$('#pagination').twbsPagination({
@@ -32,7 +30,6 @@ function commentList(page, postNum){
 function commentDraw(list, role_num){
 	var content = "";
 	var loginId = $("#loginId").val();
-	console.log("loginId : "+loginId);
 
 	list.forEach(function(item){
    		content +=
@@ -126,7 +123,6 @@ function commentWrite(){
 	        data: params,
 	        dataType: "json",
 	        success: function (data) {
-	            console.log(data);
 	            location.href = "/board/detail/" + post_num;
 	        },
 	        error: function (e) {
@@ -137,8 +133,6 @@ function commentWrite(){
 }
 
 function commentDelete(comment_num, user_num){
-	console.log("comment_num : "+comment_num);
-	console.log("user_num : "+user_num);
 	var deleteCheck = confirm("해당 댓글을 삭제하시겠습니까?")
 	
 	if(deleteCheck){
@@ -177,9 +171,6 @@ function commentEdit(comment_num, comment, user_num){
     });
     
     $("#commentEdit-btn").click(function(){
-		console.log("comment_num : "+ comment_num);
-    	console.log("comment : "+ comment);
-    	console.log("user_num : "+ user_num);
     	var newComment = $("#comment").val();
     	$.ajax({
 			type : 'put',
@@ -201,7 +192,6 @@ function commentEdit(comment_num, comment, user_num){
 function postRecommend(){
 	var loginId = $("#loginId").val();
 	
-	console.log("loginId : "+loginId);
 	if(loginId == ""){
 		var loginCheck = confirm("로그인을 하시겠습니까?");
 				if (loginCheck) {
@@ -231,8 +221,7 @@ function postRecommend(){
 }
 
 function commentRecommend(comment_num){
-	console.log("comment_num : "+comment_num);
-	console.log("user_num : "+user_num);
+
 	if(user_num == ""){
 		var loginChk = confirm("로그인을 하시겠습니까?");
 		if(loginChk){

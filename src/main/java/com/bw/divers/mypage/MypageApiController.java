@@ -52,6 +52,7 @@ public class MypageApiController {
 	
 	@PostMapping("/mypage/withDraw")
 	public int withDraw(@RequestParam int user_num , HttpServletRequest request, HttpServletResponse response) {
+		logger.info("회원 탈퇴 컨트롤러");
 		int result = 0;
 		
 		result = mypageService.withDraw(user_num, request, response);

@@ -23,7 +23,7 @@ public class MypageController {
 	
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
-		logger.info("마이페이지");
+		logger.info("마이페이지 이동 컨트롤러");
 		
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	UserDTO userDTO = userService.getUserbyUsername(username);
@@ -37,7 +37,7 @@ public class MypageController {
 	
 	@PostMapping("/mypage/profile")
 	public String profile(MultipartFile profileImg, HttpSession session) {
-		logger.info("프로필 사진 업로드");
+		logger.info("프로필 사진 업로드 컨트롤러");
 
 		int user_num = (int) session.getAttribute("user_num");
 		mypageService.profile(profileImg, user_num);

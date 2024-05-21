@@ -17,18 +17,19 @@ public class MainApiController {
 	
 	@PostMapping("/main/recommendList")
 	public HashMap<String, Object> recommendList(){
-		
+		logger.info("메인 추천 리스트 컨트롤러");
 		return boardService.recommendList();
 	}
 	
 	@PostMapping("/main/newList")
 	public HashMap<String, Object> newList(){
-		
+		logger.info("메인 최신 리스트 컨트롤러");
 		return boardService.newList();
 	}
 	
 	@PostMapping("/main/popList")
 	public HashMap<String, Object> popList(){
+		logger.info("메인 인기 리스트 컨트롤러");
 		return boardService.popList();
 	}
 

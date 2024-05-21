@@ -29,11 +29,6 @@ $(function(){
 			'email' : index.allEmail,
 			'nickname' : $("#nickname").val()
 			}
-		
-			console.log(params.username);
-			console.log(params.password);
-			console.log(params.email);
-			console.log(params.username);
 			
 			$.ajax({			
 			type : "post",
@@ -50,7 +45,6 @@ $(function(){
 			},
 			error: function(e){
 				alert(e.msg);
-				console.log(e.msg);
 			}
 		})
 	}
@@ -253,7 +247,6 @@ $(document).ready(function(){
     });
 
 	$("#email-btn").on("click",function(){
-		console.log(index.allEmail);
 		index.emailSend(index.allEmail);
 	})
 
@@ -351,8 +344,8 @@ $(document).ready(function(){
 			data:{'email':email, 'func': func},
 			dataType: 'json',
 			success:function(data){
-				$('.msg5').html('인증번호를 입력해 주세요.');
 				console.log(data);
+				$('.msg5').html('인증번호를 입력해 주세요.');
 				index.emailCode = data;
 			},
 			error: function(e){

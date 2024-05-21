@@ -22,7 +22,6 @@ public class MainController {
 	@GetMapping("/")
 	public String main(Model model, @RequestParam(value="msg", required = false) String msg) {
 		logger.info("홈 화면 호출");
-		logger.info("msg : "+msg);
 		if(msg != null) {
 			model.addAttribute("msg", msg);
 		}

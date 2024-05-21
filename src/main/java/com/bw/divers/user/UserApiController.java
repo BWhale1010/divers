@@ -20,7 +20,7 @@ public class UserApiController {
 	
 @GetMapping("/user/check-username")
 	public HashMap<String, Object> usernameCheck(@RequestParam String username) {
-		logger.info("아이디 중복확인 컨트롤러 username : "+username);
+		logger.info("아이디 중복확인 컨트롤러 : "+username);
 		
 		int row = userService.usernameCheck(username);
 		logger.info("row : "+row);
@@ -32,7 +32,7 @@ public class UserApiController {
 
 @GetMapping("/user/check-email")
 public HashMap<String, Object> emailCheck(@RequestParam String email) {
-	logger.info("이메일 중복확인 컨트롤러 email : "+email);
+	logger.info("이메일 중복확인 컨트롤러 : "+email);
 	
 	int row = userService.emailCheck(email);
 	logger.info("row : "+row);
@@ -52,7 +52,7 @@ public String mailSend(String email, String func) {
 
 @GetMapping("/user/check-nickname")
 public HashMap<String, Object> nicknameCheck(@RequestParam String nickname) {
-	logger.info("닉네임 중복확인 컨트롤러 email : "+nickname);
+	logger.info("닉네임 중복확인 컨트롤러 : "+nickname);
 	
 	int row = userService.nicknameCheck(nickname);
 	logger.info("row : "+row);
@@ -89,8 +89,8 @@ public HashMap<String, Object> join(@RequestParam HashMap<String, String> params
 
 @PostMapping("/user/pwResetCheck")
 public int pwResetCheck(@RequestParam String username, @RequestParam String email) {
-	logger.info("비밀번호 재설정 username : "+username);
-	logger.info("비밀번호 재설정 email : "+email);
+	logger.info("비밀번호 재설정 : "+username);
+	logger.info("비밀번호 재설정 : "+email);
 	int result = 0;
 	String findEmail = userService.findEmail(username);
 	
@@ -103,7 +103,7 @@ public int pwResetCheck(@RequestParam String username, @RequestParam String emai
 
 @PostMapping("/user/pwReset")
 public int pwResetFunc(@RequestParam String username, @RequestParam String password, Model model, RedirectAttributes rttr) {
-	logger.info("비밀번호 재설정 기능");
+	logger.info("비밀번호 재설정 컨트롤러");
 	int result = 0;
 	
 	result = userService.pwResetFunc(username, password);

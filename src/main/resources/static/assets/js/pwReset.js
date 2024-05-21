@@ -167,7 +167,6 @@ function addEmailCheck(emailVal){
 }
 
 function emailCheckFunc(email){
-	console.log("이메일 체크 : "+email)
 	$.ajax({
 		type: "GET",
 		url: "/user/check-email",
@@ -206,7 +205,6 @@ function emailSend(email){
 		dataType: 'json',
 		success:function(data){
 			$('.msg5').html('인증번호를 입력해 주세요.');
-			console.log(data);
 			emailCode = data;
 		},
 		error: function(e){
@@ -232,9 +230,6 @@ function emailAuth(code){
 }
 
 function pwReset(){
-	console.log("emailCodeCheck : "+emailCodeCheck);
-	console.log("emailCheck : "+emailCheck);
-	console.log("idCheck : "+idCheck);
 	if(emailCodeCheck && emailCheck && idCheck){
 		var username = $("#username").val()
 		var email = allEmail;
@@ -245,7 +240,6 @@ function pwReset(){
 			data : {'username':username, 'email': email},
 			dataType : 'json',
 			success : function(data){
-				console.log(data);
 				if(data == 1){
 			        let f = document.createElement('form');
 			        f.setAttribute('method', 'post');

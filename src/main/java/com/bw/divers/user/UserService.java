@@ -61,13 +61,14 @@ public class UserService {
 	
 	public String mailSend(String email, String func) {
 		logger.info("이메일 요청 서비스 email : "+email);
+		logger.info("이메일 요청 서비스 func : "+func);
 		makeRandomNum();
 		String setFrom = sendEmail;
 		String toMail = email;
 		String title = "";
 		String content = "";
 		
-		if(func == "join") {
+		if(func.equals("join")) {
 			title = "DVIERS 회원가입 인증번호 입니다.";
 			content = 					
 			"<div style=\"text-align: center;\">" +
@@ -88,7 +89,7 @@ public class UserService {
                     "<p style=\"font-size: 15px;\"> localhoat:8000 </p>"+
                     "<br><br>" +
                     "</div>";
-		}else if(func == "idFind") {
+		}else if(func.equals("idFind")) {
 			title = "DVIERS 아이디 찾기 인증번호 입니다.";
 			content = 					
 			"<div style=\"text-align: center;\">" +
@@ -145,6 +146,7 @@ public class UserService {
 	}
 	
 	private void mailSend(String setFrom, String toMail, String title, String content) {
+		logger.info("메일보내기 설정 서비스");
 		MimeMessage message = mailSender.createMimeMessage();
 		
 		try {
@@ -173,13 +175,14 @@ public class UserService {
 	}
 	
 	public String enc_password(String password) {
+		logger.info("비밀번호 해시 서비스");
 		String enc_pw = encoder.encode(password);
 		
 		return enc_pw;
 	}
 	
 	public String regValidate(HashMap<String, String> params) {
-		logger.info("회원가입 유효성 검사");
+		logger.info("회원가입 유효성 검사 서비스");
 		String msg = null;
 		
 		Pattern usernamePattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
@@ -205,25 +208,12 @@ public class UserService {
 		return msg;
 
 	}
-	public UserDTO login(String username, String password) {
-		logger.info("로그인 서비스");
-		UserDTO loginId = null;
-		
-		String enc_pw = userDAO.enc_pw(username);
-		boolean match = encoder.matches(password, enc_pw);
-
-		if(enc_pw != null && match) {
-			loginId = userDAO.login(username);
-		}
-		
-		return loginId;
-	}
 	public PasswordEncoder passwordEncoder() {
 		
 		return this.passwordEncoder();
 	}
 	public UserDTO getUserbyUsername(String username) {
-		
+		logger.info("유저찾기 서비스");
 		return userDAO.getUserbyUsername(username);
 	}
 	public String idFind(String email) {
@@ -231,7 +221,7 @@ public class UserService {
 		return userDAO.idFind(email);
 	}
 	public String findEmail(String username) {
-		logger.info("비밀번호 재설정 이메일 확인 username : "+username);
+		logger.info("비밀번호 재설정 이메일 확인 서비스 username : "+username);
 		String findEmail = userDAO.findEmail(username);
 		
 		if(findEmail == null) {
@@ -240,102 +230,20 @@ public class UserService {
 		return findEmail;
 	}
 	public int pwResetFunc(String username, String password) {
+		logger.info("비밀번호 재설정 서비스");
 		String enc_password = enc_password(password);
 		
 		return userDAO.pwResetFunc(username, enc_password);
 	}
 	
 	public Date suspDate(int user_num) {
+		logger.info("회원 일시정지 기간 서비스");
 		return userDAO.suspDate(user_num);
 	}
 
 	public Date withDate(int user_num) {
+		logger.info("회원 탈퇴 대기 기간 서비스");
 		return userDAO.withDate(user_num);
 	}
-	
-	public HashMap<String, Object> getAccessToken(String code) throws JsonMappingException, JsonProcessingException {
-		logger.info("카카오  로그인 토큰 발급");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-		body.add("grant_type", "authorization_code");
-	    body.add("client_id", "d48464db1814a3c7349c752ef9646748");
-	    body.add("redirect_uri", "http://localhost:8000/login/kakao/callback");
-	    body.add("code", code);
-	    
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-        
-        String responseBody = response.getBody();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
-        String accessToken = jsonNode.get("access_token").asText();
-        
-        logger.info("accessToken : "+accessToken);
-        
-        headers.add("Authorization", "Bearer " + accessToken);
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-        
-        HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
-        response = rt.exchange(
-                "https://kapi.kakao.com/v2/user/me",
-                HttpMethod.POST,
-                kakaoUserInfoRequest,
-                String.class
-        );
-        
-        responseBody = response.getBody();
-        jsonNode = objectMapper.readTree(responseBody);
-        String username = jsonNode.get("id").asText();
-        String nickname = jsonNode.get("properties")
-                .get("nickname").asText();
-        String email = jsonNode.get("kakao_account")
-                .get("email").asText();
-        
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("username", username);
-        map.put("email", email);
-        map.put("nickname", nickname);
-		logger.info("username : "+username);
-		logger.info("email : "+email);
-		logger.info("nickname : "+nickname);
-
-		return map;
-      
-	}
-	public UserDTO kakaoUserInfo(HashMap<String, Object> userInfo) {
-		logger.info("userInfo : " + userInfo);
-		
-		String email = (String) userInfo.get("email");
-		String username = "kakao_"+email;
-		String nickname = (String) userInfo.get("nickname");
-		String password = enc_password(username);
-	
-		logger.info("username : "+username);
-		logger.info("email : "+email);
-		
-		userInfo.put("username", username);
-		userInfo.put("nickname", nickname);
-		userInfo.put("platform_sort", 4);
-		userInfo.put("password", password);
-		
-		 UserDTO findInfo = userDAO.userFind(username);
-		
-		if(findInfo == null) {
-			userDAO.joinKakao(userInfo);
-			findInfo = userDAO.userFind(username);
-		}
-		
-		return findInfo;
-	}
-
-
 	
 }

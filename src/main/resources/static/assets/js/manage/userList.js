@@ -13,17 +13,13 @@ listAdd(page, search_username, sort, direction);
 $("#search-btn").on("click", function(){
     var username = $("#search-word").val();
     search_username = username;
-    console.log("검색 search_word : "+username);
     
      listAdd(1, search_username, sort, direction);
     
 });
 
 function listAdd(page, search_username, sort, direction){
-	console.log("page : "+page);
-	console.log("search_username : "+search_username);
-	console.log("sort : "+sort);
-	console.log("direction : "+direction);
+
 	$.ajax({
 		type : 'post',
 		url : '/manage/listAdd',
@@ -168,7 +164,6 @@ function roleChange(user_num, role_num){
 
 function stateChange(user_num, state_num){
 	if(sessionRole == 1){
-	console.log(sessionRole);
 	var state_name = '';
 	if(state_num == 1){
 		state_name = "정상";
@@ -205,7 +200,6 @@ var sortDirections = {
 };
 
 function sortUsers(sortBy) {
-	console.log("sort : "+sortBy)
     var sortSpan = $('#' + sortBy + 'Sort');
     var sortDirection = sortDirections[sortBy];
 
@@ -244,7 +238,6 @@ function modalInfo(userNum) {
 }
 
 function modalDraw(info, post, comment, report) {
-    console.log(info[0]);
     var content = "";
     var content1 = "";
     var profile = '';
@@ -375,10 +368,8 @@ function userLog(log){
 }
 
 function suspUser(){
-	console.log(sessionRole);
 
 		if(roleNum == 3){
-		console.log("aaaaa : "+user_num);
 		var check = confirm("해당 유저를 일시정지 처리하시겠습니까?");
 	
 			if(check){

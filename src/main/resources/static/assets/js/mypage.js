@@ -38,7 +38,6 @@ function validReg(id, val){
 
 $(function(){
 	firstNickname = $("#nickname").val();
-	console.log("firstNickname : "+firstNickname)
 	$("input[type='text'], input[type='password']").on("blur",function(){
 		nicknameChk = false;
 		var cid = this.id;
@@ -77,8 +76,6 @@ $(function(){
 				
 				
 			case "nickname":
-				console.log("nickname : "+checkValue);
-				console.log(regValue);
 				   if(!regValue){
 					   $(".msg5").html('형식에 맞지 않는 닉네임입니다.');
 				   }else{
@@ -121,8 +118,6 @@ function saveInfo(){
 		$("#nickname").focus();
 	}else{
 		var saveChk = confirm("변경된 회원정보를 변경하시겠습니까?");
-		console.log("aa : "+saveChk)
-		console.log("aa : "+nicknameChk)
 		if(saveChk && nicknameChk){
 			$.ajax({
 				type : 'put',

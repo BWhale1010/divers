@@ -61,13 +61,14 @@ public class MypageService {
 	}
 	
 	public String enc_password(String password) {
+		logger.info("비밀번호 해시 서비스");
 		String enc_pw = encoder.encode(password);
 		
 		return enc_pw;
 	}
 
 	public void profile(MultipartFile profileImg, int user_num) {
-		
+		logger.info("프로필 사진 저장 서비스");
 		
 		int row = mypageDAO.imgCheck(user_num);
 		
@@ -114,7 +115,7 @@ public class MypageService {
 	}
 
 	public int withDraw(int user_num, HttpServletRequest request, HttpServletResponse response) {
-		
+		logger.info("회원 탈퇴 서비스");
 		int sort_num = 4;
 		int alter_num = 1;
 		int logResult = manageService.logSystem(user_num, sort_num, alter_num);

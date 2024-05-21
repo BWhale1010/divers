@@ -36,7 +36,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         
     	String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	UserDTO userDTO = userService.getUserbyUsername(username);
-    	
+    	logger.info("로그인 성공 : "+username);
     	String msg = "";
     	
     	session = request.getSession();
@@ -113,7 +113,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             	logger.info("cookie 이름 : "+cookie.getName());
             	logger.info("쿠키 값 : "+ cookie.getValue());
                 if ("visitedPage".equals(cookie.getName())) {
-                    // Base64 디코딩하여 원래 URL로 변환
                     String encodedUrl = cookie.getValue();
                     String decodedUrl;
 					try {
@@ -126,7 +125,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	                    cookie.setMaxAge(0);
 	                    response.addCookie(cookie);
 					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
                     break;
