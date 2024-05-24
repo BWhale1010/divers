@@ -82,7 +82,6 @@ function thumbnail(list) {
                     
                     if(complet === list.length){
 						recommendInfo(list);
-						footerList(list);
 					}
                 },
                 error: function(e) {
@@ -91,7 +90,6 @@ function thumbnail(list) {
                     
                     if(complet === list.length){
 						recommendInfo(list);
-						footerList(list);
 					}
                 }
             });
@@ -215,21 +213,4 @@ function popThumbnail(list) {
                 }
             });
     }
-}
-
-function footerList(list){
-	var content = '';
-	
-	list.forEach(function(item){
-		const thumbnailSrc = item.thumbnail === 'basic' ? '/assets/img/divers_thumbnail.png' : 'data:image/jpeg;base64,' + item.thumbnail;
-		
-		content += '<li><a href="/board/detail/'+item.post_num+'" class="d-flex align-items-center">'+
-                  '<img src="'+thumbnailSrc+'" alt="" class="img-fluid me-3"><div>'+
-                    '<div class="post-meta d-block"><span class="date">'+item.small_class_name+'</span>'+
-                    '<span class="mx-1">&bullet;</span> <span>'+item.board_date+'</span></div>'+
-                    '<span>'+item.content+'</span></div></a></li>'
-	})
-	
-	$("#footerList").empty().append(content);
-	
 }

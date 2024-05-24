@@ -32,7 +32,7 @@
 				회원가입 시 실제 이메일을 입력받고 있으나 주소만 저장됨을 알려드립니다.
 				<br>
 				<br>
-				<strong style="color:red;">테스트용 계정이 제공되니 로그인 페이지에서 확인해 주세요.</strong>
+				<strong style="color:red;">테스트용 계정이 제공되니 페이지에서 확인해 주세요.</strong>
 				<br>
 				<hr>
 				<br>
@@ -40,7 +40,12 @@
 				<br>
 					&nbsp;&nbsp;&nbsp;(1) 일반가입: 로그인 아이디, 비밀번호, 이메일, 닉네임
 					<br>
-					&nbsp;&nbsp;&nbsp;(2) 소셜가입 : 닉네임, 계정(이메일), 프로필 사진(선택)
+					<br>
+				<strong style="color:red;">2. 테스트용 계정</strong>
+				<br>
+					&nbsp;&nbsp;&nbsp;(1) 아이디 : testuser1(관리자), testuser2~5(일반회원)
+					<br>
+					&nbsp;&nbsp;&nbsp;(2) 비밀번호 : aaa111
 				<br>
 				<hr>
 				<br>

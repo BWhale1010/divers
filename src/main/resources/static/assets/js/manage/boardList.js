@@ -104,7 +104,7 @@ function listDraw(list){
 		
 		var thumbnailSrc = item.thumbnail === 'basic' ? '/assets/img/divers_thumbnail.png' : 'data:image/jpeg;base64,' + item.thumbnail;
 		var contentText = item.content === '' ? '(이미지만 작성된 글입니다)' : item.content;
-		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/photo/" + item.new_filename;
+		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/upload/" + item.new_filename;
 
 	   content +=
         '<div class="d-md-flex post-entry-2 half" id="' + item.post_num + '"><a href="/board/detail/' + item.post_num + '" class="me-4 thumbnail">' +
@@ -220,7 +220,7 @@ function commentDraw(list){
 	var content = ''; 
 	
 	list.forEach(function(item){
-		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/photo/" + item.new_filename;
+		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/upload/" + item.new_filename;
 		var commentClear = item.comment_state_num == 2 ? '<span style="margin: 0 10px;">|</span><a onclick="commentClear('+item.comment_num+');">블라인드 해제</a>' : '';
 		var reportInfo = item.reportCount > 0 ? '<span style="margin: 0 10px;">|</span><a data-toggle="modal" data-target="#reportModal" data-comment_num="'+item.comment_num+'">신고내용</a>' : '';
 		

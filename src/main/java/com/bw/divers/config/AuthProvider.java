@@ -32,9 +32,10 @@ public class AuthProvider implements AuthenticationProvider{
 		
 		UsernamePasswordAuthenticationToken token;
 		UserDTO userDTO = userService.getUserbyUsername(username);
-		int role = userDTO.getRole_num();
+		
 		
 		if(userDTO != null && passwordEncoder.matches(password, userDTO.getPassword())) {
+			int role = userDTO.getRole_num();
 			List<GrantedAuthority> roles = new ArrayList<>();
 			if(role == 1) {
 				roles.add(new SimpleGrantedAuthority("ROLE_SUPER"));
