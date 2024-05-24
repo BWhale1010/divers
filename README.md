@@ -40,10 +40,11 @@
   - **IDE** : STS 4
   - **Framework** : springboot(2.7.4)
   - **Database** : MySQL(5.7)
+  - **Front-End** : Bootstrap, JSP, JQuery
   - **Server** : Tomcat(9.0)
   - **ORM** : Mybatis
   - **Build** : Maven
-  - **deploy** : Oracle Cloud(CentOS 7)
+  - **Deploy** : Oracle Cloud(CentOS 7)
   - **DevOps** : Docker(MySQL, Tomcat)
 
 
