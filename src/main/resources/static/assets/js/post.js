@@ -35,7 +35,7 @@ function commentDraw(list, role_num){
    		content +=
         '<hr><div class="comment d-flex mb-4"><div class="flex-shrink-0">'
         + '<div class="avatar avatar-sm rounded-circle"><img class="avatar-img" src="' 
-        + (item.new_filename ? '/photo/'+item.new_filename+'' : '/assets/img/profile.png') + '" alt=""></div></div>'
+        + (item.new_filename ? '/upload/'+item.new_filename+'' : '/assets/img/profile.png') + '" alt=""></div></div>'
         + '<div class="flex-grow-1 ms-2 ms-sm-3"><div class="comment-meta d-flex align-items-baseline">'
         + '<h6 class="me-2">' + item.nickname + '</h6><span class="text-muted">' + item.comment_date + '</span></div>'
         + '<div class="comment-body">' + item.comment + '</div>'

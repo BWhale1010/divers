@@ -145,7 +145,7 @@ function popDraw(list){
 	var profileImg  = [];
 	for(let i = 0; i<list.length; i++){
 		thumbnail[i] = list[i].thumbnail === 'basic' ? '/assets/img/divers_thumbnail.png' : 'data:image/jpeg;base64,' + list[i].thumbnail;
-		profileImg[i] = list[i].new_filename === null ? '/assets/img/profile.png' : "/photo/" + list[i].new_filename;
+		profileImg[i] = list[i].new_filename === null ? '/assets/img/profile.png' : "/upload/" + list[i].new_filename;
 	}
 	
 	content1 += '<div class="post-entry-1 lg">'+

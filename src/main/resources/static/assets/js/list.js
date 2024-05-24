@@ -54,7 +54,7 @@ function listDraw(list){
 		
 		var thumbnailSrc = item.thumbnail === 'basic' ? '/assets/img/divers_thumbnail.png' : 'data:image/jpeg;base64,' + item.thumbnail;
 		var contentText = item.content === '' ? '(이미지만 작성된 글입니다)' : item.content;
-		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/photo/" + item.new_filename;
+		var profileImg = item.new_filename === null ? '/assets/img/profile.png' : "/upload/" + item.new_filename;
 
 	   content +=
         '<div class="d-md-flex post-entry-2 half" id="' + item.post_num + '"><a href="/board/detail/' + item.post_num + '" class="me-4 thumbnail">' +
