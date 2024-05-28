@@ -25,7 +25,7 @@ public class ManageService {
 		map.put("search_username", search_username);
 		
 		int totalCount = manageDAO.totalCount(map);
-		int totalPages = totalCount%5>0?(totalCount/5)+1:(totalCount/5);
+		int totalPages = totalCount%10>0?(totalCount/10)+1:(totalCount/10);
 		
 		if (direction == null || direction.equals("")) {
 		    direction = "asc";
