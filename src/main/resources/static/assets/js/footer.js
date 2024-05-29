@@ -54,7 +54,7 @@ function footerdraw(list){
                   '<img src="'+thumbnailSrc+'" alt="" class="img-fluid me-3"><div>'+
                     '<div class="post-meta d-block"><span class="date">'+item.small_class_name+'</span>'+
                     '<span class="mx-1">&bullet;</span> <span>'+item.board_date+'</span></div>'+
-                    '<span>'+item.content+'</span></div></a></li>'
+                    '<span class="textLimit">'+item.content+'</span></div></a></li>'
 	})
 	
 	$("#footerList").empty().append(content);

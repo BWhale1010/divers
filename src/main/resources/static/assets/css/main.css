@@ -1411,19 +1411,17 @@ rotate(
 }
 
 .profile-picture {
-    width: 150px; /* 프로필 사진 원의 너비 */
-    height: 150px; /* 프로필 사진 원의 높이 */
-    border-radius: 50%; /* 프로필 사진을 원 모양으로 만들기 */
-    overflow: hidden; /* 내부 이미지를 원 형태로 자르기 */
-    margin-bottom: 20px; /* 하단 여백만 주기 */
-/*     float: left;  */
-    margin-right: 20px; /* 인풋란과의 간격을 조절 */
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    margin-bottom: 20px; 
+    margin-right: 20px; 
 }
 
 .profile-picture img {
     width: auto; 
     height: 100%; 
-/*     float: left;  */
     border-radius: 50%; 
 }
 
@@ -1475,8 +1473,8 @@ a:hover{
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: grey; /* 양쪽의 회색 부분 */
-  padding: 0; /* 여백 제거 */
+  background-color: grey; 
+  padding: 0; 
 }
 
 .sliderFeaturedPosts {
@@ -1485,28 +1483,51 @@ a:hover{
 }
 
 .swiper-slide {
-  width: 100%; /* 슬라이드가 carousel의 전체 너비를 차지하도록 설정 */
+  width: 100%;
   display: flex;
   justify-content: center;
-  background-color: transparent; /* 배경색 투명 */
-  padding: 0; /* 여백 제거 */
+  background-color: transparent; 
+  padding: 0; 
 }
 
 .recommend-container {
   width: 100%;
-  height: 400px; /* 세로 길이를 400px로 설정 */
-  background-color: transparent; /* 이미지 주변 투명 배경 */
+  height: 400px; 
+  background-color: transparent; 
 }
 
 .img-bg {
   width: 100%;
-  height: 100%; /* recommend-container의 높이에 맞춤 */
-  background-size: cover; /* 이미지가 요소를 덮도록 설정 */
-  background-position: center; /* 이미지 중심 위치 설정 */
+  height: 100%; 
+  background-size: cover; 
+  background-position: center; 
 }
 
 .img-bg-inner {
-  padding: 1rem; /* 필요한 경우 내부 여백 설정 */
+  padding: 1rem; 
 }
 
+.textLimit {
+	 width: 400px;
+	white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
  
+.titleLimit{
+    width: 400px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.titleLimit2{
+    width: 200px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: inline-block;
+    vertical-align: bottom;
+}

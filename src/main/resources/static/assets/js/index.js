@@ -27,8 +27,8 @@ function drawRecommend(list){
         content += '<div class="swiper-slide"><div class="recommend-container">'+
         '<a href="/board/detail/'+item.post_num+'" class="img-bg d-flex align-items-end" style="background-image: url(\''+thumbnailSrc+'\');">'+
         '<div class="img-bg-inner">'+
-        '<h2>'+item.title+'</h2>'+
-        '<p>'+item.content+'</p>'+
+        '<h2 class="titleLimit">'+item.title+'</h2>'+
+        '<p class="textLimit">'+item.content+'</p>'+
         '</div></a></div></div>';
     });
     
@@ -115,7 +115,7 @@ function newDraw(list){
 	
 	for(let i = 0; i<list.length; i++){
 		content += '<li><a href="/board/detail/'+list[i].post_num+'"><span class="number">'+(i+1)+'</span>'+
-		'<h3>'+list[i].title+'</h3><span class="author">'+list[i].nickname+'</span></a></li>'
+		'<h3 class="titleLimit2">'+list[i].title+'</h3><span class="author">'+list[i].nickname+'</span></a></li>'
 	}
 	
 	$("#newList").empty().append(content);
@@ -149,8 +149,8 @@ function popDraw(list){
 	content1 += '<div class="post-entry-1 lg">'+
               '<a href="/board/detail/'+list[0].post_num+'"><img src="'+thumbnail[0]+'" alt="" class="img-fluid"></a>'+
               '<div class="post-meta"><span class="date">'+list[0].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[0].board_date+'</span></div>'+
-              '<h2><a href="single-post.html">'+list[0].title+'</a></h2>'+
-              '<p class="mb-4 d-block">'+list[0].content+'</p>'+
+              '<h2 class="titleLimit"><a href="single-post.html">'+list[0].title+'</a></h2>'+
+              '<p class="mb-4 d-block" class="textLimit">'+list[0].content+'</p>'+
               '<div class="d-flex align-items-center author">'+
                 '<div class="photo"><img src="'+profileImg[0]+'" alt="" class="img-fluid"></div>'+
                 '<div class="name"><h3 class="m-0 p-0">'+list[0].nickname+'</h3></div></div>';
@@ -158,26 +158,26 @@ function popDraw(list){
     content2 +=  '<div class="post-entry-1">'+
              '<a href="/board/detail/'+list[1].post_num+'"><img src="'+thumbnail[1]+'" alt="" class="img-fluid"></a>'+
              '<div class="post-meta"><span class="date">'+list[1].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[1].board_date+'</span></div>'+
-                  '<h2><a href="/board/detail/'+list[1].post_num+'">'+list[1].title+'</a></h2></div>'+
-                '<div class="post-entry-1"><a href="/board/detail/'+list[2].post_num+'"><img src="'+thumbnail[2]+'" alt="" class="img-fluid"></a>'+
+                  '<h2><a href="/board/detail/'+list[1].post_num+'" class="titleLimit2">'+list[1].title+'</a></h2></div>'+
+                '<div class="post-entry-1"><a href="/board/detail/'+list[2].post_num+'" ><img src="'+thumbnail[2]+'" alt="" class="img-fluid"></a>'+
                   '<div class="post-meta"><span class="date">'+list[2].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[2].board_date+'</span></div>'+
-                  '<h2><a href="/board/detail/'+list[2].post_num+'">'+list[2].title+'</a></h2></div>'+
+                  '<h2><a href="/board/detail/'+list[2].post_num+'" class="titleLimit2">'+list[2].title+'</a></h2></div>'+
                 '<div class="post-entry-1">'+
                   '<a href="/board/detail/'+list[3].post_num+'"><img src="'+thumbnail[3]+'" alt="" class="img-fluid"></a>'+
                   '<div class="post-meta"><span class="date">'+list[3].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[3].board_date+'</span></div>'+
-                  '<h2><a href="/board/detail/'+list[3].post_num+'">'+list[3].title+'</a></h2>'+
+                  '<h2><a href="/board/detail/'+list[3].post_num+'" class="titleLimit2">'+list[3].title+'</a></h2>'+
                 '</div>';
                 
        content3 += '<div class="post-entry-1">'+
                   '<a href="/board/detail/'+list[4].post_num+'"><img src="'+thumbnail[4]+'" alt="" class="img-fluid"></a>'+
                   '<div class="post-meta"><span class="date">'+list[4].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[4].board_date+'</span></div>'+
-                  '<h2><a href="/board/detail/'+list[4].post_num+'">'+list[4].title+'</a></h2></div>'+
+                  '<h2><a href="/board/detail/'+list[4].post_num+'" class="titleLimit2">'+list[4].title+'</a></h2></div>'+
                 '<div class="post-entry-1"><a href="/board/detail/'+list[5].post_num+'"><img src="'+thumbnail[5]+'" alt="" class="img-fluid"></a>'+
                   '<div class="post-meta"><span class="date">'+list[5].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[5].board_date+'</span></div>'+
-                  '<h2><a href="/board/detail/'+list[5].post_num+'">'+list[5].small_class_name+'</a></h2></div>'+
+                  '<h2><a href="/board/detail/'+list[5].post_num+'" class="titleLimit2">'+list[5].title+'</a></h2></div>'+
                 '<div class="post-entry-1"><a href="/board/detail/'+list[6].post_num+'"><img src="'+thumbnail[6]+'" alt="" class="img-fluid"></a>'+
                   '<div class="post-meta"><span class="date">'+list[6].small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+list[6].board_date+'</span></div>'+
-                  '<h2><a href="/board/detail/'+list[6].post_num+'">'+list[6].title+'</a></h2></div>';
+                  '<h2><a href="/board/detail/'+list[6].post_num+'" class="titleLimit2">'+list[6].title+'</a></h2></div>';
                   
                   $("#popList1").empty().append(content1);
                   $("#popList2").empty().append(content2);

@@ -110,7 +110,7 @@ function listDraw(list){
         '<div class="d-md-flex post-entry-2 half" id="' + item.post_num + '"><a href="/board/detail/' + item.post_num + '" class="me-4 thumbnail">' +
         '<img src="' + thumbnailSrc + '" class="img-fluid"></a><div>' +
         '<div class="post-meta"><span class="date">' + item.small_class_name + '</span> <span class="mx-1">•</span>' +
-        '<span>' + item.board_date + '</span></div><h3><a href="/board/detail/' + item.post_num + '">' + item.title + '</a></h3><p>' + contentText + '</p>' +
+        '<span>' + item.board_date + '</span></div><h3><a href="/board/detail/' + item.post_num + '" class="titleLimit">' + item.title + '</a></h3><p class="textLimit">' + contentText + '</p>' +
         '<div class="d-flex align-items-center author"><div class="photo"><img src="'+profileImg+'" alt="" class="img-fluid"></div>' +
         '<div class="name"><h3 class="m-0 p-0">' + item.nickname + '</h3></div></div><div class="post-meta">' +
         '<span class="date">조회수 ' + item.count + '</span> <span class="mx-1">•</span> <span>추천수 ' + item.recommend + '</span> <span class="mx-1">•</span> <span>신고수 ' + item.reportCount + '</span></div>'+
@@ -226,7 +226,7 @@ function commentDraw(list){
 		
 		content += '<div class="comment d-flex mb-4"><a href="/board/detail/'+item.post_num+'"><div class="flex-shrink-0"><div class="avatar avatar-sm rounded-circle">'+
 		'<img class="avatar-img" src="'+profileImg+'" alt=""></div></div><div class="flex-grow-1 ms-2 ms-sm-3"><div class="comment-meta d-flex align-items-baseline">'+
-		'<h6 class="me-2">'+item.nickname+'</h6><span class="text-muted">'+item.comment_date+'</span></div><div class="comment-body">'+item.comment+'</div></a>'+
+		'<h6 class="me-2">'+item.nickname+'</h6><span class="text-muted">'+item.comment_date+'</span></div><div class="comment-body textLimit">'+item.comment+'</div></a>'+
 		'<div><div class="card-body text-end">추천수 : '+item.recommend+'<span style="margin: 0 10px;">|</span>신고수 : '+item.reportCount+''+reportInfo+''+
 		''+commentClear+'</div>'+
 		'</div></div></div></div></div>';

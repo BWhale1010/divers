@@ -22,7 +22,7 @@ function drawRecommend(list){
         
         content += '<div class="post-entry-1 border-bottom">'+
                     '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+item.board_date+'</span></div>'+
-                    '<h2 class="mb-2"><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h2>'+
+                    '<h2 class="mb-2"><a href="/board/detail/'+item.post_num+'" class="titleLimit2">'+item.title+'</a></h2>'+
                     '<span class="author mb-3 d-block">'+item.nickname+'</span></div>';
     });
     
@@ -50,7 +50,7 @@ function drawPop(list){
         
         content += '<div class="post-entry-1 border-bottom">'+
                     '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+item.board_date+'</span></div>'+
-                    '<h2 class="mb-2"><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h2>'+
+                    '<h2 class="mb-2"><a href="/board/detail/'+item.post_num+'" class="titleLimit2">'+item.title+'</a></h2>'+
                     '<span class="author mb-3 d-block">'+item.nickname+'</span></div>';
     });
     
@@ -78,7 +78,7 @@ function drawNew(list){
         
         content += '<div class="post-entry-1 border-bottom">'+
                     '<div class="post-meta"><span class="date">'+item.small_class_name+'</span> <span class="mx-1">&bullet;</span> <span>'+item.board_date+'</span></div>'+
-                    '<h2 class="mb-2"><a href="/board/detail/'+item.post_num+'">'+item.title+'</a></h2>'+
+                    '<h2 class="mb-2"><a href="/board/detail/'+item.post_num+'" class="titleLimit2">'+item.title+'</a></h2>'+
                     '<span class="author mb-3 d-block">'+item.nickname+'</span></div>';
     });
     
