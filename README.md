@@ -39,11 +39,10 @@
   - `Java 8`
   - `JDK 1.8.0`
   - **IDE** : STS 4
-  - **Framework** : SpringBoot(2.7.6)
+  - **Framework** : SpringBoot(2.7.6), Mybatis
   - **Database** : MySQL(5.7)
-  - **Front-End** : Bootstrap, JSP, JQuery
-  - **Server** : Tomcat(9.0)
-  - **ORM** : Mybatis
+  - **Front-End** : Bootstrap, JSP, jQuery
+  - **Server** : Apache Tomcat(9.0)
   - **Build** : Maven
   - **Deploy** : Oracle Cloud(CentOS 7)
   - **DevOps** : Docker(MySQL, Tomcat)
