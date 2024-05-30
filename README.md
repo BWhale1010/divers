@@ -39,7 +39,7 @@
   - `Java 8`
   - `JDK 1.8.0`
   - **IDE** : STS 4
-  - **Framework** : SpringBoot(2.7.6), Mybatis
+  - **Framework** : SpringBoot(2.7.6), MyBatis
   - **Database** : MySQL(5.7)
   - **Front-End** : Bootstrap, JSP, jQuery
   - **Server** : Apache Tomcat(9.0)
